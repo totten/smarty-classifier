@@ -1,0 +1,17 @@
+{
+    "name": "totten/smarty-classifier",
+    "require": {
+        "farafiri/php-parsing-tool": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Totten\\SmartyClassifier\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tim Otten",
+            "email": "totten@civicrm.org"
+        }
+    ]
+}
