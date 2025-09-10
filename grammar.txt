@@ -1,0 +1,32 @@
+start    :=> stanza*.
+stanza
+         :=> stanza_comment
+         :=> stanza_literal
+         :=> stanza_variable
+         :=> stanza_block
+         :=> stanza_content
+         :=> open
+         :=> close
+         .
+
+stanza_comment   :=> "{*" text "*}".
+stanza_literal   :=> "{literal}" text "{/literal}".
+stanza_variable  :=> open variable sp? modifiers? sp? close.
+stanza_block     :=> open symbol close
+                 :=> open symbol sp params close.
+stanza_content   :=> content.
+
+sp        :=> \s+ .
+open      :=> "{" .
+close     :=> "}" .
+content   :=> /[^{}]+/ .
+symbol    :=> /\w+/ .
+variable     :=> "$" symbol .
+value     :=> variable | quoted_text;
+modifiers :=> modifier+ .
+modifier  :=> "|" \s* "@"? symbol \s* modifier_param* .
+modifier_param :=> ":" \s* symbol \s* .
+quoted_text := "'" /[^']/
+
+params    :=> symbol "=" FIXME.
+FIXME     :=> content

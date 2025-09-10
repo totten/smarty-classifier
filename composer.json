@@ -1,11 +1,12 @@
 {
     "name": "totten/smarty-classifier",
     "require": {
-        "farafiri/php-parsing-tool": "^2.0"
+        "farafiri/php-parsing-tool": "^2.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Totten\\SmartyClassifier\\": "src/"
+            "Civi\\SmartyClassifier\\": "src/"
         }
     },
     "authors": [
