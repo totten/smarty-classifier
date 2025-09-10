@@ -27,7 +27,7 @@ class Classifier {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
       $string = (string) $stanza;
       if (trim($string) !== '') {
-        printf("[%s:%s] %s\n", $stanza->getType(),
+        printf("\n## %s:%s\n%s\n", $stanza->getType(),
           $stanza->getDetailType(),
           (string) $stanza);
       }
@@ -43,7 +43,7 @@ class Classifier {
   protected function printStanzaVariables(Root $parsed): void {
     foreach ($parsed->findAll('stanza:variable') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
-      printf("[%s] %s\n", $stanza->getType(), (string) $stanza);
+      printf("EXPRESSION: %s\n", $stanza->getType(), (string) $stanza);
       printf("  - VARIABLE: %s\n", $stanza->findFirst('variable')->getType());
       printf("  - MODIFIERS: %s\n", implode(", ", array_map(
         fn($v) => (string) $v,
