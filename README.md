@@ -18,4 +18,5 @@ composer install
 
 * Grammar
     * More binary operators
+    * Ternary operators
     * Method calls
