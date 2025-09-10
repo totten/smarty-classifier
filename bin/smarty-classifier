@@ -15,6 +15,6 @@ foreach ($files as $file) {
   echo "\n";
 
   echo "#################################\n";
-  print_r($c->classify($content));
+  $c->run($content);
   echo "\n";
 }

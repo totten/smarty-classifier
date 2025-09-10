@@ -6,15 +6,13 @@ use ParserGenerator\SyntaxTreeNode\Root;
 
 class Classifier {
 
-  public function classify(string $content): array {
+  public function run(string $content): void {
     $grammarFile = dirname(__DIR__) . '/grammar.txt';
     $parser = new \ParserGenerator\Parser(file_get_contents($grammarFile));
     $parsed = $parser->parse($content);
 
     $this->printStanzas($parsed);
     // $this->printStanzaVariables($parsed);
-
-    return [];
   }
 
   /**
