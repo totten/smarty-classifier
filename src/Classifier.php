@@ -2,6 +2,8 @@
 
 namespace Civi\SmartyClassifier;
 
+use ParserGenerator\SyntaxTreeNode\Root;
+
 class Classifier {
 
   public function classify(string $content): array {
@@ -20,14 +22,14 @@ class Classifier {
    *
    * @return \ParserGenerator\SyntaxTreeNode\Branch
    */
-  protected function printStanzas($parsed): \ParserGenerator\SyntaxTreeNode\Branch {
+  protected function printStanzas(Root $parsed): \ParserGenerator\SyntaxTreeNode\Branch {
     foreach ($parsed->findAll('stanza') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
-      foreach ($stanza->getSubnodes() as $child) {
-        $rendered = (string) $child;
-        if (trim($rendered) !== '') {
-          printf("[%s] %s\n", $child->getType(), json_encode((string) $child));
-        }
+      $string = (string) $stanza;
+      if (trim($string) !== '') {
+        printf("[%s:%s] %s\n", $stanza->getType(),
+          $stanza->getDetailType(),
+          json_encode((string) $stanza));
       }
     }
     return $stanza;
@@ -38,9 +40,15 @@ class Classifier {
    *
    * @return void
    */
-  protected function printStanzaVariables($parsed): void {
-    foreach ($parsed->findAll('stanza_variable') as $k => $stanza) {
+  protected function printStanzaVariables(Root $parsed): void {
+    foreach ($parsed->findAll('stanza:variable') as $k => $stanza) {
+      /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
       printf("[%s] %s\n", $stanza->getType(), json_encode((string) $stanza));
+      printf("  - VARIABLE: %s\n", $stanza->findFirst('variable')->getType());
+      printf("  - MODIFIERS: %s\n", implode(", ", array_map(
+        fn($v) => (string) $v,
+        $stanza->findAll('modifiers')
+      )));
     }
   }
 

@@ -1,6 +1,7 @@
 {
     "name": "totten/smarty-classifier",
     "require": {
+        "php": "~8.0",
         "farafiri/php-parsing-tool": "^2.0",
         "ext-json": "*"
     },
