@@ -1,17 +1,6 @@
-start    :=> stanza*.
-
-stanza
-  :comment        => "{*" text "*}"
-  :literal        => "{literal}" text "{/literal}"
-  :tag            => open tag close
-  :content        => content
-  :content_open   => open
-  :content_close  => close
-  .
-
-tag
-  :if           => "if" sp expression
-  :block        => bareword (sp attribute)*
+start
+  :condition    => /if|elseif/ sp expression
+  :block_open   => bareword (sp attribute)*
   :block_close  => "/" bareword
   :expression   => expression (sp "nofilter")?
   .
@@ -34,14 +23,8 @@ modifier_attribute :=> ":" \s* expression \s* .
 
 attribute :=> bareword ("=" expression)? .
 datum     :=> (variable | string | number | bareword) .
-sp        :=> \s+ .
-open      :=> "{" .
-close     :=> "}" .
-content   :=> /[^{}]+/ .
-bareword  :=> /\w+/ .
+
 variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
-number    :=> /\d/+ ("." /\d/+)? .
 
 operator_2_bool_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
 operator_2_bool_name :=> /and|or|eq|ne/i .
-

@@ -1,0 +1,17 @@
+start    :=> stanza*.
+
+stanza
+  :comment        => "{*" text "*}"
+  :literal        => "{literal}" text "{/literal}"
+  :tag            => open tag_part+ close
+  :content        => content
+  :content_open   => open
+  :content_close  => close
+  .
+
+tag_part :=> (bareword | string | number | operator | sp) .
+operator :=> (
+   "||" | "&&" | "??" | "?:"
+   | "?" | "|" | "&" | ":" | "@" | "=" | "$" | "/" | "." | "!"
+   | "[" | "]" | "(" | ")"
+ ) .

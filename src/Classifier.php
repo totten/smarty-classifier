@@ -7,8 +7,11 @@ use ParserGenerator\SyntaxTreeNode\Root;
 class Classifier {
 
   public function run(string $content): void {
-    $grammarFile = dirname(__DIR__) . '/grammar.txt';
-    $parser = new \ParserGenerator\Parser(file_get_contents($grammarFile));
+    $grammarDir = dirname(__DIR__);
+    $grammar = file_get_contents("$grammarDir/grammar/top.txt")
+      . "\n" . file_get_contents("$grammarDir/grammar/common.txt");
+
+    $parser = new \ParserGenerator\Parser($grammar);
     $parsed = $parser->parse($content);
 
     $this->printStanzas($parsed);

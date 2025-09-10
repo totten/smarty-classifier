@@ -1,0 +1,6 @@
+sp        :=> \s+ .
+open      :=> "{" .
+close     :=> "}" .
+content   :=> /[^{}]+/ .
+bareword  :=> /\w+/ .
+number    :=> /\d/+ ("." /\d/+)? .
