@@ -11,8 +11,8 @@ class Classifier {
     $parser = new \ParserGenerator\Parser(file_get_contents($grammarFile));
     $parsed = $parser->parse($content);
 
-    // $this->printStanzas($parsed);
-    $this->printStanzaVariables($parsed);
+    $this->printStanzas($parsed);
+    // $this->printStanzaVariables($parsed);
 
     return [];
   }
@@ -29,7 +29,7 @@ class Classifier {
       if (trim($string) !== '') {
         printf("[%s:%s] %s\n", $stanza->getType(),
           $stanza->getDetailType(),
-          json_encode((string) $stanza));
+          (string) $stanza);
       }
     }
     return $stanza;
@@ -43,7 +43,7 @@ class Classifier {
   protected function printStanzaVariables(Root $parsed): void {
     foreach ($parsed->findAll('stanza:variable') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
-      printf("[%s] %s\n", $stanza->getType(), json_encode((string) $stanza));
+      printf("[%s] %s\n", $stanza->getType(), (string) $stanza);
       printf("  - VARIABLE: %s\n", $stanza->findFirst('variable')->getType());
       printf("  - MODIFIERS: %s\n", implode(", ", array_map(
         fn($v) => (string) $v,

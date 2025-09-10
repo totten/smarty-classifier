@@ -11,3 +11,5 @@
 {* Directive, 1x param                *}  {show foo=bar}
 {* Directive, 2x params               *}  {show foo=100 bar=200}
 {* Literal                            *}  {literal}Say {stuff} {/literal}
+
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

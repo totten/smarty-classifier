@@ -12,7 +12,9 @@ foreach ($files as $file) {
 
   echo "#################################\n";
   echo $content;
+  echo "\n";
 
   echo "#################################\n";
   print_r($c->classify($content));
+  echo "\n";
 }

@@ -2,8 +2,11 @@ start    :=> stanza*.
 
 stanza:comment   => "{*" text "*}"
       :literal   => "{literal}" text "{/literal}"
+      :if_open   => "{if" sp condition sp? "}"
+      :if_close  => "{/if}"
       :variable  => open variable sp? modifiers? sp? close
-      :block     => open symbol close
+      :block     => open symbol (sp params)? close
+      :block_close => open "/" symbol close
       :content   => content
       :open      => open
       :close     => close .
@@ -13,10 +16,29 @@ open      :=> "{" .
 close     :=> "}" .
 content   :=> /[^{}]+/ .
 symbol    :=> /\w+/ .
-variable  :=> "$" symbol .
+variable  :=> "$" symbol ("." symbol)* .
 modifiers :=> modifier+ .
 modifier  :=> "|" \s* "@"? symbol \s* modifier_param* .
-modifier_param :=> ":" \s* symbol \s* .
+modifier_param :=> ":" \s* expression \s* .
 
-params    :=> symbol "=" FIXME.
-FIXME     :=> content
+expression:variable => variable
+          :call => symbol "(" ")"
+          :string => string
+          :int => /\d/+
+          :float => /\d/+ "." /\d/+
+          :sp => sp
+          :bareword => /[a-zA-Z][a-zA-Z0-9]*/
+          .
+
+operator_1 :=> ("!") .
+operator_2 :=> ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===" | "%" ) .
+
+params    :=> param (sp param)*?.
+param     :=> symbol "=" expression.
+
+condition :=> (operator_1 | operator_2 | expression)+.
+
+ternary:full  => expression "?" expression ":" expression
+       :qc    => expression "?:" expression
+       :qq    => expression "??" expression
+           .
