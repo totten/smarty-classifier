@@ -2,12 +2,13 @@ start :=> open tag close .
 
 tag
   :condition    => /if|elseif/ sp expression
-  :block_open   => blockname (sp attribute)*
+  :block_open   => blockname (sp attribute)* sp?
   :block_close  => "/" blockname
   :expression   => expression (sp nofilter)?
   .
 
 expression
+   :function       => function "(" function_args? ")"
    :paren          => "(" expression ")"
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression
    :condition      => condition
@@ -23,7 +24,7 @@ condition
 modifier  :=> "|" \s* "@"? bareword \s* modifier_attribute* .
 modifier_attribute :=> ":" \s* expression \s* .
 
-attribute :=> bareword ("=" expression)? .
+attribute :=> bareword (sp* "=" sp* expression)? .
 datum     :=> (variable | string | number | bareword) .
 
 variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
@@ -32,3 +33,5 @@ operator_2_bool_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
 operator_2_bool_name :=> /and|or|eq|ne/i .
 blockname :=> bareword .
 nofilter :=> "nofilter" .
+function :=> bareword .
+function_args :=> expression (sp* "," sp* expression)* .

@@ -58,16 +58,20 @@ class Advisor {
   protected function scanBlock(string $tagString, Branch $parsedTag) {
     $blockName = $parsedTag->findFirst('blockname');
     switch ($blockName) {
-      case 'help':
-      case 'foreach':
-      case 'include':
+      case 'assign':
+      case 'capture':
       case 'crmAPI':
+      case 'crmRegion':
+      case 'foreach':
+      case 'help':
+      case 'include':
         $this->add('ok', $tagString);
         return;
 
+      case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $this->add('UNSURE: parameterized ts', $tagString);
+          $this->add('block with dynamic parameters', $tagString);
         }
         else {
           $this->add('ok', $tagString);
