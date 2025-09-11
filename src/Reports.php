@@ -36,6 +36,28 @@ class Reports {
     }
   }
 
+  public static function advisor($fh, Root $parsed): void {
+    $advisor = new Advisor();
+    $advisor->scanDocument($parsed);
+
+    $statuses = $advisor->getStatuses();
+    foreach ($statuses as $status) {
+      $items = $advisor->getByStatus($status);
+      if (empty($items)) {
+        continue;
+      }
+
+      fprintf($fh, "\n## %s:\n", $status);
+      foreach ($items as $item) {
+        fprintf($fh, "- TAG: %s\n", $item['tag']);
+        if (!empty($item['message'])) {
+          fprintf($fh, "  MESSAGE: %s\n", $item['message']);
+        }
+      }
+    }
+
+  }
+
   public static function tree($fh, $parsed, $prefix = ''): void {
     if ($parsed instanceof \ParserGenerator\SyntaxTreeNode\Branch) {
       $name = $parsed->getType() . ':' . $parsed->getDetailType();

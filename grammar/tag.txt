@@ -2,9 +2,9 @@ start :=> open tag close .
 
 tag
   :condition    => /if|elseif/ sp expression
-  :block_open   => bareword (sp attribute)*
-  :block_close  => "/" bareword
-  :expression   => expression (sp "nofilter")?
+  :block_open   => blockname (sp attribute)*
+  :block_close  => "/" blockname
+  :expression   => expression (sp nofilter)?
   .
 
 expression
@@ -30,3 +30,5 @@ variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 
 operator_2_bool_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
 operator_2_bool_name :=> /and|or|eq|ne/i .
+blockname :=> bareword .
+nofilter :=> "nofilter" .
