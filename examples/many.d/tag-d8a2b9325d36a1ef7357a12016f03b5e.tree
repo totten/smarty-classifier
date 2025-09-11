@@ -1,0 +1,9 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:block_open
+    - bareword:0
+      - [LEAF] "show"
+    - list:
+  - close:0
+    - [LEAF] "}"

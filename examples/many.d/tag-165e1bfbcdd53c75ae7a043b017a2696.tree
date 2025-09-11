@@ -1,0 +1,23 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:expression
+    - expression:datum
+      - datum:0
+        - variable:0
+          - [LEAF] "$"
+          - bareword:0
+            - [LEAF] "var"
+          - list:
+      - list:modifier
+        - modifier:0
+          - [LEAF] "|"
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - [LEAF] ""
+          - bareword:0
+            - [LEAF] "json_encode"
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - list:modifier_attribute
+    - [LEAF] ""
+  - close:0
+    - [LEAF] "}"

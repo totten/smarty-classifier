@@ -1,0 +1,1 @@
+{if $action eq 4 AND $currentAttachmentURL}

@@ -1,0 +1,1 @@
+{$caseStatusNames.values|@json_encode}

@@ -1,0 +1,53 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:condition
+    - [LEAF] "if"
+    - sp:0
+      - list:/\r\n|\n\r|\n|\r|\s|\t/
+        - [LEAF] " "
+    - expression:condition
+      - condition:name
+        - expression:datum
+          - datum:0
+            - variable:0
+              - [LEAF] "$"
+              - bareword:0
+                - [LEAF] "action"
+              - list:
+          - list:modifier
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - operator_2_bool_name:0
+          - [LEAF] "eq"
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - expression:condition
+          - condition:name
+            - expression:datum
+              - datum:0
+                - number:0
+                  - list:/\d/
+                    - [LEAF] "4"
+                  - [LEAF] ""
+              - list:modifier
+            - sp:0
+              - list:/\r\n|\n\r|\n|\r|\s|\t/
+                - [LEAF] " "
+            - operator_2_bool_name:0
+              - [LEAF] "AND"
+            - sp:0
+              - list:/\r\n|\n\r|\n|\r|\s|\t/
+                - [LEAF] " "
+            - expression:datum
+              - datum:0
+                - variable:0
+                  - [LEAF] "$"
+                  - bareword:0
+                    - [LEAF] "currentAttachmentURL"
+                  - list:
+              - list:modifier
+  - close:0
+    - [LEAF] "}"

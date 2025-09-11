@@ -1,0 +1,1 @@
+{crmAPI var='caseStatusLabels' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='create'}

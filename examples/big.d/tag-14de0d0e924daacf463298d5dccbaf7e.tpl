@@ -1,0 +1,1 @@
+{crmAPI var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0}

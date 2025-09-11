@@ -1,0 +1,15 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:expression
+    - expression:datum
+      - datum:0
+        - variable:0
+          - [LEAF] "$"
+          - bareword:0
+            - [LEAF] "var"
+          - list:
+      - list:modifier
+    - [LEAF] ""
+  - close:0
+    - [LEAF] "}"

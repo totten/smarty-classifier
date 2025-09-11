@@ -1,0 +1,1 @@
+{help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile}

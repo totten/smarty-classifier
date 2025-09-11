@@ -1,0 +1,1 @@
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

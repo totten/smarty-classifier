@@ -1,0 +1,1 @@
+{$caseTypes.values|@json_encode}

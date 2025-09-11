@@ -1,0 +1,1 @@
+{$var|json_encode:16|escape nofilter}

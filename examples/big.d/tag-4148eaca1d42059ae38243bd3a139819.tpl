@@ -1,0 +1,1 @@
+{$caseStatusLabels.values|@json_encode}

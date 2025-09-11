@@ -1,0 +1,9 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:block_close
+    - [LEAF] "\/"
+    - bareword:0
+      - [LEAF] "if"
+  - close:0
+    - [LEAF] "}"

@@ -1,0 +1,20 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:expression
+    - expression:datum
+      - datum:0
+        - variable:0
+          - [LEAF] "$"
+          - bareword:0
+            - [LEAF] "form"
+          - list:
+            - &choices/XXXXXXXXXXXXXXXX
+              - [LEAF] "."
+              - datum:0
+                - bareword:0
+                  - [LEAF] "formClass"
+      - list:modifier
+    - [LEAF] ""
+  - close:0
+    - [LEAF] "}"

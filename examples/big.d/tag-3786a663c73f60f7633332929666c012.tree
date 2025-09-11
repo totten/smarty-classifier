@@ -1,0 +1,90 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:block_open
+    - bareword:0
+      - [LEAF] "crmAPI"
+    - list:
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "var"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "'caseStatusLabels'"
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "entity"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "'Case'"
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "action"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "'getoptions'"
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "option_limit"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - number:0
+                  - list:/\d/
+                    - [LEAF] "0"
+                  - [LEAF] ""
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "field"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "\"case_status_id\""
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "context"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "'create'"
+              - list:modifier
+  - close:0
+    - [LEAF] "}"

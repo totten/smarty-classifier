@@ -1,0 +1,52 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:block_open
+    - bareword:0
+      - [LEAF] "help"
+    - list:
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "id"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "\"id-case_type\""
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "file"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - [LEAF] "\"CRM\/Case\/Form\/Case.hlp\""
+              - list:modifier
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "activityTypeFile"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - variable:0
+                  - [LEAF] "$"
+                  - bareword:0
+                    - [LEAF] "activityTypeFile"
+                  - list:
+              - list:modifier
+  - close:0
+    - [LEAF] "}"

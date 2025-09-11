@@ -1,0 +1,23 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:block_open
+    - bareword:0
+      - [LEAF] "show"
+    - list:
+      - &choices/XXXXXXXXXXXXXXXX
+        - sp:0
+          - list:/\r\n|\n\r|\n|\r|\s|\t/
+            - [LEAF] " "
+        - attribute:0
+          - bareword:0
+            - [LEAF] "foo"
+          - &choices/XXXXXXXXXXXXXXXX
+            - [LEAF] "="
+            - expression:datum
+              - datum:0
+                - bareword:0
+                  - [LEAF] "bar"
+              - list:modifier
+  - close:0
+    - [LEAF] "}"

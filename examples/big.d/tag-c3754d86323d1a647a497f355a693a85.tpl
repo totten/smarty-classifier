@@ -1,0 +1,1 @@
+{include file="CRM/Form/attachment.tpl"}
