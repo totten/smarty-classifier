@@ -17,4 +17,7 @@
 {/ts}
 {ts 1=$contact.display_name}
 {/ts}
+{$bool ? $onTrue : $onFalse}
+{if !empty($data)}
+{/if}
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

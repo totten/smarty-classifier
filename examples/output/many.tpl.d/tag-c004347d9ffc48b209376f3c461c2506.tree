@@ -1,0 +1,46 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:expression
+    - expression:ternary
+      - expression:datum
+        - datum:0
+          - variable:0
+            - [LEAF] "$"
+            - bareword:0
+              - [LEAF] "bool"
+            - list:
+        - list:modifier
+      - sp:0
+        - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - [LEAF] " "
+      - [LEAF] "?"
+      - sp:0
+        - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - [LEAF] " "
+      - expression:datum
+        - datum:0
+          - variable:0
+            - [LEAF] "$"
+            - bareword:0
+              - [LEAF] "onTrue"
+            - list:
+        - list:modifier
+      - sp:0
+        - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - [LEAF] " "
+      - [LEAF] ":"
+      - sp:0
+        - list:/\r\n|\n\r|\n|\r|\s|\t/
+          - [LEAF] " "
+      - expression:datum
+        - datum:0
+          - variable:0
+            - [LEAF] "$"
+            - bareword:0
+              - [LEAF] "onFalse"
+            - list:
+        - list:modifier
+    - [LEAF] ""
+  - close:0
+    - [LEAF] "}"

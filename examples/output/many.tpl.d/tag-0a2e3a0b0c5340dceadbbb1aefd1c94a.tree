@@ -1,0 +1,29 @@
+- start:0
+  - open:0
+    - [LEAF] "{"
+  - tag:condition
+    - [LEAF] "if"
+    - sp:0
+      - list:/\r\n|\n\r|\n|\r|\s|\t/
+        - [LEAF] " "
+    - expression:condition
+      - condition:not
+        - [LEAF] "!"
+        - expression:function
+          - function:0
+            - bareword:0
+              - [LEAF] "empty"
+          - [LEAF] "("
+          - function_args:0
+            - expression:datum
+              - datum:0
+                - variable:0
+                  - [LEAF] "$"
+                  - bareword:0
+                    - [LEAF] "data"
+                  - list:
+              - list:modifier
+            - list:
+          - [LEAF] ")"
+  - close:0
+    - [LEAF] "}"
