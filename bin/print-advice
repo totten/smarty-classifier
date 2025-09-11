@@ -8,8 +8,10 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $files = $argv;
 array_shift($files);
 foreach ($files as $file) {
+  echo "# $file\n";
   $content = file_get_contents($file);
   $parser = Services::createTopParser();
   $parsed = $parser->parse($content);
   Reports::advisor(STDOUT, $parsed);
+  echo "\n\n";
 }

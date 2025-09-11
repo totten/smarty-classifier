@@ -49,7 +49,7 @@ class Reports {
 
       fprintf($fh, "\n## %s:\n", $status);
       foreach ($items as $item) {
-        fprintf($fh, "- TAG: %s\n", $item['tag']);
+        fprintf($fh, "- TAG: `%s`\n", $item['tag']);
         if (!empty($item['message'])) {
           fprintf($fh, "  MESSAGE: %s\n", $item['message']);
         }

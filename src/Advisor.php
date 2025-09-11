@@ -19,12 +19,12 @@ class Advisor {
       $tagString = (string) $stanza;
       $parsedTag = $tagParser->parse($tagString);
       if (empty($parsedTag)) {
-        $this->add('unparseable', $tagString);
+        $this->add('PROBLEM: Unparsable tag', $tagString);
         return;
       }
 
       if ($parsedTag->findFirst('tag:condition')) {
-        $this->add('ok', $tagString);
+        $this->add('OK', $tagString);
       }
       elseif ($parsedTag->findFirst('tag:block_close')) {
         // It's OK, and it's trivial. Don't bother recording...
@@ -36,23 +36,23 @@ class Advisor {
         $this->scanBlock($tagString, $parsedTag);
       }
       else {
-        $this->add('unrecognized', $tagString);
+        $this->add('PROBLEM: Unrecognized tag contents', $tagString);
       }
     }
   }
 
   protected function scanExpression(string $tagString, Branch $parsedTag) {
     if (str_contains($tagString, 'smarty:nodefaults')) {
-      $this->add('FIXME: smarty:nodefaults is not portable', $tagString);
+      $this->add('PROBLEM: Change "smarty:nodefaults" to "nofilter" for portability', $tagString);
       return;
     }
 
     if ($parsedTag->findFirst('nofilter')) {
-      $this->add('ok', $tagString);
+      $this->add('OK', $tagString);
       return;
     }
 
-    $this->add('FIXME: Use "nofilter" or "|escape nofilter"', $tagString);
+    $this->add('PROBLEM: Use "nofilter" or "|escape nofilter" for portability', $tagString);
   }
 
   protected function scanBlock(string $tagString, Branch $parsedTag) {
@@ -65,26 +65,27 @@ class Advisor {
       case 'foreach':
       case 'help':
       case 'include':
-        $this->add('ok', $tagString);
+        $this->add('OK', $tagString);
         return;
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $this->add('block with dynamic parameters', $tagString);
+          $this->add('WARNING: Block with dynamic parameters', $tagString);
         }
         else {
-          $this->add('ok', $tagString);
+          $this->add('OK', $tagString);
         }
         return;
 
       default:
-        $this->add('unrecognized block', $tagString);
+        $this->add('WARNING: Unrecognized block', $tagString);
     }
   }
 
   public function add(string $status, string $tagString, ?string $message = NULL): void {
-    $this->results[] = [
+    $id = md5($status . chr(0) . $tagString);
+    $this->results[$id] = [
       'status' => $status,
       'tag' => $tagString,
       'message' => $message,
