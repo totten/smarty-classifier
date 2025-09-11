@@ -1,0 +1,21 @@
+{if $context ne 'caseActivity'}
+{$form.case_type_id.label}
+{help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile}
+{$form.case_type_id.html}
+{$form.status_id.label}
+{$form.status_id.html}
+{$form.start_date.label}
+{$form.start_date.html}
+{if $action eq 4 AND $currentAttachmentURL}
+{include file="CRM/Form/attachment.tpl"}
+{elseif $action eq 1 OR $action eq 2}
+{include file="CRM/Form/attachment.tpl"}
+{/if}
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
+{crmAPI var='caseStatusLabels' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='create'}
+{crmAPI var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0}
+{$form.formClass}
+{$caseTypes.values|@json_encode}
+{$caseStatusLabels.values|@json_encode}
+{$caseStatusNames.values|@json_encode}
+{/if}

@@ -1,0 +1,7 @@
+
+## stanza:content
+Hello world
+
+
+## stanza:comment
+{* Goodbye*}

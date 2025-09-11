@@ -1,0 +1,126 @@
+
+## stanza:comment
+{* Intro comment*}
+
+## stanza:content
+
+
+<p>Intro prose!</p>
+
+
+
+## stanza:comment
+{* Expression, no modifier*}
+
+## stanza:tag
+{$var}
+
+## stanza:comment
+{* Expression, nofilter*}
+
+## stanza:tag
+{$var nofilter}
+
+## stanza:comment
+{* Expression, 1x modifier*}
+
+## stanza:tag
+{$var|json_encode}
+
+## stanza:comment
+{* Expression, 1x @modifier*}
+
+## stanza:tag
+{$var|@json_encode}
+
+## stanza:comment
+{* Expression, 1x @modifier*}
+
+## stanza:tag
+{$var|@json_encode nofilter}
+
+## stanza:comment
+{* Expression, 2x modifier*}
+
+## stanza:tag
+{$var|json_encode:16|escape}
+
+## stanza:comment
+{* Expression, 2x modifier*}
+
+## stanza:tag
+{$var|json_encode:16|escape nofilter}
+
+## stanza:comment
+{* Block, no params*}
+
+## stanza:tag
+{show}
+
+## stanza:comment
+{* Block, 1x param*}
+
+## stanza:tag
+{show foo=bar}
+
+## stanza:comment
+{* Block, 1x param, quotes*}
+
+## stanza:tag
+{show foo="bar"}
+
+## stanza:comment
+{* Block, 2x params*}
+
+## stanza:tag
+{show foo=100 bar=200}
+
+## stanza:comment
+{* Block, 2x params, quotes*}
+
+## stanza:tag
+{show foo='100' bar="200"}
+
+## stanza:comment
+{* Literal*}
+
+## stanza:literal
+{literal}Say {stuff}{/literal}
+
+## stanza:comment
+{* Squiggle A*}
+
+## stanza:content
+  foo 
+
+## stanza:content_open
+{
+
+## stanza:content
+ bar
+
+
+## stanza:comment
+{* Squiggle B*}
+
+## stanza:content
+  foo
+
+## stanza:content_open
+{
+
+## stanza:content
+bar
+
+
+## stanza:comment
+{* Squiggle C*}
+
+## stanza:content_open
+{
+
+## stanza:tag
+{show}
+
+## stanza:tag
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

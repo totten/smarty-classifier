@@ -1,0 +1,14 @@
+{$var}
+{$var nofilter}
+{$var|json_encode}
+{$var|@json_encode}
+{$var|@json_encode nofilter}
+{$var|json_encode:16|escape}
+{$var|json_encode:16|escape nofilter}
+{show}
+{show foo=bar}
+{show foo="bar"}
+{show foo=100 bar=200}
+{show foo='100' bar="200"}
+{show}
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
