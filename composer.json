@@ -2,12 +2,18 @@
     "name": "totten/smarty-classifier",
     "require": {
         "php": "~8.0",
+        "ext-json": "*",
         "farafiri/php-parsing-tool": "^2.0",
-        "ext-json": "*"
+        "symfony/finder": "^5.4"
     },
     "autoload": {
         "psr-4": {
             "Civi\\SmartyClassifier\\": "src/"
+        }
+    },
+    "config": {
+        "platform": {
+            "php": "8.0.0"
         }
     },
     "authors": [
