@@ -8,11 +8,12 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $prj = dirname(__DIR__);
 $files = glob("$prj/examples/*.tpl");
 
-$parser = Services::createTopParser();
+$topParser = Services::createTopParser();
+$tagParser = Services::createTagParser();
 foreach ($files as $file) {
   echo "Process $file\n";
 
-  $parsed = $parser->parse(file_get_contents($file));
+  $parsed = $topParser->parse(file_get_contents($file));
 
   foreach (Reports::getReportList() as $suffix => $generator) {
     $reportFile = preg_replace(';\.tpl$;', $suffix, $file);
@@ -20,4 +21,17 @@ foreach ($files as $file) {
     call_user_func($generator, $fh, $parsed);
     fclose($fh);
   }
+
+  $tagsDir = preg_replace(';\.tpl$;', '.tags', $file);
+  Files::mkdir($tagsDir);
+  Files::remove($tagsDir . '/*.tpl');
+  Files::remove($tagsDir . '/*.tree');
+  foreach ($parsed->findAll('stanza:tag') as $tag) {
+    $string = (string) $tag;
+    $id = md5($string);
+    $parsedTag = $tagParser->parse($string);
+    file_put_contents("$tagsDir/$id.tpl", $tag);
+    file_put_contents("$tagsDir/$id.tree", var_export($parsedTag, TRUE));
+  }
+
 }

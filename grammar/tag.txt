@@ -1,4 +1,6 @@
-start
+start :=> open tag close .
+
+tag
   :condition    => /if|elseif/ sp expression
   :block_open   => bareword (sp attribute)*
   :block_close  => "/" bareword

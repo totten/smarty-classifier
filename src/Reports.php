@@ -2,6 +2,7 @@
 
 namespace Civi\SmartyClassifier;
 
+use ParserGenerator\GrammarNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Root;
 
 class Reports {
@@ -33,6 +34,10 @@ class Reports {
         fprintf($fh, "%s\n", (string) $stanza);
       }
     }
+  }
+
+  public static function tag($fh, string $tag): void {
+    $parser = Services::createTagParser();
   }
 
 }
