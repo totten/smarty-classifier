@@ -12,6 +12,6 @@ foreach ($files as $file) {
   $content = file_get_contents($file);
   $parser = Services::createTopParser();
   $parsed = $parser->parse($content);
-  Reports::advisor(STDOUT, $parsed);
+  echo Reports::advisor($parsed);
   echo "\n\n";
 }

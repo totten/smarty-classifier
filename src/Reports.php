@@ -2,6 +2,7 @@
 
 namespace Civi\SmartyClassifier;
 
+use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
 
@@ -14,79 +15,85 @@ class Reports {
     ];
   }
 
-  public static function stanzas($fh, Root $parsed): void {
+  public static function stanzas(Root $parsed): string {
+    $buffer = '';
     foreach ($parsed->findAll('stanza') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
       $string = (string) $stanza;
       if (trim($string) !== '') {
-        fprintf($fh, "\n## %s:%s\n%s\n", $stanza->getType(),
-          $stanza->getDetailType(),
-          (string) $stanza);
+        $buffer .= "\n## " . $stanza->getType() . ":" . $stanza->getDetailType() . "\n" . (string) $stanza . "\n";
       }
     }
+    return $buffer;
   }
 
-  public static function tags($fh, Root $parsed): void {
+  public static function tags(Root $parsed): string {
+    $buffer = '';
     foreach ($parsed->findAll('stanza:tag') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
       $string = (string) $stanza;
       if (trim($string) !== '') {
-        fprintf($fh, "%s\n", (string) $stanza);
+        $buffer .= (string) $stanza . "\n";
       }
     }
+    return $buffer;
   }
 
-  public static function advisor($fh, Root $parsed): void {
+  public static function advisor(Root $parsed): string {
     $advisor = new Advisor();
     $advisor->scanDocument($parsed);
 
     $statuses = $advisor->getStatuses();
+    $buffer = '';
     foreach ($statuses as $status) {
       $items = $advisor->getByStatus($status);
       if (empty($items)) {
         continue;
       }
 
-      fprintf($fh, "\n## %s:\n", $status);
+      $buffer .= "\n## " . $status . ":\n";
       foreach ($items as $item) {
-        fprintf($fh, "- TAG: `%s`\n", $item['tag']);
+        $buffer .= "- TAG: `" . $item['tag'] . "`\n";
         if (!empty($item['message'])) {
-          fprintf($fh, "  MESSAGE: %s\n", $item['message']);
+          $buffer .= "  MESSAGE: " . $item['message'] . "\n";
         }
       }
     }
 
+    return $buffer;
+
   }
 
-  public static function tree($fh, $parsed, $prefix = ''): void {
-    if ($parsed instanceof \ParserGenerator\SyntaxTreeNode\Branch) {
+  public static function tree($parsed, string $prefix = ''): string {
+    $buffer = '';
+
+    if ($parsed instanceof Branch) {
       $name = $parsed->getType() . ':' . $parsed->getDetailType();
       if (preg_match('/^&choices/', $name)) {
         $name = '&choices/XXXXXXXXXXXXXXXX';
       }
-      fprintf($fh, "%s- %s\n", $prefix, $name);
+      $buffer .= $prefix . "- " . $name . "\n";
       foreach ($parsed->getSubnodes() as $subnode) {
-        static::tree($fh, $subnode, $prefix . '  ');
+        $buffer .= static::tree($subnode, $prefix . '  ');
       }
     }
     elseif ($parsed instanceof Leaf) {
-      fprintf($fh, "%s- [LEAF] %s\n", $prefix, json_encode($parsed->getContent()));
+      $buffer .= $prefix . "- [LEAF] " . json_encode($parsed->getContent()) . "\n";
     }
+    else {
+      $buffer .= $prefix . "- [UNKNOWN]\n";
+    }
+
+    return $buffer;
   }
 
   public static function writeFile(string $file, string $name, ...$args): void {
-    $fh = fopen($file, 'w');
-    call_user_func([static::class, $name], $fh, ...$args);
-    fclose($fh);
+    $content = call_user_func([static::class, $name], ...$args);
+    file_put_contents($file, $content);
   }
 
   public static function writeString(string $name, ...$args): string {
-    $fh = fopen('php://temp', 'r+');
-    call_user_func([static::class, $name], $fh, ...$args);
-    rewind($fh);
-    $result = stream_get_contents($fh);
-    fclose($fh);
-    return $result;
+    return call_user_func([static::class, $name], ...$args);
   }
 
 }
