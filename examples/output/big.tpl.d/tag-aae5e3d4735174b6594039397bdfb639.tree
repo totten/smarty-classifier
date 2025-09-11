@@ -2,8 +2,9 @@
   - open:0
     - [LEAF] "{"
   - tag:block_open
-    - bareword:0
-      - [LEAF] "help"
+    - blockname:0
+      - bareword:0
+        - [LEAF] "help"
     - list:
       - &choices/XXXXXXXXXXXXXXXX
         - sp:0

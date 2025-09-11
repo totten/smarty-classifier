@@ -4,7 +4,7 @@
   - tag:block_open
     - blockname:0
       - bareword:0
-        - [LEAF] "show"
+        - [LEAF] "ts"
     - list:
       - &choices/XXXXXXXXXXXXXXXX
         - sp:0
@@ -12,13 +12,21 @@
             - [LEAF] " "
         - attribute:0
           - bareword:0
-            - [LEAF] "foo"
+            - [LEAF] "1"
           - &choices/XXXXXXXXXXXXXXXX
             - [LEAF] "="
             - expression:datum
               - datum:0
-                - bareword:0
-                  - [LEAF] "bar"
+                - variable:0
+                  - [LEAF] "$"
+                  - bareword:0
+                    - [LEAF] "contact"
+                  - list:
+                    - &choices/XXXXXXXXXXXXXXXX
+                      - [LEAF] "."
+                      - datum:0
+                        - bareword:0
+                          - [LEAF] "display_name"
               - list:modifier
   - close:0
     - [LEAF] "}"

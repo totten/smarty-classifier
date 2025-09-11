@@ -11,4 +11,10 @@
 {show foo=100 bar=200}
 {show foo='100' bar="200"}
 {show}
+{ts}
+{/ts}
+{ts 1="Bob"}
+{/ts}
+{ts 1=$contact.display_name}
+{/ts}
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

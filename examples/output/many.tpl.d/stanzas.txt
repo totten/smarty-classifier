@@ -122,5 +122,41 @@ bar
 ## stanza:tag
 {show}
 
+## stanza:comment
+{* Translate, basic*}
+
+## stanza:tag
+{ts}
+
+## stanza:content
+Hello world
+
+## stanza:tag
+{/ts}
+
+## stanza:comment
+{* Translate, param*}
+
+## stanza:tag
+{ts 1="Bob"}
+
+## stanza:content
+Hello %1
+
+## stanza:tag
+{/ts}
+
+## stanza:comment
+{* Translate, param*}
+
+## stanza:tag
+{ts 1=$contact.display_name}
+
+## stanza:content
+Hello %1
+
+## stanza:tag
+{/ts}
+
 ## stanza:tag
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

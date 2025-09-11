@@ -42,6 +42,7 @@
       - sp:0
         - list:/\r\n|\n\r|\n|\r|\s|\t/
           - [LEAF] " "
-      - [LEAF] "nofilter"
+      - nofilter:0
+        - [LEAF] "nofilter"
   - close:0
     - [LEAF] "}"

@@ -1,10 +1,10 @@
 - start:0
   - open:0
     - [LEAF] "{"
-  - tag:block_open
+  - tag:block_close
+    - [LEAF] "\/"
     - blockname:0
       - bareword:0
-        - [LEAF] "show"
-    - list:
+        - [LEAF] "ts"
   - close:0
     - [LEAF] "}"

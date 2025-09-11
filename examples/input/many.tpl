@@ -18,5 +18,8 @@
 {* Squiggle A                         *}  foo { bar
 {* Squiggle B                         *}  foo{bar
 {* Squiggle C                         *}  {{show}
+{* Translate, basic                   *}  {ts}Hello world{/ts}
+{* Translate, param                   *}  {ts 1="Bob"}Hello %1{/ts}
+{* Translate, param                   *}  {ts 1=$contact.display_name}Hello %1{/ts}
 
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
