@@ -14,10 +14,13 @@
           - bareword:0
             - [LEAF] "1"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "\"Bob\""
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

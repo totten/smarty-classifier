@@ -6,5 +6,6 @@
       - bareword:0
         - [LEAF] "ts"
     - list:
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

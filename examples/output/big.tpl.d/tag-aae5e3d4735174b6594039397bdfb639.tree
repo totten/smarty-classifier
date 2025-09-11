@@ -14,7 +14,9 @@
           - bareword:0
             - [LEAF] "id"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "\"id-case_type\""
@@ -27,7 +29,9 @@
           - bareword:0
             - [LEAF] "file"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "\"CRM\/Case\/Form\/Case.hlp\""
@@ -40,7 +44,9 @@
           - bareword:0
             - [LEAF] "activityTypeFile"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - variable:0
@@ -49,5 +55,6 @@
                     - [LEAF] "activityTypeFile"
                   - list:
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

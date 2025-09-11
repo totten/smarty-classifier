@@ -14,7 +14,9 @@
           - bareword:0
             - [LEAF] "var"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "'caseTypes'"
@@ -27,7 +29,9 @@
           - bareword:0
             - [LEAF] "entity"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "'CaseType'"
@@ -40,7 +44,9 @@
           - bareword:0
             - [LEAF] "action"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "'get'"
@@ -53,7 +59,9 @@
           - bareword:0
             - [LEAF] "option_limit"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - number:0
@@ -69,7 +77,9 @@
           - bareword:0
             - [LEAF] "sequential"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - number:0
@@ -77,5 +87,6 @@
                     - [LEAF] "0"
                   - [LEAF] ""
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

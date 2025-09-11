@@ -14,10 +14,13 @@
           - bareword:0
             - [LEAF] "file"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "\"CRM\/Form\/attachment.tpl\""
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

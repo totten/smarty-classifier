@@ -14,7 +14,9 @@
           - bareword:0
             - [LEAF] "foo"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "'100'"
@@ -27,10 +29,13 @@
           - bareword:0
             - [LEAF] "bar"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - [LEAF] "\"200\""
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

@@ -14,7 +14,9 @@
           - bareword:0
             - [LEAF] "1"
           - &choices/XXXXXXXXXXXXXXXX
+            - list:sp
             - [LEAF] "="
+            - list:sp
             - expression:datum
               - datum:0
                 - variable:0
@@ -28,5 +30,6 @@
                         - bareword:0
                           - [LEAF] "display_name"
               - list:modifier
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"

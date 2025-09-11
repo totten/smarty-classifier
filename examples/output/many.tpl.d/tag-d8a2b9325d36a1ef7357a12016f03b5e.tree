@@ -6,5 +6,6 @@
       - bareword:0
         - [LEAF] "show"
     - list:
+    - [LEAF] ""
   - close:0
     - [LEAF] "}"
