@@ -2,16 +2,21 @@
 
 Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 
-## Example
+## Usage
 
 ```bash
+## Install dependencies
 composer install
 
-./bin/smarty-classifier examples/greeter.tpl
+## Inspect the tags in a specific file
+./bin/print-tags examples/greeter.tpl
+./bin/print-tags examples/many.tpl
 
-./bin/smarty-classifier examples/many.tpl
+## Inspect the tags in all the example files
+./bin/scan-examples
 
-./bin/smarty-classifier examples/big.tpl
+## Inspect the tags in civicrm
+XDEBUG_MODE=off php -d memory_limit=2g ./bin/scan-examples /var/www/web/core/templates /tmp/scan-results
 ```
 
 ## TODO
