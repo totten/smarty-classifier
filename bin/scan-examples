@@ -24,21 +24,29 @@ function parseArgs(array $argv): array {
   return [$inDir, $outDir];
 }
 
-function processDir(string $inputBaseDir, string $outputBaseDir): void {
+function processDir(string $inputBaseDir, string $outputBaseDir): int {
   Services::createTopParser();
   Services::createTagParser();
 
   $files = (new Finder)->in($inputBaseDir)->files()->name('*.tpl');
+  $errors = 0;
 
   foreach ($files as $fileObj) {
     /** @var \SplFileInfo $fileObj */
     $inputFile = (string) $fileObj;
     $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
     $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
-    processFile($inputFile, $outputDir);
+    try {
+      Process::doAsChild(fn() => processFile($inputFile, $outputDir));
+    }
+    catch (\Throwable $e) {
+      fwrite(STDERR,  "\nERROR ($inputFile): " . $e->getMessage() . "\n\n");
+      $errors++;
+    }
   }
 
   echo "\n";
+  return $errors === 0 ? 0 : 1;
 }
 
 function processFile(string $inputFile, string $outputDir): void {
@@ -46,13 +54,7 @@ function processFile(string $inputFile, string $outputDir): void {
   printf("Process %s => %s (%s)\n", $inputFile, $outputDir, number_format(memory_get_usage()));
   // echo '.';
 
-  try {
-    $parsed = Services::createTopParser()->parse(file_get_contents($inputFile));
-  }
-  catch (\Throwable $t) {
-    fwrite(STDERR,  "\nERROR ($inputFile): " . $t->getMessage() . "\n\n");
-    return;
-  }
+  $parsed = Services::createTopParser()->parse(file_get_contents($inputFile));
 
   Files::mkdir($outputDir);
 
@@ -72,4 +74,4 @@ function processFile(string $inputFile, string $outputDir): void {
 }
 
 [$inDir, $outDir] = parseArgs($argv);
-processDir($inDir, $outDir);
+exit(processDir($inDir, $outDir));
