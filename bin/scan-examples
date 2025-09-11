@@ -11,27 +11,23 @@ $files = glob("$prj/examples/*.tpl");
 $topParser = Services::createTopParser();
 $tagParser = Services::createTagParser();
 foreach ($files as $file) {
-  echo "Process $file\n";
+  $reportDir = preg_replace(';\.tpl$;', '.d', $file);
+  printf("Process %s => %s\n", $file, $reportDir);
+  Files::mkdir($reportDir);
 
   $parsed = $topParser->parse(file_get_contents($file));
-
-  foreach (Reports::getReportList() as $suffix => $generator) {
-    $reportFile = preg_replace(';\.tpl$;', $suffix, $file);
-    $fh = fopen($reportFile, 'w');
-    call_user_func($generator, $fh, $parsed);
-    fclose($fh);
+  foreach (Reports::getReportList() as $name) {
+    Reports::writeFile($reportDir . '/' . "$name.txt", $name, $parsed);
   }
 
-  $tagsDir = preg_replace(';\.tpl$;', '.tags', $file);
-  Files::mkdir($tagsDir);
-  Files::remove($tagsDir . '/*.tpl');
-  Files::remove($tagsDir . '/*.tree');
+  Files::remove($reportDir . '/tag-*.tpl');
+  Files::remove($reportDir . '/tag-*.tree');
   foreach ($parsed->findAll('stanza:tag') as $tag) {
     $string = (string) $tag;
     $id = md5($string);
     $parsedTag = $tagParser->parse($string);
-    file_put_contents("$tagsDir/$id.tpl", $tag);
-    file_put_contents("$tagsDir/$id.tree", var_export($parsedTag, TRUE));
+    file_put_contents("$reportDir/tag-$id.tpl", $tag);
+    Reports::writeFile("$reportDir/tag-$id.tree", 'tree', $parsedTag);
   }
 
 }

@@ -2,15 +2,15 @@
 
 namespace Civi\SmartyClassifier;
 
-use ParserGenerator\GrammarNode\Branch;
+use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
 
 class Reports {
 
   public static function getReportList(): array {
     return [
-      '.stanza.txt' => [Reports::class, 'stanzas'],
-      '.tags.txt' => [Reports::class, 'tags'],
+      'stanzas',
+      'tags',
     ];
   }
 
@@ -36,8 +36,35 @@ class Reports {
     }
   }
 
-  public static function tag($fh, string $tag): void {
-    $parser = Services::createTagParser();
+  public static function tree($fh, $parsed, $prefix = ''): void {
+    if ($parsed instanceof \ParserGenerator\SyntaxTreeNode\Branch) {
+      $name = $parsed->getType() . ':' . $parsed->getDetailType();
+      if (preg_match('/^&choices/', $name)) {
+        $name = '&choices/XXXXXXXXXXXXXXXX';
+      }
+      fprintf($fh, "%s- %s\n", $prefix, $name);
+      foreach ($parsed->getSubnodes() as $subnode) {
+        static::tree($fh, $subnode, $prefix . '  ');
+      }
+    }
+    elseif ($parsed instanceof Leaf) {
+      fprintf($fh, "%s- [LEAF] %s\n", $prefix, json_encode($parsed->getContent()));
+    }
+  }
+
+  public static function writeFile(string $file, string $name, ...$args): void {
+    $fh = fopen($file, 'w');
+    call_user_func([static::class, $name], $fh, ...$args);
+    fclose($fh);
+  }
+
+  public static function writeString(string $name, ...$args): string {
+    $fh = fopen('php://temp', 'r+');
+    call_user_func([static::class, $name], $fh, ...$args);
+    rewind($fh);
+    $result = stream_get_contents($fh);
+    fclose($fh);
+    return $result;
   }
 
 }

@@ -9,12 +9,12 @@ use PHPUnit\Framework\TestCase;
  */
 class ExampleFilesTest extends TestCase {
 
-  public function getExamples(): array {
+  public function getExampleTemplates(): array {
     $prj = dirname(__DIR__);
     $files = glob("$prj/examples/*.tpl");
     foreach ($files as $file) {
-      foreach (Reports::getReportList() as $suffix => $generator) {
-        $cases[basename($file, '.tpl') . $suffix] = [$file, $suffix];
+      foreach (Reports::getReportList() as $name) {
+        $cases[basename($file, '.tpl') . ".d/$name"] = [$file, $name];
       }
     }
 
@@ -23,22 +23,37 @@ class ExampleFilesTest extends TestCase {
 
   /**
    * @param string $tplFile
-   * @param string $suffix
-   * @dataProvider getExamples
+   * @param string $name
+   * @dataProvider getExampleTemplates
    */
-  public function testExample(string $tplFile, string $suffix): void {
+  public function testExampleTemplates(string $tplFile, string $name): void {
     $parsed = Services::createTopParser()->parse(file_get_contents($tplFile));
-    $generator = Reports::getReportList()[$suffix];
-
-    $reportFile = preg_replace(';\.tpl$;', $suffix, $tplFile);
+    $reportFile = preg_replace(';\.tpl$;', ".d/$name.txt", $tplFile);
     $expectReport = file_get_contents($reportFile);
+    $actualReport = Reports::writeString($name, $parsed);
+    $this->assertEquals($expectReport, $actualReport);
+  }
 
-    $fh = fopen('php://temp', 'r+');
-    call_user_func($generator, $fh, $parsed);
-    rewind($fh);
-    $actualReport = stream_get_contents($fh);
-    fclose($fh);
+  public function getExampleTags(): array {
+    $prj = dirname(__DIR__);
+    $files = glob("$prj/examples/*.d/tag-*.tpl");
+    foreach ($files as $file) {
+      $cases[basename($file, '.tpl')] = [$file, 'tree'];
+    }
+    return $cases;
+  }
 
+  /**
+   * @param string $tplFile
+   * @param string $name
+   * @dataProvider getExampleTags
+   */
+  public function testExampleTags(string $tplFile, string $name): void {
+    $parsed = Services::createTagParser()->parse(file_get_contents($tplFile));
+    $name = 'tree';
+    $reportFile = preg_replace(';\.tpl$;', ".$name", $tplFile);
+    $expectReport = file_get_contents($reportFile);
+    $actualReport = Reports::writeString($name, $parsed);
     $this->assertEquals($expectReport, $actualReport);
   }
 
