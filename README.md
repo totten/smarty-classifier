@@ -8,6 +8,9 @@ Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 ## Install dependencies
 composer install
 
+## Print the advice for a specific file
+./bin/print-advice examples/input/many.tpl
+
 ## Inspect the tags in a specific file
 ./bin/print-tags examples/input/greeter.tpl
 ./bin/print-tags examples/input/many.tpl
