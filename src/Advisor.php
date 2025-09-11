@@ -20,28 +20,48 @@ class Advisor {
       $parsedTag = $tagParser->parse($tagString);
       if (empty($parsedTag)) {
         $this->add('PROBLEM: Unparsable tag', $tagString);
-        return;
-      }
-
-      if ($parsedTag->findFirst('tag:condition')) {
-        $this->add('OK', $tagString);
-      }
-      elseif ($parsedTag->findFirst('tag:block_close')) {
-        // It's OK, and it's trivial. Don't bother recording...
-      }
-      elseif ($parsedTag->findFirst('tag:expression')) {
-        $this->scanExpression($tagString, $parsedTag);
-      }
-      elseif ($parsedTag->findFirst('tag:block_open')) {
-        $this->scanBlock($tagString, $parsedTag);
       }
       else {
-        $this->add('PROBLEM: Unrecognized tag contents', $tagString);
+        $this->scanTag($tagString, $parsedTag);
       }
     }
   }
 
-  protected function scanExpression(string $tagString, Branch $parsedTag) {
+  /**
+   * @param string $tagString
+   * @param \ParserGenerator\SyntaxTreeNode\Root $parsedTag
+   *
+   * @return void
+   */
+  protected function scanTag(string $tagString, \ParserGenerator\SyntaxTreeNode\Root $parsedTag): void {
+    if ($parsedTag->findFirst('tag:condition')) {
+      $this->add('OK', $tagString);
+    }
+    elseif ($parsedTag->findFirst('tag:block_close')) {
+      // It's OK, and it's trivial. Don't bother recording...
+    }
+    elseif ($parsedTag->findFirst('tag:expression')) {
+      $this->scanExpressionTag($tagString, $parsedTag);
+    }
+    elseif ($parsedTag->findFirst('tag:block_open')) {
+      $this->scanBlockTag($tagString, $parsedTag);
+    }
+    else {
+      $this->add('PROBLEM: Unrecognized tag contents', $tagString);
+    }
+  }
+
+  /**
+   * Scan a Smarty {$var} tag.
+   *
+   * @param string $tagString
+   *   Ex: '{$variable}'
+   *   Ex: '{$variable * 2}'
+   *   Ex: '{$variable|escape:"html"}'
+   * @param \ParserGenerator\SyntaxTreeNode\Branch $parsedTag
+   * @return void
+   */
+  protected function scanExpressionTag(string $tagString, Branch $parsedTag) {
     if (str_contains($tagString, 'smarty:nodefaults')) {
       $this->add('PROBLEM: Change "smarty:nodefaults" to "nofilter" for portability', $tagString);
       return;
@@ -55,7 +75,16 @@ class Advisor {
     $this->add('PROBLEM: Use "nofilter" or "|escape nofilter" for portability', $tagString);
   }
 
-  protected function scanBlock(string $tagString, Branch $parsedTag) {
+  /**
+   * Scan a Smarty {block} tag.
+   *
+   * @param string $tagString
+   *   Ex: '{ts}'
+   *   Ex: '{ts 1=$contact.display_name}'
+   * @param \ParserGenerator\SyntaxTreeNode\Branch $parsedTag
+   * @return void
+   */
+  protected function scanBlockTag(string $tagString, Branch $parsedTag) {
     $blockName = $parsedTag->findFirst('blockname');
     switch ($blockName) {
       case 'assign':
@@ -71,7 +100,7 @@ class Advisor {
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $this->add('WARNING: Block with dynamic parameters', $tagString);
+          $this->add('WARNING: Block has printable, dynamic parameters', $tagString);
         }
         else {
           $this->add('OK', $tagString);
