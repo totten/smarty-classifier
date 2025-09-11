@@ -5,7 +5,11 @@ namespace Civi\SmartyClassifier;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$content = file_get_contents('php://stdin');
-$parser = Services::createTopParser();
-$parsed = $parser->parse($content);
-Reports::tags(STDOUT, $parsed);
+$files = $argv;
+array_shift($files);
+foreach ($files as $file) {
+  $content = file_get_contents($file);
+  $parser = Services::createTopParser();
+  $parsed = $parser->parse($content);
+  Reports::tags(STDOUT, $parsed);
+}
