@@ -39,7 +39,7 @@ class ExampleFilesTest extends TestCase {
    */
   public function testExampleTemplates(string $tplFile, string $name): void {
     $parsed = Services::createTopParser()->parse(file_get_contents(static::getInputBaseDir($tplFile)));
-    $expectReportFile = preg_replace(';\.tpl$;', "/$name.txt", $tplFile);
+    $expectReportFile = $tplFile . ".d/$name.txt";
     $expectReport = file_get_contents(static::getOutputBaseDir($expectReportFile));
     $actualReport = Reports::writeString($name, $parsed);
     $this->assertEquals($expectReport, $actualReport);
@@ -61,7 +61,7 @@ class ExampleFilesTest extends TestCase {
    * @dataProvider getExampleTags
    */
   public function testExampleTags(string $tplFile, string $name): void {
-    $inputFile = static::getOutputBaseDir("/$tplFile");
+    $inputFile = static::getOutputBaseDir($tplFile);
     $parsed = Services::createTagParser()->parse(file_get_contents($inputFile));
     $name = 'tree';
 

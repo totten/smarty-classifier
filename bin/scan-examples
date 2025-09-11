@@ -13,7 +13,7 @@ function parseArgs(array $argv): array {
   $prog = array_shift($argv);
 
   if (!empty($argv)) {
-    return $argv;
+    return [rtrim($argv[0], '/'), rtrim($argv[1], '/')];
   }
   else {
     $prj = dirname(__DIR__);
@@ -31,10 +31,12 @@ function processDir(string $inputBaseDir, string $outputBaseDir): void {
   $tagParser = Services::createTagParser();
   foreach ($files as $fileObj) {
     /** @var \SplFileInfo $fileObj */
-    $inputFile = $inputBaseDir . '/' . $fileObj->getFilename();
-    $outputDir = $outputBaseDir . '/' . preg_replace(';\.tpl$;', '', $fileObj->getFilename());
-    // printf("Process %s => %s\n", $file, $reportDir);
-    echo ".";
+    $inputFile = (string) $fileObj;
+    $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
+    $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
+
+    printf("Process %s => %s\n", $inputFile, $outputDir);
+    // echo '.';
 
     try {
       $parsed = $topParser->parse(file_get_contents($inputFile));
@@ -61,6 +63,7 @@ function processDir(string $inputBaseDir, string $outputBaseDir): void {
     }
   }
 
+  echo "\n";
 }
 
 [$inDir, $outDir] = parseArgs($argv);
