@@ -9,8 +9,8 @@ Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 composer install
 
 ## Inspect the tags in a specific file
-./bin/print-tags examples/greeter.tpl
-./bin/print-tags examples/many.tpl
+./bin/print-tags examples/input/greeter.tpl
+./bin/print-tags examples/input/many.tpl
 
 ## Inspect the tags in all the example files
 ./bin/scan-examples
