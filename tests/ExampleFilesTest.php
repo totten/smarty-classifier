@@ -9,12 +9,23 @@ use PHPUnit\Framework\TestCase;
  */
 class ExampleFilesTest extends TestCase {
 
-  public function getExampleTemplates(): array {
+  public static function getInputBaseDir(?string $suffix = NULL): string {
     $prj = dirname(__DIR__);
-    $files = glob("$prj/examples/*.tpl");
+    return "$prj/examples/input" . ($suffix === NULL ? '' : '/' . $suffix);
+  }
+
+  public static function getOutputBaseDir(?string $suffix = NULL): string {
+    $prj = dirname(__DIR__);
+    return "$prj/examples/output" . ($suffix === NULL ? '' : '/' . $suffix);
+  }
+
+  public function getExampleTemplates(): array {
+    $cases = [];
+
+    $files = glob(static::getInputBaseDir('/*.tpl'));
     foreach ($files as $file) {
       foreach (Reports::getReportList() as $name) {
-        $cases[basename($file, '.tpl') . ".d/$name"] = [$file, $name];
+        $cases[basename($file) . " $name"] = [basename($file), $name];
       }
     }
 
@@ -27,18 +38,19 @@ class ExampleFilesTest extends TestCase {
    * @dataProvider getExampleTemplates
    */
   public function testExampleTemplates(string $tplFile, string $name): void {
-    $parsed = Services::createTopParser()->parse(file_get_contents($tplFile));
-    $reportFile = preg_replace(';\.tpl$;', ".d/$name.txt", $tplFile);
-    $expectReport = file_get_contents($reportFile);
+    $parsed = Services::createTopParser()->parse(file_get_contents(static::getInputBaseDir($tplFile)));
+    $expectReportFile = preg_replace(';\.tpl$;', "/$name.txt", $tplFile);
+    $expectReport = file_get_contents(static::getOutputBaseDir($expectReportFile));
     $actualReport = Reports::writeString($name, $parsed);
     $this->assertEquals($expectReport, $actualReport);
   }
 
   public function getExampleTags(): array {
-    $prj = dirname(__DIR__);
-    $files = glob("$prj/examples/*.d/tag-*.tpl");
+    $cases = [];
+    $files = glob(static::getOutputBaseDir('*/tag-*.tpl'));
     foreach ($files as $file) {
-      $cases[basename($file, '.tpl')] = [$file, 'tree'];
+      $relFile = ltrim(substr($file, strlen(static::getOutputBaseDir())), '/');
+      $cases[$relFile] = [$relFile, 'tree'];
     }
     return $cases;
   }
@@ -49,10 +61,12 @@ class ExampleFilesTest extends TestCase {
    * @dataProvider getExampleTags
    */
   public function testExampleTags(string $tplFile, string $name): void {
-    $parsed = Services::createTagParser()->parse(file_get_contents($tplFile));
+    $inputFile = static::getOutputBaseDir("/$tplFile");
+    $parsed = Services::createTagParser()->parse(file_get_contents($inputFile));
     $name = 'tree';
-    $reportFile = preg_replace(';\.tpl$;', ".$name", $tplFile);
-    $expectReport = file_get_contents($reportFile);
+
+    $expectFile = preg_replace(';\.tpl$;', ".$name", $inputFile);
+    $expectReport = file_get_contents($expectFile);
     $actualReport = Reports::writeString($name, $parsed);
     $this->assertEquals($expectReport, $actualReport);
   }

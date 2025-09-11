@@ -1,33 +1,67 @@
 #!/usr/bin/env php
 <?php
 
+// Usage: ./bin/scan-examples [<input-dir> <output-dir>]
+
 namespace Civi\SmartyClassifier;
+
+use Symfony\Component\Finder\Finder;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$prj = dirname(__DIR__);
-$files = glob("$prj/examples/*.tpl");
+function parseArgs(array $argv): array {
+  $prog = array_shift($argv);
 
-$topParser = Services::createTopParser();
-$tagParser = Services::createTagParser();
-foreach ($files as $file) {
-  $reportDir = preg_replace(';\.tpl$;', '.d', $file);
-  printf("Process %s => %s\n", $file, $reportDir);
-  Files::mkdir($reportDir);
-
-  $parsed = $topParser->parse(file_get_contents($file));
-  foreach (Reports::getReportList() as $name) {
-    Reports::writeFile($reportDir . '/' . "$name.txt", $name, $parsed);
+  if (!empty($argv)) {
+    return $argv;
+  }
+  else {
+    $prj = dirname(__DIR__);
+    $files = glob("$prj/examples/*.tpl");
+    return ["$prj/examples/input", "$prj/examples/output"];
   }
 
-  Files::remove($reportDir . '/tag-*.tpl');
-  Files::remove($reportDir . '/tag-*.tree');
-  foreach ($parsed->findAll('stanza:tag') as $tag) {
-    $string = (string) $tag;
-    $id = md5($string);
-    $parsedTag = $tagParser->parse($string);
-    file_put_contents("$reportDir/tag-$id.tpl", $tag);
-    Reports::writeFile("$reportDir/tag-$id.tree", 'tree', $parsedTag);
+  return [$inDir, $outDir];
+}
+
+function processDir(string $inputBaseDir, string $outputBaseDir): void {
+  $files = (new Finder)->in($inputBaseDir)->files()->name('*.tpl');
+
+  $topParser = Services::createTopParser();
+  $tagParser = Services::createTagParser();
+  foreach ($files as $fileObj) {
+    /** @var \SplFileInfo $fileObj */
+    $inputFile = $inputBaseDir . '/' . $fileObj->getFilename();
+    $outputDir = $outputBaseDir . '/' . preg_replace(';\.tpl$;', '', $fileObj->getFilename());
+    // printf("Process %s => %s\n", $file, $reportDir);
+    echo ".";
+
+    try {
+      $parsed = $topParser->parse(file_get_contents($inputFile));
+    }
+    catch (\Throwable $t) {
+      fwrite(STDERR,  "\nERROR ($inputFile): " . $t->getMessage() . "\n\n");
+      continue;
+    }
+
+    Files::mkdir($outputDir);
+
+    foreach (Reports::getReportList() as $name) {
+      Reports::writeFile($outputDir . '/' . "$name.txt", $name, $parsed);
+    }
+
+    Files::remove($outputDir . '/tag-*.tpl');
+    Files::remove($outputDir . '/tag-*.tree');
+    foreach ($parsed->findAll('stanza:tag') as $tag) {
+      $string = (string) $tag;
+      $id = md5($string);
+      $parsedTag = $tagParser->parse($string);
+      file_put_contents("$outputDir/tag-$id.tpl", $tag);
+      Reports::writeFile("$outputDir/tag-$id.tree", 'tree', $parsedTag);
+    }
   }
 
 }
+
+[$inDir, $outDir] = parseArgs($argv);
+processDir($inDir, $outDir);
