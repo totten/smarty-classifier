@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+namespace Civi\SmartyClassifier;
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$content = file_get_contents('php://stdin');
+$parser = Services::createTopParser();
+$parsed = $parser->parse($content);
+Reports::stanzas(STDOUT, $parsed);

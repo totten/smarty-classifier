@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+namespace Civi\SmartyClassifier;
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$prj = dirname(__DIR__);
+$files = glob("$prj/examples/*.tpl");
+
+$parser = Services::createTopParser();
+foreach ($files as $file) {
+  echo "Process $file\n";
+
+  $parsed = $parser->parse(file_get_contents($file));
+
+  foreach (Reports::getReportList() as $suffix => $generator) {
+    $reportFile = preg_replace(';\.tpl$;', $suffix, $file);
+    $fh = fopen($reportFile, 'w');
+    call_user_func($generator, $fh, $parsed);
+    fclose($fh);
+  }
+}
