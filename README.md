@@ -23,12 +23,12 @@ echo 'Hello {$name}' | ./bin/smartyup parse
 ## Print the parse-tree for file
 ./bin/smartyup parse < examples/input/greeter.tpl
 
-## Inspect the tags in all the example files
-./bin/smartyup scan-examples
+## Deeply inspect the tree of examples
+./bin/smartyup scan
 
-## Inspect the tags in civicrm
+## Deeply inspect the tree in civicrm
 XDEBUG_MODE=off php -d memory_limit=2g \
-  ./bin/smartyup scan-examples -i /var/www/web/core/templates -o /tmp/scan-results
+  ./bin/smartyup scan -i /var/www/web/core/templates -o /tmp/scan-results
 ```
 
 ## Advice

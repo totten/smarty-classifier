@@ -18,8 +18,8 @@ class ScanExamplesCommand extends Command {
     $inDir = "$prj/examples/input";
     $outDir = "$prj/examples/output";
 
-    $this->setName('scan-examples')
-      ->setDescription('Scan example tpl files and generate reports')
+    $this->setName('scan')
+      ->setDescription('Scan a tree with TPL files and generate reports for all of them')
       ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
       ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir)
       ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl')

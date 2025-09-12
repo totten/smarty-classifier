@@ -24,5 +24,5 @@ print_h1 print-tags
 print_h1 parse
 echo '{$name|smarty:nodefaults}' | ./bin/smartyup parse
 
-print_h1 scan-examples
-./bin/smartyup scan-examples
+print_h1 scan
+./bin/smartyup scan
