@@ -117,9 +117,11 @@ class Advisor {
       case 'capture':
       case 'crmAPI':
       case 'crmRegion':
+      case 'else':
       case 'foreach':
       case 'help':
       case 'include':
+      case 'strip':
         $this->add('OK', $tagString);
         return;
 
