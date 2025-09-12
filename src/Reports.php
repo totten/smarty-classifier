@@ -2,6 +2,7 @@
 
 namespace Civi\SmartyUp;
 
+use Civi\SmartyUp\Advisor\AdviceCollector;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
@@ -38,18 +39,19 @@ class Reports {
   }
 
   public static function advisor(StyleInterface $output, Root $parsed): void {
-    $advisor = new Advisor();
+    $advice = new AdviceCollector();
+    $advisor = new Advisor($advice);
     $advisor->scanDocument($parsed);
 
-    $statuses = $advisor->getStatuses();
+    $statuses = $advice->getDistinct('message');
     $buffer = '';
-    foreach ($statuses as $status) {
-      $items = $advisor->getByStatus($status);
+    foreach ($statuses as $message) {
+      $items = $advice->filter(fn($r) => $r['message'] === $message);
       if (empty($items)) {
         continue;
       }
 
-      $buffer .= "\n## " . $status . "\n";
+      $buffer .= "\n## " . $message . "\n";
       foreach ($items as $item) {
         $buffer .= "- TAG: `" . $item['tag'] . "`\n";
         if (!empty($item['suggest'])) {

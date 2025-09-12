@@ -2,11 +2,23 @@
 
 namespace Civi\SmartyUp;
 
+use Civi\SmartyUp\Advisor\AdviceListener;
 use ParserGenerator\SyntaxTreeNode\Branch;
 
 class Advisor {
 
-  public $results = [];
+  protected AdviceListener $listener;
+
+  /**
+   * @param \Civi\SmartyUp\Advisor\AdviceListener $listener
+   */
+  public function __construct(AdviceListener $listener) {
+    $this->listener = $listener;
+  }
+
+  public function add(string $status, string $message, string $tagString, $suggest = NULL): void {
+    $this->listener->add($status, $message, $tagString, $suggest);
+  }
 
   public function scanString(string $content): void {
     $parsedDoc = Services::createTopParser()->parse($content);
@@ -19,7 +31,7 @@ class Advisor {
       $tagString = (string) $stanza;
       $parsedTag = $tagParser->parse($tagString);
       if (empty($parsedTag)) {
-        $this->add('PROBLEM: Unparsable tag', $tagString);
+        $this->add('ok', 'PROBLEM: Unparsable tag', $tagString);
       }
       else {
         $this->scanTag($tagString, $parsedTag);
@@ -35,7 +47,7 @@ class Advisor {
    */
   protected function scanTag(string $tagString, \ParserGenerator\SyntaxTreeNode\Root $parsedTag): void {
     if ($parsedTag->findFirst('tag:condition')) {
-      $this->add('OK', $tagString);
+      $this->add('ok', 'OK', $tagString);
     }
     elseif ($parsedTag->findFirst('tag:block_close')) {
       // It's OK, and it's trivial. Don't bother recording...
@@ -47,7 +59,7 @@ class Advisor {
       $this->scanBlockTag($tagString, $parsedTag);
     }
     else {
-      $this->add('PROBLEM: Unrecognized tag contents', $tagString);
+      $this->add('problem', 'PROBLEM: Unrecognized tag contents', $tagString);
     }
   }
 
@@ -65,14 +77,14 @@ class Advisor {
     // The basic rule is... for transition period, everything needs "nofilter".
 
     if ($parsedTag->findFirst('nofilter')) {
-      $this->add('OK', $tagString);
+      $this->add('ok', 'OK', $tagString);
       return;
     }
 
     // Convert '|smarty:nodefaults' to 'nofilter'
     if (str_contains($tagString, 'smarty:nodefaults')) {
       $suggest = preg_replace('/\|smarty:nodefaults\}$/', ' nofilter}', $tagString);
-      $this->add('PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString,
+      $this->add('problem', 'PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString,
         ($suggest === $tagString) ? NULL : $suggest);
       return;
     }
@@ -80,17 +92,17 @@ class Advisor {
     // Can we figure out if this printing HTML data (e.g. `$form.my_button.html`) or text (e.g. `$api_result.display_name`)?
     if (str_starts_with($tagString, '{$form.')) {
       // This is clearly an HTML widget.
-      $this->add('PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString,
+      $this->add('problem', 'PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString,
         $this->appendNofilter($tagString));
     }
     elseif (str_ends_with($tagString, '|escape}') || str_ends_with($tagString, '|escape:"html"}')) {
       // The data is already flagged as text. Preserve that. Add nofilter.
-      $this->add('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString,
+      $this->add('problem', 'PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString,
         $this->appendNofilter($tagString));
     }
     else {
       // The data is ambiguous. It could be HTML widget... or an integer... or free-form text...
-      $this->add('PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:', $tagString, [
+      $this->add('problem', 'PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:', $tagString, [
         preg_replace('/}$/', ' nofilter}', $tagString),
         preg_replace('/}$/', '|escape nofilter}', $tagString),
       ]);
@@ -127,39 +139,22 @@ class Advisor {
       case 'icon':
       case 'include':
       case 'strip':
-        $this->add('OK', $tagString);
+        $this->add('ok', 'OK', $tagString);
         return;
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $this->add('WARNING: Block has printable, dynamic parameters', $tagString);
+          $this->add('problem', 'WARNING: Block has printable, dynamic parameters', $tagString);
         }
         else {
-          $this->add('OK', $tagString);
+          $this->add('ok', 'OK', $tagString);
         }
         return;
 
       default:
-        $this->add('WARNING: Unrecognized block', $tagString);
+        $this->add('problem', 'WARNING: Unrecognized block', $tagString);
     }
-  }
-
-  public function add(string $status, string $tagString, $suggest = NULL): void {
-    $id = md5($status . chr(0) . $tagString);
-    $this->results[$id] = [
-      'status' => $status,
-      'tag' => $tagString,
-      'suggest' => $suggest,
-    ];
-  }
-
-  public function getByStatus(string $status): array {
-    return array_filter($this->results, fn($r) => $r['status'] === $status);
-  }
-
-  public function getStatuses(): array {
-    return array_unique(array_column($this->results, 'status'));
   }
 
 }
