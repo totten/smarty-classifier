@@ -35,8 +35,8 @@ class Application extends \Symfony\Component\Console\Application {
     $this->setAutoExit(FALSE);
     $this->add(new Command\ParseCommand());
     $this->add(new Command\PrintAdviceCommand());
-    $this->add(new Command\PrintStanzasCommand());
-    $this->add(new Command\PrintTagsCommand());
+    $this->add(new Command\DebugStanzasCommand());
+    $this->add(new Command\DebugTagsCommand());
     $this->add(new Command\ScanExamplesCommand());
   }
 

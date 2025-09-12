@@ -9,23 +9,23 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PrintTagsCommand extends Command {
+class DebugStanzasCommand extends Command {
 
   protected function configure() {
-    $this->setName('print-tags')
-      ->setDescription('Print tags for a list of tpl files')
+    $this->setName('debug:stanzas')
+      ->setDescription('Print stanzas for a list of tpl files')
       ->addArgument('files', InputArgument::IS_ARRAY, 'The tpl files to process');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    $io = SmartyUp::io();
     $files = $input->getArgument('files');
     foreach ($files as $file) {
-      $io->section($file);
+      SmartyUp::io()->section($file);
+
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      Reports::tags($io, $parsed);
+      Reports::stanzas(SmartyUp::io(), $parsed);
     }
     return 0;
   }
