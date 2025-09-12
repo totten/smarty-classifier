@@ -33,7 +33,7 @@ class Application extends \Symfony\Component\Console\Application {
   public function configure() {
     $this->setCatchExceptions(TRUE);
     $this->setAutoExit(FALSE);
-    $this->add(new Command\ParseTagCommand());
+    $this->add(new Command\ParseCommand());
     $this->add(new Command\PrintAdviceCommand());
     $this->add(new Command\PrintStanzasCommand());
     $this->add(new Command\PrintTagsCommand());
