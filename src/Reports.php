@@ -51,11 +51,18 @@ class Reports {
         continue;
       }
 
-      $buffer .= "\n## " . $status . ":\n";
+      $buffer .= "\n## " . $status . "\n";
       foreach ($items as $item) {
         $buffer .= "- TAG: `" . $item['tag'] . "`\n";
-        if (!empty($item['message'])) {
-          $buffer .= "  MESSAGE: " . $item['message'] . "\n";
+        if (!empty($item['suggest'])) {
+          if (is_string($item['suggest'])) {
+            $buffer .= "  SUGGEST: " . $item['suggest'] . "\n";
+          }
+          elseif (is_array($item['suggest'])) {
+            foreach ($item['suggest'] as $n => $suggest) {
+              $buffer .= sprintf('  SUGGEST #%d: `%s`', 1 + $n, $suggest) . "\n";
+            }
+          }
         }
       }
     }

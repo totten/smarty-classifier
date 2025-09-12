@@ -33,7 +33,7 @@ For example, at time of writing it generates this report for `Preview.tpl`:
 ```
 # /Users/totten/bknix/build/dev/web/core/templates/CRM/Contact/Import/Form/Preview.tpl
 
-## OK:
+## OK
 - TAG: `{include file="CRM/common/WizardHeader.tpl"}`
 - TAG: `{ts}`
 - TAG: `{if $invalidRowCount}`
@@ -44,26 +44,30 @@ For example, at time of writing it generates this report for `Preview.tpl`:
 ## WARNING: Block has printable, dynamic parameters
 - TAG: `{ts 1=$invalidRowCount 2=$downloadErrorRecordsUrl|smarty:nodefaults}`
 
-## PROBLEM: Use "nofilter" or "|escape nofilter" for portability:
+## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
 - TAG: `{$totalRowCount}`
+  SUGGEST #1: `{$totalRowCount nofilter}`
+  SUGGEST #2: `{$totalRowCount|escape nofilter}`
 - TAG: `{$invalidRowCount}`
+  SUGGEST #1: `{$invalidRowCount nofilter}`
+  SUGGEST #2: `{$invalidRowCount|escape nofilter}`
 - TAG: `{$validRowCount}`
-- TAG: `{$form.newGroupName.label}`
-- TAG: `{$form.newGroupName.html}`
-- TAG: `{$form.newGroupDesc.label}`
-- TAG: `{$form.newGroupDesc.html}`
-- TAG: `{$form.newGroupType.label}`
-- TAG: `{$form.newGroupType.html}`
-- TAG: `{$form.groups.label}`
-- TAG: `{$form.groups.html}`
-- TAG: `{$form.newTagName.label}`
-- TAG: `{$form.newTagName.html}`
-- TAG: `{$form.newTagDesc.label}`
-- TAG: `{$form.newTagDesc.html}`
-- TAG: `{$form.tag.html}`
+  SUGGEST #1: `{$validRowCount nofilter}`
+  SUGGEST #2: `{$validRowCount|escape nofilter}`
 
-## PROBLEM: Change "smarty:nodefaults" to "nofilter" for portability:
+## PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".
 - TAG: `{$downloadErrorRecordsUrl|smarty:nodefaults}`
+  SUGGEST: {$downloadErrorRecordsUrl nofilter}
+
+## PROBLEM: This looks like an HTML widget. Specify "nofilter".
+- TAG: `{$form.newGroupName.label}`
+  SUGGEST: {$form.newGroupName.label nofilter}
+- TAG: `{$form.newGroupName.html}`
+  SUGGEST: {$form.newGroupName.html nofilter}
+- TAG: `{$form.newGroupDesc.label}`
+  SUGGEST: {$form.newGroupDesc.label nofilter}
+- TAG: `{$form.newGroupDesc.html}`
+  SUGGEST: {$form.newGroupDesc.html nofilter}
 ```
 
 Note: The output is likely to change. The README may be updated occasionally
