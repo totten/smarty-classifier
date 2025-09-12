@@ -4,27 +4,30 @@
 start :=> open tag close .
 
 tag
-  :condition    => condition_verb sp expression sp?
+  :condition    => condition_verb sp expression
   :block_open   => block_name (sp block_attribute)* sp?
   :block_close  => "/" block_name
   :expression   => expression (sp nofilter)?
   .
 
 expression
-   :function       => function_name "(" sp? function_args? sp? ")"
-   :paren          => "(" expression ")"
-   :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression
-   :math           => expression sp? math sp? expression
-   :condition      => condition
-   :datum          => datum modifier*
+   :function       => function_name "(" sp? function_args? sp? ")"  sp?
+   :paren          => "(" sp? expression sp? ")"  sp?
+   :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression  sp?
+   :math           => expression sp? math sp? expression sp?
+   :or             => expression sp? op_or sp? expression sp?
+   :and            => expression sp? op_and sp? expression sp?
+   :rel            => expression sp? op_rel sp? expression sp?
+   :not            => op_not sp? expression sp?
+   :datum          => datum modifier* sp?
    .
 
 condition_verb :=> ("if"|"elseif") .
-condition
-  :not         => "!" sp? expression
-  :symbol      => expression sp? compare_symbol sp? expression
-  :name        => expression sp compare_name sp expression
-  .
+
+op_not :=> ("!" | /not/i ?sp) .
+op_and :=> ( "&&" | /and/i ?sp) .
+op_or :=> ( "||" | /or/i ?sp) .
+op_rel :=> ( compare_symbol | compare_name ?sp) .
 
 modifier  :=> "|" sp? modifier_array? modifier_name sp? modifier_attribute* .
 modifier_array :=> "@" .

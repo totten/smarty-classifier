@@ -5,5 +5,6 @@ content   :=> /[^{}]+/ .
 bareword  :=> /\w+/ .
 number    :=> (/\d/+) ("." (/\d/+))? .
 math      :=> ("+" | "-" | "*" | "/" | "%") .
+## mod
 compare_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
-compare_name :=> /and|or|eq|ne/i .
+compare_name :=> /neq|gte|lte|eq|ne|gt|ge|lt|le/i .
