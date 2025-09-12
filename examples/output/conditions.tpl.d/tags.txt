@@ -1,0 +1,9 @@
+{if $foo.bar}
+{/if}
+{if !empty($data)}
+{/if}
+{if ! empty( $fields )}
+{/if}
+{if first()}
+{elseif second()}
+{/if}

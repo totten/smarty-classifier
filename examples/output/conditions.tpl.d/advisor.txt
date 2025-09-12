@@ -1,0 +1,7 @@
+
+## OK
+- TAG: `{if $foo.bar}`
+- TAG: `{if !empty($data)}`
+- TAG: `{if ! empty( $fields )}`
+- TAG: `{if first()}`
+- TAG: `{elseif second()}`

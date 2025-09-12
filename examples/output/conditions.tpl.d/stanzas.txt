@@ -1,0 +1,33 @@
+
+## stanza:tag
+{if $foo.bar}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if !empty($data)}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if ! empty( $fields )}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if first()}
+
+## stanza:content
+ 100 
+
+## stanza:tag
+{elseif second()}
+
+## stanza:content
+ 200
+
+## stanza:tag
+{/if}

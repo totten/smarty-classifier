@@ -21,7 +21,7 @@ expression
 
 condition_verb :=> ("if"|"elseif") .
 condition
-  :not         => "!" expression
+  :not         => "!" sp? expression
   :symbol      => expression sp? compare_symbol sp? expression
   :name        => expression sp compare_name sp expression
   .
