@@ -3,23 +3,28 @@ namespace Civi\SmartyUp\Command;
 
 use Civi\SmartyUp\Services;
 use Civi\SmartyUp\Reports;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-class PrintAdviceCommand {
+class PrintAdviceCommand extends Command {
 
-  public function getUsage(): string {
-    return 'print-advice <tpl-files...>';
+  protected function configure() {
+    $this->setName('print-advice')
+      ->setDescription('Print advice for a list of tpl files')
+      ->addArgument('files', InputArgument::IS_ARRAY, 'The tpl files to process');
   }
 
-  public function run(array $argv): int {
-    $files = $argv;
-    array_shift($files);
+  protected function execute(InputInterface $input, OutputInterface $output): int {
+    $files = $input->getArgument('files');
     foreach ($files as $file) {
-      echo "# $file\n";
+      $output->writeln("# $file");
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      echo Reports::advisor($parsed);
-      echo "\n\n";
+      $output->writeln(Reports::advisor($parsed));
+      $output->writeln("");
     }
     return 0;
   }

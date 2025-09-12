@@ -5,43 +5,12 @@ namespace Civi\SmartyUp;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-$commands = [
-  'parse-tag' => Command\ParseTagCommand::class,
-  'print-advice' => Command\PrintAdviceCommand::class,
-  'print-stanzas' => Command\PrintStanzasCommand::class,
-  'print-tags' => Command\PrintTagsCommand::class,
-  'scan-examples' => Command\ScanExamplesCommand::class,
-];
+use Symfony\Component\Console\Application;
 
-$main = new class($commands) {
-
-  private $commands;
-
-  public function __construct($commands) {
-    $this->commands = $commands;
-  }
-
-  public function main(array $argv) {
-    $commandName = $argv[1] ?? NULL;
-    if (!$commandName || !isset($this->commands[$commandName])) {
-      $this->printUsage();
-      return 1;
-    }
-    $commandClass = $this->commands[$commandName];
-    $command = new $commandClass();
-
-    $commandArgv = array_slice($argv, 1);
-    return $command->run($commandArgv);
-  }
-
-  private function printUsage() {
-    echo "Usage: smartyup <command> [options]\n";
-    echo "Available commands:\n";
-    foreach ($this->commands as $name => $class) {
-      printf("  %s\n", (new $class)->getUsage());
-    }
-  }
-
-};
-
-exit($main->main($argv));
+$application = new Application('smartyup', '1.x');
+$application->add(new Command\ParseTagCommand());
+$application->add(new Command\PrintAdviceCommand());
+$application->add(new Command\PrintStanzasCommand());
+$application->add(new Command\PrintTagsCommand());
+$application->add(new Command\ScanExamplesCommand());
+$application->run();

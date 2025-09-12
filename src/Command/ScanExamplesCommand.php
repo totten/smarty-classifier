@@ -5,24 +5,32 @@ use Civi\SmartyUp\Files;
 use Civi\SmartyUp\Process;
 use Civi\SmartyUp\Reports;
 use Civi\SmartyUp\Services;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
-class ScanExamplesCommand {
+class ScanExamplesCommand extends Command {
 
-  public function getUsage(): string {
-    return 'scan-examples [<input-dir> <output-dir>]';
+  protected function configure() {
+    $this->setName('scan-examples')
+      ->setDescription('Scan example tpl files and generate reports')
+      ->addArgument('input-dir', InputArgument::OPTIONAL, 'The input directory')
+      ->addArgument('output-dir', InputArgument::OPTIONAL, 'The output directory');
   }
 
-  public function run(array $argv): int {
-    [$inDir, $outDir] = $this->parseArgs($argv);
-    return $this->processDir($inDir, $outDir);
+  protected function execute(InputInterface $input, OutputInterface $output): int {
+    [$inDir, $outDir] = $this->parseArgs($input);
+    return $this->processDir($inDir, $outDir, $output);
   }
 
-  private function parseArgs(array $argv): array {
-    $prog = array_shift($argv);
+  private function parseArgs(InputInterface $input): array {
+    $inDir = $input->getArgument('input-dir');
+    $outDir = $input->getArgument('output-dir');
 
-    if (!empty($argv) && count($argv) >= 2) {
-      return [rtrim($argv[0], '/'), rtrim($argv[1], '/')];
+    if ($inDir && $outDir) {
+      return [rtrim($inDir, '/'), rtrim($outDir, '/')];
     }
     else {
       $prj = dirname(dirname(__DIR__));
@@ -30,7 +38,7 @@ class ScanExamplesCommand {
     }
   }
 
-  private function processDir(string $inputBaseDir, string $outputBaseDir): int {
+  private function processDir(string $inputBaseDir, string $outputBaseDir, OutputInterface $output): int {
     Services::createTopParser();
     Services::createTagParser();
 
@@ -43,22 +51,20 @@ class ScanExamplesCommand {
       $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
       $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
       try {
-        Process::doAsChild(fn() => $this->processFile($inputFile, $outputDir));
+        Process::doAsChild(fn() => $this->processFile($inputFile, $outputDir, $output));
       }
       catch (\Throwable $e) {
-        fwrite(STDERR, "\nERROR ($inputFile): " . $e->getMessage() . "\n\n");
+        $output->writeln(sprintf("\nERROR (%s): %s\n\n", $inputFile, $e->getMessage()));
         $errors++;
       }
     }
 
-    echo "\n";
+    $output->writeln("");
     return $errors === 0 ? 0 : 1;
   }
 
-  private function processFile(string $inputFile, string $outputDir): void {
-    // printf("Process %s => %s\n", $inputFile, $outputDir);
-    printf("Process %s => %s (%s)\n", $inputFile, $outputDir, number_format(memory_get_usage()));
-    // echo '.';
+  private function processFile(string $inputFile, string $outputDir, OutputInterface $output): void {
+    $output->writeln(sprintf("Process %s => %s (%s)", $inputFile, $outputDir, number_format(memory_get_usage())));
 
     $parsed = Services::createTopParser()->parse(file_get_contents($inputFile));
 
