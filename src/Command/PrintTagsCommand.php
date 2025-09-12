@@ -3,6 +3,7 @@ namespace Civi\SmartyUp\Command;
 
 use Civi\SmartyUp\Services;
 use Civi\SmartyUp\Reports;
+use Civi\SmartyUp\SmartyUp;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,7 +24,7 @@ class PrintTagsCommand extends Command {
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      Reports::tags($output, $parsed);
+      Reports::tags(SmartyUp::io(), $parsed);
     }
     return 0;
   }

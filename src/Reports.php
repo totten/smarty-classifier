@@ -7,7 +7,9 @@ use Civi\SmartyUp\Console\StringOutput;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Reports {
 
@@ -18,7 +20,7 @@ class Reports {
     ];
   }
 
-  public static function stanzas(OutputInterface $output, Root $parsed): void {
+  public static function stanzas(StyleInterface $output, Root $parsed): void {
     $buffer = '';
     foreach ($parsed->findAll('stanza') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
@@ -30,7 +32,7 @@ class Reports {
     $output->write($buffer);
   }
 
-  public static function tags(OutputInterface $output, Root $parsed): void {
+  public static function tags(StyleInterface $output, Root $parsed): void {
     $buffer = '';
     foreach ($parsed->findAll('stanza:tag') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
@@ -42,7 +44,7 @@ class Reports {
     $output->write($buffer);
   }
 
-  public static function advisor(OutputInterface $output, Root $parsed): void {
+  public static function advisor(StyleInterface $output, Root $parsed): void {
     $advisor = new Advisor();
     $advisor->scanDocument($parsed);
 
@@ -73,7 +75,7 @@ class Reports {
     $output->write($buffer);
   }
 
-  public static function tree(OutputInterface $output, $parsed, string $prefix = ''): void {
+  public static function tree(StyleInterface $output, $parsed, string $prefix = ''): void {
     if ($parsed instanceof Branch) {
       $name = $parsed->getType() . ':' . $parsed->getDetailType();
       if (preg_match('/^&choices/', $name)) {
@@ -94,15 +96,15 @@ class Reports {
 
   public static function writeFile(string $file, string $name, ...$args): void {
     $fh = fopen($file, 'w');
-    $output = new FileHandleOutput($fh);
-    call_user_func([static::class, $name], $output, ...$args);
+    $io = new SymfonyStyle(new ArgvInput([]), new FileHandleOutput($fh));
+    call_user_func([static::class, $name], $io, ...$args);
     fclose($fh);
   }
 
   public static function writeString(string $name, ...$args): string {
-    $output = new StringOutput();
-    call_user_func([static::class, $name], $output, ...$args);
-    return $output->flush();
+    $io = new SymfonyStyle(new ArgvInput([]), new StringOutput());
+    call_user_func([static::class, $name], $io, ...$args);
+    return (new StringOutput())->flush();
   }
 
 }

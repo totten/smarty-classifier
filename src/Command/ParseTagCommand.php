@@ -3,6 +3,7 @@ namespace Civi\SmartyUp\Command;
 
 use Civi\SmartyUp\Services;
 use Civi\SmartyUp\Reports;
+use Civi\SmartyUp\SmartyUp;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,7 +24,7 @@ class ParseTagCommand extends Command {
     $output->writeln("<info>## Tree</info>");
     $parser = Services::createTagParser();
     $parsed = $parser->parse($content);
-    Reports::tree($output, $parsed);
+    Reports::tree(SmartyUp::io(), $parsed);
     $output->writeln("");
     return 0;
   }
