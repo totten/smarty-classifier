@@ -1,0 +1,30 @@
+
+## stanza:tag
+{foo()}
+
+## stanza:tag
+{foo( )}
+
+## stanza:tag
+{foo(1)}
+
+## stanza:tag
+{foo(1)}
+
+## stanza:tag
+{foo(1,2)}
+
+## stanza:tag
+{foo(1, 2)}
+
+## stanza:tag
+{foo( 1 )}
+
+## stanza:tag
+{foo( 1, 2 )}
+
+## stanza:tag
+{foo($whiz.bang,$yadda["yadda"])}
+
+## stanza:tag
+{foo( $whiz.bang , $yadda["yadda"] )}

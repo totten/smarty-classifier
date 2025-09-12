@@ -1,0 +1,29 @@
+
+## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
+- TAG: `{foo()}`
+  SUGGEST #1: `{foo() nofilter}`
+  SUGGEST #2: `{foo()|escape nofilter}`
+- TAG: `{foo( )}`
+  SUGGEST #1: `{foo( ) nofilter}`
+  SUGGEST #2: `{foo( )|escape nofilter}`
+- TAG: `{foo(1)}`
+  SUGGEST #1: `{foo(1) nofilter}`
+  SUGGEST #2: `{foo(1)|escape nofilter}`
+- TAG: `{foo(1,2)}`
+  SUGGEST #1: `{foo(1,2) nofilter}`
+  SUGGEST #2: `{foo(1,2)|escape nofilter}`
+- TAG: `{foo(1, 2)}`
+  SUGGEST #1: `{foo(1, 2) nofilter}`
+  SUGGEST #2: `{foo(1, 2)|escape nofilter}`
+- TAG: `{foo( 1 )}`
+  SUGGEST #1: `{foo( 1 ) nofilter}`
+  SUGGEST #2: `{foo( 1 )|escape nofilter}`
+- TAG: `{foo( 1, 2 )}`
+  SUGGEST #1: `{foo( 1, 2 ) nofilter}`
+  SUGGEST #2: `{foo( 1, 2 )|escape nofilter}`
+- TAG: `{foo($whiz.bang,$yadda["yadda"])}`
+  SUGGEST #1: `{foo($whiz.bang,$yadda["yadda"]) nofilter}`
+  SUGGEST #2: `{foo($whiz.bang,$yadda["yadda"])|escape nofilter}`
+- TAG: `{foo( $whiz.bang , $yadda["yadda"] )}`
+  SUGGEST #1: `{foo( $whiz.bang , $yadda["yadda"] ) nofilter}`
+  SUGGEST #2: `{foo( $whiz.bang , $yadda["yadda"] )|escape nofilter}`

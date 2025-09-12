@@ -1,0 +1,1 @@
+{foo( $whiz.bang , $yadda["yadda"] )}
