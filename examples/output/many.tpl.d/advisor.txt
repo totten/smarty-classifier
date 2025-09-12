@@ -20,11 +20,11 @@
 - TAG: `{$var nofilter}`
 - TAG: `{$var|@json_encode nofilter}`
 - TAG: `{$var|json_encode:16|escape nofilter}`
+- TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
 - TAG: `{ts}`
 - TAG: `{ts 1="Bob"}`
 - TAG: `{if !empty($data)}`
 - TAG: `{if $foo * 2 > 13.5}`
-- TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
 
 ## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
 - TAG: `{$var|json_encode:16|escape}`

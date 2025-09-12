@@ -14,6 +14,7 @@
 {* Block, 1x param, quotes            *}  {show foo="bar"}
 {* Block, 2x params                   *}  {show foo=100 bar=200}
 {* Block, 2x params, quotes           *}  {show foo='100' bar="200"}
+{* Block  4x, mixed                   *}  {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
 {* Literal                            *}  {literal}Say {stuff} {/literal}
 {* Squiggle A                         *}  foo { bar
 {* Squiggle B                         *}  foo{bar
@@ -25,6 +26,3 @@
 {* Function                           *}  {if !empty($data)}{/if}
 {* Math!                              *}  {$var + 2}
 {* Math!                              *}  {if $foo * 2 > 13.5}
-
-
-{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

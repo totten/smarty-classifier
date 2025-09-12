@@ -82,6 +82,12 @@
 {show foo='100' bar="200"}
 
 ## stanza:comment
+{* Block  4x, mixed*}
+
+## stanza:tag
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
+
+## stanza:comment
 {* Literal*}
 
 ## stanza:literal
@@ -184,6 +190,3 @@ Hello %1
 
 ## stanza:tag
 {if $foo * 2 > 13.5}
-
-## stanza:tag
-{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

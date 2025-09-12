@@ -10,6 +10,7 @@
 {show foo="bar"}
 {show foo=100 bar=200}
 {show foo='100' bar="200"}
+{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
 {show}
 {ts}
 {/ts}
@@ -22,4 +23,3 @@
 {/if}
 {$var + 2}
 {if $foo * 2 > 13.5}
-{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
