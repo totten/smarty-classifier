@@ -116,10 +116,15 @@ class Advisor {
       case 'assign':
       case 'capture':
       case 'crmAPI':
+      case 'crmButton':
       case 'crmRegion':
+      case 'crmURL':
+      case 'cycle':
+      case 'continue':
       case 'else':
       case 'foreach':
       case 'help':
+      case 'icon':
       case 'include':
       case 'strip':
         $this->add('OK', $tagString);
