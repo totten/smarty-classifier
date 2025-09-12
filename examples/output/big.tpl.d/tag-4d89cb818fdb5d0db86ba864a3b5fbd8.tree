@@ -15,6 +15,7 @@
                                 - 0: [bareword] 'formClass'
                                     - 0: 'formClass'
             - 1: [list:modifier] ''
+            - 2: ''
         - 1: ''
     - 2: [close] '}'
         - 0: '}'

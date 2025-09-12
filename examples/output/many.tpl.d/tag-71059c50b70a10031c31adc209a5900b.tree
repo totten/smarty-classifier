@@ -30,6 +30,7 @@
                                                 - 0: [bareword] 'display_name'
                                                     - 0: 'display_name'
                             - 1: [list:modifier] ''
+                            - 2: ''
         - 2: ''
     - 2: [close] '}'
         - 0: '}'

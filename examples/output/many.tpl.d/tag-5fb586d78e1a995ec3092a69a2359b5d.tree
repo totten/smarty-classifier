@@ -10,6 +10,7 @@
                         - 0: 'var'
                     - 2: [list] ''
             - 1: [list:modifier] ''
+            - 2: ''
         - 1: [&choices/XXXXXXXXXXXXXXXX] ' nofilter'
             - 0: [sp] ' '
                 - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '

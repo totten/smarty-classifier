@@ -6,6 +6,36 @@
 {/if}
 
 ## stanza:tag
+{if 123 == 123}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $foo eq 456}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $foo == 123}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $foo eq 123}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $foo.bar == 123}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
 {if !empty($data)}
 
 ## stanza:tag
@@ -31,3 +61,39 @@
 
 ## stanza:tag
 {/if}
+
+## stanza:tag
+{if not ($action == 1)}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if not ($action eq 2 or $action eq 1)}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if NOT $row.is_active}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $action neq 4}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $field.help_pre && $action neq 4}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{elseif ($profileFieldName eq 'group' && $form.group) || ($profileFieldName eq 'tag' && $form.tag)}
+
+## stanza:tag
+{elseif ( $profileFieldName eq 'image_URL' )}

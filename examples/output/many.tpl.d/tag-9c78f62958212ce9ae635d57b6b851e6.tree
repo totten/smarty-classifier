@@ -21,6 +21,7 @@
                             - 0: [datum] '"bar"'
                                 - 0: '"bar"'
                             - 1: [list:modifier] ''
+                            - 2: ''
         - 2: ''
     - 2: [close] '}'
         - 0: '}'

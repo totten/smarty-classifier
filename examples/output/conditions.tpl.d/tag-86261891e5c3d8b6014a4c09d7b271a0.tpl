@@ -1,0 +1,1 @@
+{if $field.help_pre && $action neq 4}

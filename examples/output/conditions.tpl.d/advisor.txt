@@ -1,7 +1,19 @@
 
 ## OK
 - TAG: `{if $foo.bar}`
+- TAG: `{if 123 == 123}`
+- TAG: `{if $foo eq 456}`
+- TAG: `{if $foo == 123}`
+- TAG: `{if $foo eq 123}`
+- TAG: `{if $foo.bar == 123}`
 - TAG: `{if !empty($data)}`
 - TAG: `{if ! empty( $fields )}`
 - TAG: `{if first()}`
 - TAG: `{elseif second()}`
+- TAG: `{if not ($action == 1)}`
+- TAG: `{if not ($action eq 2 or $action eq 1)}`
+- TAG: `{if NOT $row.is_active}`
+- TAG: `{if $action neq 4}`
+- TAG: `{if $field.help_pre && $action neq 4}`
+- TAG: `{elseif ($profileFieldName eq 'group' && $form.group) || ($profileFieldName eq 'tag' && $form.tag)}`
+- TAG: `{elseif ( $profileFieldName eq 'image_URL' )}`

@@ -1,5 +1,15 @@
 {if $foo.bar}
 {/if}
+{if 123 == 123}
+{/if}
+{if $foo eq 456}
+{/if}
+{if $foo == 123}
+{/if}
+{if $foo eq 123}
+{/if}
+{if $foo.bar == 123}
+{/if}
 {if !empty($data)}
 {/if}
 {if ! empty( $fields )}
@@ -7,3 +17,15 @@
 {if first()}
 {elseif second()}
 {/if}
+{if not ($action == 1)}
+{/if}
+{if not ($action eq 2 or $action eq 1)}
+{/if}
+{if NOT $row.is_active}
+{/if}
+{if $action neq 4}
+{/if}
+{if $field.help_pre && $action neq 4}
+{/if}
+{elseif ($profileFieldName eq 'group' && $form.group) || ($profileFieldName eq 'tag' && $form.tag)}
+{elseif ( $profileFieldName eq 'image_URL' )}

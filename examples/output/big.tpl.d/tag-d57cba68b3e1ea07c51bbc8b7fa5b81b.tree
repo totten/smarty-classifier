@@ -20,6 +20,7 @@
                                 - 0: [bareword] 'label'
                                     - 0: 'label'
             - 1: [list:modifier] ''
+            - 2: ''
         - 1: ''
     - 2: [close] '}'
         - 0: '}'

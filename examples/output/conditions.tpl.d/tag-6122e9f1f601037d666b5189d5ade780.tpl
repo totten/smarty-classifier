@@ -1,0 +1,1 @@
+{if NOT $row.is_active}
