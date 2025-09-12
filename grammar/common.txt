@@ -3,4 +3,4 @@ open      :=> "{" .
 close     :=> "}" .
 content   :=> /[^{}]+/ .
 bareword  :=> /\w+/ .
-number    :=> /\d/+ ("." /\d/+)? .
+number    :=> (/\d/+) ("." (/\d/+))? .

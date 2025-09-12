@@ -75,27 +75,34 @@ class Reports {
     $output->write($buffer);
   }
 
-  public static function tree(StyleInterface $io, $parsed, string $prefix = ''): void {
+  public static function tree(StyleInterface $io, $parsed, string $prefix = '', ?int $num = NULL): void {
+    $numStr = ($num === NULL) ? '' : " $num:";
+
     if ($parsed instanceof Branch) {
       $name = '<comment>' . $parsed->getType() . '</comment>';
+      $name = preg_replace(';&choices/[0-9a-f]+;', '&choices/XXXXXXXXXXXXXXXX', $name);
+
       if (!empty($parsed->getDetailType())) {
         $name .= ':<comment>' . $parsed->getDetailType() . '</comment>';
       }
-      if (preg_match('/^&choices/', $name)) {
-        $name = '&choices/XXXXXXXXXXXXXXXX';
-      }
-      $io->writeln($prefix . "- [$name]");
+      $io->writeln($prefix . "-$numStr [$name] " . static::formatLiteralString((string) $parsed));
+      $n = 0;
       foreach ($parsed->getSubnodes() as $subnode) {
-        static::tree($io, $subnode, $prefix . '  ');
+        static::tree($io, $subnode, $prefix . '    ', $n++);
       }
     }
     elseif ($parsed instanceof Leaf) {
-      $j = json_encode($parsed->getContent());
-      $io->writeln($prefix . "- \"<info>" . substr($j, 1, -1) . "</info>\"");
+      $io->writeln($prefix . "-$numStr " . static::formatLiteralString((string) $parsed));
     }
     else {
-      $io->writeln($prefix . "- <error>[UNKNOWN]</error>");
+      $io->writeln($prefix . "-$numStr [<error>UNKNOWN</error>]");
     }
+  }
+
+  private static function formatLiteralString(string $string): string {
+    // $j = json_encode($string, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    // return "\"<info>" . substr($j, 1, -1) . "</info>\"";
+    return "'<info>" . $string . "</info>'";
   }
 
   public static function writeFile(string $file, string $name, ...$args): void {
