@@ -1,0 +1,5 @@
+
+## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
+- TAG: `{$name}`
+  SUGGEST #1: `{$name nofilter}`
+  SUGGEST #2: `{$name|escape nofilter}`

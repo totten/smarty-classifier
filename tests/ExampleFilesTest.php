@@ -26,6 +26,7 @@ class ExampleFilesTest extends TestCase {
     foreach ($files as $file) {
       $cases[basename($file) . ' stanzas'] = [basename($file), 'stanzas'];
       $cases[basename($file) . ' tags'] = [basename($file), 'tags'];
+      $cases[basename($file) . ' advisor'] = [basename($file), 'advisor'];
     }
 
     return $cases;

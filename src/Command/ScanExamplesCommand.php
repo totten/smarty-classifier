@@ -73,6 +73,7 @@ class ScanExamplesCommand extends Command {
 
     Reports::writeFile($outputDir . '/stanzas.txt', 'stanzas', $parsed);
     Reports::writeFile($outputDir . '/tags.txt', 'tags', $parsed);
+    Reports::writeFile($outputDir . '/advisor.txt', 'advisor', $parsed);
 
     Files::remove($outputDir . '/tag-*.tpl');
     Files::remove($outputDir . '/tag-*.tree');

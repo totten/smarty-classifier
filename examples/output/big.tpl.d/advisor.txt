@@ -1,0 +1,37 @@
+
+## OK
+- TAG: `{if $context ne 'caseActivity'}`
+- TAG: `{help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile}`
+- TAG: `{if $action eq 4 AND $currentAttachmentURL}`
+- TAG: `{include file="CRM/Form/attachment.tpl"}`
+- TAG: `{elseif $action eq 1 OR $action eq 2}`
+- TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
+- TAG: `{crmAPI var='caseStatusLabels' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='create'}`
+- TAG: `{crmAPI var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0}`
+
+## PROBLEM: This looks like an HTML widget. Specify "nofilter".
+- TAG: `{$form.case_type_id.label}`
+  SUGGEST: {$form.case_type_id.label nofilter}
+- TAG: `{$form.case_type_id.html}`
+  SUGGEST: {$form.case_type_id.html nofilter}
+- TAG: `{$form.status_id.label}`
+  SUGGEST: {$form.status_id.label nofilter}
+- TAG: `{$form.status_id.html}`
+  SUGGEST: {$form.status_id.html nofilter}
+- TAG: `{$form.start_date.label}`
+  SUGGEST: {$form.start_date.label nofilter}
+- TAG: `{$form.start_date.html}`
+  SUGGEST: {$form.start_date.html nofilter}
+- TAG: `{$form.formClass}`
+  SUGGEST: {$form.formClass nofilter}
+
+## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
+- TAG: `{$caseTypes.values|@json_encode}`
+  SUGGEST #1: `{$caseTypes.values|@json_encode nofilter}`
+  SUGGEST #2: `{$caseTypes.values|@json_encode|escape nofilter}`
+- TAG: `{$caseStatusLabels.values|@json_encode}`
+  SUGGEST #1: `{$caseStatusLabels.values|@json_encode nofilter}`
+  SUGGEST #2: `{$caseStatusLabels.values|@json_encode|escape nofilter}`
+- TAG: `{$caseStatusNames.values|@json_encode}`
+  SUGGEST #1: `{$caseStatusNames.values|@json_encode nofilter}`
+  SUGGEST #2: `{$caseStatusNames.values|@json_encode|escape nofilter}`
