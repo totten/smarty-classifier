@@ -2,7 +2,7 @@
     - 0: [open] '{'
         - 0: '{'
     - 1: [tag:block_open] 'help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile'
-        - 0: [blockname] 'help'
+        - 0: [block_name] 'help'
             - 0: [bareword] 'help'
                 - 0: 'help'
         - 1: [list] ' id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile'

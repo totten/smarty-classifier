@@ -2,7 +2,7 @@
     - 0: [open] '{'
         - 0: '{'
     - 1: [tag:block_open] 'show foo=100 bar=200'
-        - 0: [blockname] 'show'
+        - 0: [block_name] 'show'
             - 0: [bareword] 'show'
                 - 0: 'show'
         - 1: [list] ' foo=100 bar=200'

@@ -3,7 +3,7 @@
         - 0: '{'
     - 1: [tag:block_close] '/if'
         - 0: '/'
-        - 1: [blockname] 'if'
+        - 1: [block_name] 'if'
             - 0: [bareword] 'if'
                 - 0: 'if'
     - 2: [close] '}'

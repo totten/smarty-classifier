@@ -2,7 +2,7 @@
     - 0: [open] '{'
         - 0: '{'
     - 1: [tag:block_open] 'include file="CRM/Form/attachment.tpl"'
-        - 0: [blockname] 'include'
+        - 0: [block_name] 'include'
             - 0: [bareword] 'include'
                 - 0: 'include'
         - 1: [list] ' file="CRM/Form/attachment.tpl"'

@@ -2,7 +2,7 @@
     - 0: [open] '{'
         - 0: '{'
     - 1: [tag:block_open] 'ts 1=$contact.display_name'
-        - 0: [blockname] 'ts'
+        - 0: [block_name] 'ts'
             - 0: [bareword] 'ts'
                 - 0: 'ts'
         - 1: [list] ' 1=$contact.display_name'

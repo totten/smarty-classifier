@@ -2,7 +2,7 @@
     - 0: [open] '{'
         - 0: '{'
     - 1: [tag:block_open] 'crmAPI var='caseStatusLabels' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='create''
-        - 0: [blockname] 'crmAPI'
+        - 0: [block_name] 'crmAPI'
             - 0: [bareword] 'crmAPI'
                 - 0: 'crmAPI'
         - 1: [list] ' var='caseStatusLabels' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='create''

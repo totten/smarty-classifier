@@ -111,7 +111,7 @@ class Advisor {
    * @return void
    */
   protected function scanBlockTag(string $tagString, Branch $parsedTag) {
-    $blockName = $parsedTag->findFirst('blockname');
+    $blockName = $parsedTag->findFirst('block_name');
     switch ($blockName) {
       case 'assign':
       case 'capture':
