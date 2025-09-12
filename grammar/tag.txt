@@ -8,7 +8,7 @@ tag
   .
 
 expression
-   :function       => function "(" function_args? ")"
+   :function       => function "(" sp? function_args? sp? ")"
    :paren          => "(" expression ")"
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression
    :math           => expression sp? math sp? expression
@@ -33,4 +33,4 @@ variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 blockname :=> bareword .
 nofilter :=> "nofilter" .
 function :=> bareword .
-function_args :=> expression (sp* "," sp* expression)* .
+function_args :=> expression (sp? "," sp? expression)* .
