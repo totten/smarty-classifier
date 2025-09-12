@@ -1,0 +1,21 @@
+#!/usr/bin/env php
+<?php
+
+namespace Civi\SmartyClassifier;
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+// Given a single tag-expression, parse it.
+//
+// example: echo '{$foo|bar}' | ./bin/parse-tag
+
+$content = trim(file_get_contents('php://stdin'));
+
+echo "## Content\n";
+echo "$content\n\n";
+
+echo "## Tree\n";
+$parser = Services::createTagParser();
+$parsed = $parser->parse($content);
+echo Reports::tree($parsed);
+echo "\n\n";
