@@ -1,5 +1,10 @@
 <?php
 
+ini_set('memory_limit', '-1');
+if (phpversion('xdebug')) {
+  ini_set('xdebug.max_nesting_level', 1024);
+}
+
 #### Find primary autoloader
 $autoloaders = array(
   implode(DIRECTORY_SEPARATOR, array(dirname(__DIR__), 'vendor', 'autoload.php')),
