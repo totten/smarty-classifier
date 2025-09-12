@@ -1,3 +1,6 @@
+## Tag parser -- Given that we have focused on a specific
+## Smarty tag (e.g. `{$contact.name|escape}`), we will parse it.
+
 start :=> open tag close .
 
 tag
@@ -29,6 +32,7 @@ attribute :=> bareword (sp* "=" sp* expression)? .
 datum     :=> (variable | string | number | bareword) .
 
 variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
+## Unclear -- what are the precedence rules for different kinds of subscripts?
 
 blockname :=> bareword .
 nofilter :=> "nofilter" .

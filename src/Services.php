@@ -11,8 +11,8 @@ class Services {
   public static function createTopParser(): Parser {
     if (!isset(self::$instances[__FUNCTION__])) {
       $grammarDir = dirname(__DIR__);
-      $grammar = file_get_contents("$grammarDir/grammar/top.txt")
-        . "\n" . file_get_contents("$grammarDir/grammar/common.txt");
+      $grammar = static::readGrammarFile('top.txt')
+        . "\n" . static::readGrammarFile('common.txt');
       self::$instances[__FUNCTION__] = new \ParserGenerator\Parser($grammar);
     }
     return self::$instances[__FUNCTION__];
@@ -20,12 +20,20 @@ class Services {
 
   public static function createTagParser(): Parser {
     if (!isset(self::$instances[__FUNCTION__])) {
-      $grammarDir = dirname(__DIR__);
-      $grammar = file_get_contents("$grammarDir/grammar/tag.txt")
-        . "\n" . file_get_contents("$grammarDir/grammar/common.txt");
+
+      $grammar = static::readGrammarFile('tag.txt')
+        . "\n" . static::readGrammarFile('common.txt');
       self::$instances[__FUNCTION__] = new \ParserGenerator\Parser($grammar);
     }
     return self::$instances[__FUNCTION__];
+  }
+
+  private static function readGrammarFile(string $name): string {
+    $grammarDir = dirname(__DIR__);
+    $r = file_get_contents("$grammarDir/grammar/" . $name);
+    $lines = explode("\n", $r);
+    $lines = preg_grep(';^\s*##;', $lines, PREG_GREP_INVERT);
+    return implode("\n", $lines);
   }
 
 }
