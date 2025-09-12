@@ -2,8 +2,7 @@
 
 namespace Civi\SmartyUp;
 
-use Civi\SmartyUp\Advisor\Advice\Advice;
-use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
+use Civi\SmartyUp\Advisor\Advice;
 use Civi\SmartyUp\Advisor\AdviceCollector;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
@@ -55,10 +54,9 @@ class Reports {
 
       $buffer .= "\n## " . $message . "\n";
       foreach ($items as $item) {
-        /** @var Advice $item */
+        /** @var \Civi\SmartyUp\Advisor\Advice $item */
         $buffer .= "- TAG: `" . $item->getTag() . "`\n";
-        if ($item instanceof AdviceSuggestion) {
-          $suggests = $item->getReplacements();
+        if ($suggests = $item->getReplacements()) {
           if (count($suggests) === 1) {
             $buffer .= "  SUGGEST: " . $suggests[0] . "\n";
           }

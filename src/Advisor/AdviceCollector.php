@@ -2,22 +2,19 @@
 
 namespace Civi\SmartyUp\Advisor;
 
-use Civi\SmartyUp\Advisor\Advice\Advice;
-use Civi\SmartyUp\Advisor\Advice\AdviceOk;
-use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
-use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
+use Civi\SmartyUp\Advisor\Advice;
 
 class AdviceCollector {
 
   /**
-   * @var Advice[]
+   * @var \Civi\SmartyUp\Advisor\Advice[]
    */
   public $results = [];
 
   public function add(Advice $advice): void {
-    if ($advice instanceof AdviceSuggestion) {
+    if ($advice->getReplacements() !== NULL) {
       if ($advice->getReplacements() === [$advice->getTag()] || empty($advice->getReplacements())) {
-        $advice = new AdviceProblem($advice->getMessage(), $advice->getTag());
+        $advice = Advice::createProblem($advice->getMessage(), $advice->getTag());
       }
     }
     $this->results[$advice->getId()] = $advice;

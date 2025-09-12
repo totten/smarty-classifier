@@ -2,8 +2,7 @@
 
 namespace Civi\SmartyUp\Rule;
 
-use Civi\SmartyUp\Advisor\Advice\AdviceOk;
-use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
+use Civi\SmartyUp\Advisor\Advice;
 use ParserGenerator\SyntaxTreeNode\Branch;
 
 /**
@@ -30,21 +29,21 @@ class KnownBlockTag {
       case 'icon':
       case 'include':
       case 'strip':
-        $add(new AdviceOk('OK', $tagString));
+        $add(Advice::createOK('OK', $tagString));
         return;
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $add(new AdviceProblem('WARNING: Block has printable, dynamic parameters', $tagString));
+          $add(Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString));
         }
         else {
-          $add(new AdviceOk('OK', $tagString));
+          $add(Advice::createOK('OK', $tagString));
         }
         return;
 
       default:
-        $add(new AdviceProblem('WARNING: Unrecognized block', $tagString));
+        $add(Advice::createProblem('WARNING: Unrecognized block', $tagString));
         return;
     }
   }
