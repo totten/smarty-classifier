@@ -21,7 +21,7 @@ composer install
 echo 'Hello {$name}' | ./bin/smartyup parse
 
 ## Print the parse-tree for file
-./bin/smartyup parse < examples/input/greeter.tpl
+./bin/smartyup parse examples/input/greeter.tpl
 
 ## Deeply inspect the tree of examples
 ./bin/smartyup debug:dump
