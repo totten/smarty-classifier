@@ -6,10 +6,10 @@ namespace Civi\SmartyUp;
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $commands = [
+  'parse-tag' => Command\ParseTagCommand::class,
   'print-advice' => Command\PrintAdviceCommand::class,
   'print-stanzas' => Command\PrintStanzasCommand::class,
   'print-tags' => Command\PrintTagsCommand::class,
-  'parse-tag' => Command\ParseTagCommand::class,
   'scan-examples' => Command\ScanExamplesCommand::class,
 ];
 
@@ -37,8 +37,8 @@ $main = new class($commands) {
   private function printUsage() {
     echo "Usage: smartyup <command> [options]\n";
     echo "Available commands:\n";
-    foreach (array_keys($this->commands) as $name) {
-      echo "  $name\n";
+    foreach ($this->commands as $name => $class) {
+      printf("  %s\n", (new $class)->getUsage());
     }
   }
 

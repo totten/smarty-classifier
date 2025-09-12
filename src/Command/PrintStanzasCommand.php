@@ -6,6 +6,10 @@ use Civi\SmartyUp\Reports;
 
 class PrintStanzasCommand {
 
+  public function getUsage(): string {
+    return 'print-stanzas <tpl-files...>';
+  }
+
   public function run(array $argv): int {
     $files = $argv;
     array_shift($files);

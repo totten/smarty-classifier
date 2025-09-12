@@ -6,6 +6,10 @@ use Civi\SmartyUp\Reports;
 
 class PrintAdviceCommand {
 
+  public function getUsage(): string {
+    return 'print-advice <tpl-files...>';
+  }
+
   public function run(array $argv): int {
     $files = $argv;
     array_shift($files);

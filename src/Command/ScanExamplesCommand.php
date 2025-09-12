@@ -9,6 +9,10 @@ use Symfony\Component\Finder\Finder;
 
 class ScanExamplesCommand {
 
+  public function getUsage(): string {
+    return 'scan-examples [<input-dir> <output-dir>]';
+  }
+
   public function run(array $argv): int {
     [$inDir, $outDir] = $this->parseArgs($argv);
     return $this->processDir($inDir, $outDir);

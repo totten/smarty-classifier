@@ -6,6 +6,10 @@ use Civi\SmartyUp\Reports;
 
 class ParseTagCommand {
 
+  public function getUsage(): string {
+    return 'parse-tag';
+  }
+
   public function run(array $argv): int {
     $content = trim(file_get_contents('php://stdin'));
 
