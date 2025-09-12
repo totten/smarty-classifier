@@ -2,12 +2,10 @@
 
 namespace Civi\SmartyUp\Advisor;
 
+use Civi\SmartyUp\Advisor\Advice\Advice;
+
 interface AdviceListener {
 
-  public function addOk(string $message, string $tagString): void;
-
-  public function addSuggestion(string $message, string $original, array $replacements): void;
-
-  public function addProblem(string $message, string $original): void;
+  public function addAdvice(Advice $advice): void;
 
 }

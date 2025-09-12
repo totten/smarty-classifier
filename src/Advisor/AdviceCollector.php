@@ -2,24 +2,29 @@
 
 namespace Civi\SmartyUp\Advisor;
 
+use Civi\SmartyUp\Advisor\Advice\Advice;
+use Civi\SmartyUp\Advisor\Advice\AdviceOk;
+use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
+use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
+
 class AdviceCollector implements AdviceListener {
 
   public $results = [];
 
-  public function addOk(string $message, string $tagString): void {
-    $this->add('ok', $message, $tagString);
-  }
-
-  public function addProblem(string $message, string $tagString): void {
-    $this->add('problem', $message, $tagString);
-  }
-
-  public function addSuggestion(string $message, string $original, array $replacements): void {
-    if ($replacements === [$original] || empty($replacements)) {
-      $this->add('problem', $message, $original);
+  public function addAdvice(Advice $advice): void {
+    if ($advice instanceof AdviceOk) {
+      $this->add('ok', $advice->getMessage(), $advice->getTagString());
     }
-    else {
-      $this->add('suggestion', $message, $original, $replacements);
+    elseif ($advice instanceof AdviceProblem) {
+      $this->add('problem', $advice->getMessage(), $advice->getOriginal());
+    }
+    elseif ($advice instanceof AdviceSuggestion) {
+      if ($advice->getReplacements() === [$advice->getOriginal()] || empty($advice->getReplacements())) {
+        $this->add('problem', $advice->getMessage(), $advice->getOriginal());
+      }
+      else {
+        $this->add('suggestion', $advice->getMessage(), $advice->getOriginal(), $advice->getReplacements());
+      }
     }
   }
 
