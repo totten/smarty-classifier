@@ -6,36 +6,28 @@ use Civi\SmartyUp\Process;
 use Civi\SmartyUp\Reports;
 use Civi\SmartyUp\Services;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
 class ScanExamplesCommand extends Command {
 
   protected function configure() {
+    $prj = dirname(dirname(__DIR__));
+    $inDir = "$prj/examples/input";
+    $outDir = "$prj/examples/output";
+
     $this->setName('scan-examples')
       ->setDescription('Scan example tpl files and generate reports')
-      ->addArgument('input-dir', InputArgument::OPTIONAL, 'The input directory')
-      ->addArgument('output-dir', InputArgument::OPTIONAL, 'The output directory');
+      ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
+      ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    [$inDir, $outDir] = $this->parseArgs($input);
+    $inDir = rtrim($input->getOption('input-dir'), '/');
+    $outDir = rtrim($input->getOption('output-dir'), '/');
     return $this->processDir($inDir, $outDir, $output);
-  }
-
-  private function parseArgs(InputInterface $input): array {
-    $inDir = $input->getArgument('input-dir');
-    $outDir = $input->getArgument('output-dir');
-
-    if ($inDir && $outDir) {
-      return [rtrim($inDir, '/'), rtrim($outDir, '/')];
-    }
-    else {
-      $prj = dirname(dirname(__DIR__));
-      return ["$prj/examples/input", "$prj/examples/output"];
-    }
   }
 
   private function processDir(string $inputBaseDir, string $outputBaseDir, OutputInterface $output): int {

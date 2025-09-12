@@ -19,7 +19,8 @@ composer install
 ./bin/smartyup scan-examples
 
 ## Inspect the tags in civicrm
-XDEBUG_MODE=off php -d memory_limit=2g ./bin/smartyup scan-examples /var/www/web/core/templates /tmp/scan-results
+XDEBUG_MODE=off php -d memory_limit=2g \
+  ./bin/smartyup scan-examples -i /var/www/web/core/templates -o /tmp/scan-results
 ```
 
 ## Advice
