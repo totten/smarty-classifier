@@ -19,6 +19,7 @@ class PrintTagsCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $files = $input->getArgument('files');
     foreach ($files as $file) {
+      $output->writeln("<info># $file</info>");
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
