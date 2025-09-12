@@ -1,5 +1,5 @@
 ## Top-level parser -- The goal is to split the Smarty document
-## into a list of comments, passive text, and Smarty's executable "tags".
+## into a list of comments, printable text, and executable "tags".
 
 start    :=> stanza*.
 
@@ -13,6 +13,7 @@ stanza
   .
 
 tag_part :=> (bareword | string | number | operator | sp) .
+## The parser's built-in "string" type is doing a lot of lifting here -- it handles quoted strings.
 
 ## For purposes of splitting sections, we need to know which symbols can appear within a tag.
 ## But we don't need to know their exact purpose.

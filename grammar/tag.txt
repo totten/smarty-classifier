@@ -31,6 +31,7 @@ modifier_attribute :=> ":" sp? expression sp? .
 
 attribute :=> bareword (sp* "=" sp* expression)? .
 datum     :=> (variable | string | number | bareword) .
+## The parser's built-in "string" type is doing a lot of lifting here -- it handles quoted strings.
 
 variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 ## Unclear -- what are the precedence rules for different kinds of subscripts?
