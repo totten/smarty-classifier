@@ -22,7 +22,8 @@ class ScanExamplesCommand extends Command {
       ->setDescription('Scan example tpl files and generate reports')
       ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
       ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir)
-      ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl');
+      ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl')
+      ->addOption('report', 'r', InputOption::VALUE_REQUIRED, 'Comma-separate list of reports to generate', 'stanzas,tags,advisor,tree');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
@@ -41,7 +42,8 @@ class ScanExamplesCommand extends Command {
       $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
       $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
       try {
-        Process::doAsChild(fn() => $this->processFile($inputFile, $outputDir, $output));
+        // If there's a hard error, we want to recover. Run in child process.
+        Process::doAsChild(fn() => $this->processFile($inputFile, $outputDir, $input, $output));
       }
       catch (\Throwable $e) {
         $output->writeln(sprintf("\nERROR (%s): %s\n\n", $inputFile, $e->getMessage()));
@@ -53,7 +55,7 @@ class ScanExamplesCommand extends Command {
     return $errors === 0 ? 0 : 1;
   }
 
-  private function processFile(string $inputFile, string $outputDir, OutputInterface $output): void {
+  private function processFile(string $inputFile, string $outputDir, InputInterface $input, OutputInterface $output): void {
     $output->writeln(sprintf("Process <comment>%s</comment> => <comment>%s</comment>", $inputFile, $outputDir));
     // $output->writeln(sprintf("Process <comment>%s</comment> => <comment>%s</comment> (<comment>%s</comment>)", $inputFile, $outputDir, number_format(memory_get_usage())));
 
@@ -61,18 +63,38 @@ class ScanExamplesCommand extends Command {
 
     Files::mkdir($outputDir);
 
-    Reports::writeFile($outputDir . '/stanzas.txt', 'stanzas', $parsed);
-    Reports::writeFile($outputDir . '/tags.txt', 'tags', $parsed);
-    Reports::writeFile($outputDir . '/advisor.txt', 'advisor', $parsed);
+    $reports = explode(',', $input->getOption('report'));
+    $reportCount = 0;
+    foreach ($reports as $report) {
+      switch ($report) {
+        case 'stanzas':
+        case 'tags':
+        case 'advisor':
+          $reportCount++;
+          Reports::writeFile($outputDir . "/$report.txt", $report, $parsed);
+          break;
 
-    Files::remove($outputDir . '/tag-*.tpl');
-    Files::remove($outputDir . '/tag-*.tree');
-    foreach ($parsed->findAll('stanza:tag') as $tag) {
-      $string = (string) $tag;
-      $id = md5($string);
-      $parsedTag = Services::createTagParser()->parse($string);
-      file_put_contents("$outputDir/tag-$id.tpl", $tag);
-      Reports::writeFile("$outputDir/tag-$id.tree", 'tree', $parsedTag);
+        case 'tree':
+          $reportCount++;
+          Files::remove($outputDir . '/tag-*.tpl');
+          Files::remove($outputDir . '/tag-*.tree');
+          foreach ($parsed->findAll('stanza:tag') as $tag) {
+            $string = (string) $tag;
+            $id = md5($string);
+            $parsedTag = Services::createTagParser()->parse($string);
+            file_put_contents("$outputDir/tag-$id.tpl", $tag);
+            Reports::writeFile("$outputDir/tag-$id.tree", 'tree', $parsedTag);
+          }
+          break;
+
+        default:
+          $output->getErrorOutput()->writeln("<error>SKIP: Unrecognized report: $report</error>");
+          break;
+      }
+    }
+
+    if (empty($reportCount)) {
+      throw new \RuntimeException("No valid reports were requested!");
     }
   }
 
