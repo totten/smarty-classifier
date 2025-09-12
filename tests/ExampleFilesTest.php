@@ -24,9 +24,8 @@ class ExampleFilesTest extends TestCase {
 
     $files = glob(static::getInputBaseDir('/*.tpl'));
     foreach ($files as $file) {
-      foreach (Reports::getReportList() as $name) {
-        $cases[basename($file) . " $name"] = [basename($file), $name];
-      }
+      $cases[basename($file) . ' stanzas'] = [basename($file), 'stanzas'];
+      $cases[basename($file) . ' tags'] = [basename($file), 'tags'];
     }
 
     return $cases;

@@ -13,13 +13,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Reports {
 
-  public static function getReportList(): array {
-    return [
-      'stanzas',
-      'tags',
-    ];
-  }
-
   public static function stanzas(StyleInterface $output, Root $parsed): void {
     $buffer = '';
     foreach ($parsed->findAll('stanza') as $k => $stanza) {

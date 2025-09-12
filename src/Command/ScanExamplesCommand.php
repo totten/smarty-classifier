@@ -71,9 +71,8 @@ class ScanExamplesCommand extends Command {
 
     Files::mkdir($outputDir);
 
-    foreach (Reports::getReportList() as $name) {
-      Reports::writeFile($outputDir . '/' . "$name.txt", $name, $parsed);
-    }
+    Reports::writeFile($outputDir . '/stanzas.txt', 'stanzas', $parsed);
+    Reports::writeFile($outputDir . '/tags.txt', 'tags', $parsed);
 
     Files::remove($outputDir . '/tag-*.tpl');
     Files::remove($outputDir . '/tag-*.tree');
