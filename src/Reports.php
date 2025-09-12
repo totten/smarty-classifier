@@ -75,22 +75,26 @@ class Reports {
     $output->write($buffer);
   }
 
-  public static function tree(StyleInterface $output, $parsed, string $prefix = ''): void {
+  public static function tree(StyleInterface $io, $parsed, string $prefix = ''): void {
     if ($parsed instanceof Branch) {
-      $name = $parsed->getType() . ':' . $parsed->getDetailType();
+      $name = '<comment>' . $parsed->getType() . '</comment>';
+      if (!empty($parsed->getDetailType())) {
+        $name .= ':<comment>' . $parsed->getDetailType() . '</comment>';
+      }
       if (preg_match('/^&choices/', $name)) {
         $name = '&choices/XXXXXXXXXXXXXXXX';
       }
-      $output->writeln($prefix . "- " . $name);
+      $io->writeln($prefix . "- [$name]");
       foreach ($parsed->getSubnodes() as $subnode) {
-        static::tree($output, $subnode, $prefix . '  ');
+        static::tree($io, $subnode, $prefix . '  ');
       }
     }
     elseif ($parsed instanceof Leaf) {
-      $output->writeln($prefix . "- [LEAF] " . json_encode($parsed->getContent()));
+      $j = json_encode($parsed->getContent());
+      $io->writeln($prefix . "- \"<info>" . substr($j, 1, -1) . "</info>\"");
     }
     else {
-      $output->writeln($prefix . "- [UNKNOWN]");
+      $io->writeln($prefix . "- <error>[UNKNOWN]</error>");
     }
   }
 

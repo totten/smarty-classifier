@@ -18,14 +18,17 @@ class ParseTagCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $content = trim(file_get_contents('php://stdin'));
 
-    $output->writeln("<info>## Content</info>");
-    $output->writeln("$content\n");
+    $io = SmartyUp::io();
+    $io->title('Parse Smarty Tag');
 
-    $output->writeln("<info>## Tree</info>");
+    $io->section('Input');
+    $io->text($content);
+
+    $io->section('Tree');
     $parser = Services::createTagParser();
     $parsed = $parser->parse($content);
-    Reports::tree(SmartyUp::io(), $parsed);
-    $output->writeln("");
+    Reports::tree($io, $parsed);
+    $io->writeln('');
     return 0;
   }
 

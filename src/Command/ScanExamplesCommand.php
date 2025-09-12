@@ -64,7 +64,8 @@ class ScanExamplesCommand extends Command {
   }
 
   private function processFile(string $inputFile, string $outputDir, OutputInterface $output): void {
-    $output->writeln(sprintf("Process %s => %s (%s)", $inputFile, $outputDir, number_format(memory_get_usage())));
+    $output->writeln(sprintf("Process <comment>%s</comment> => <comment>%s</comment>", $inputFile, $outputDir));
+    // $output->writeln(sprintf("Process <comment>%s</comment> => <comment>%s</comment> (<comment>%s</comment>)", $inputFile, $outputDir, number_format(memory_get_usage())));
 
     $parsed = Services::createTopParser()->parse(file_get_contents($inputFile));
 

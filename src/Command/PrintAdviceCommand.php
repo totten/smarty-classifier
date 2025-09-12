@@ -18,14 +18,15 @@ class PrintAdviceCommand extends Command {
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
+    $io = SmartyUp::io();
     $files = $input->getArgument('files');
     foreach ($files as $file) {
-      $output->writeln("<info># $file</info>");
+      $io->section($file);
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      Reports::advisor(SmartyUp::io(), $parsed);
-      $output->writeln("");
+      Reports::advisor($io, $parsed);
+      $io->writeln('');
     }
     return 0;
   }
