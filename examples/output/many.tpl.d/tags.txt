@@ -20,4 +20,6 @@
 {$bool ? $onTrue : $onFalse}
 {if !empty($data)}
 {/if}
+{$var + 2}
+{if $foo * 2 > 13.5}
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

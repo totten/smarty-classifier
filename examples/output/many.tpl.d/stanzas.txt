@@ -173,5 +173,17 @@ Hello %1
 ## stanza:tag
 {/if}
 
+## stanza:comment
+{* Math!*}
+
+## stanza:tag
+{$var + 2}
+
+## stanza:comment
+{* Math!*}
+
+## stanza:tag
+{if $foo * 2 > 13.5}
+
 ## stanza:tag
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

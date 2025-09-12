@@ -19,7 +19,7 @@
                 - 1: [sp] ' '
                     - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
                         - 0: ' '
-                - 2: [operator_2_bool_name] 'ne'
+                - 2: [compare_name] 'ne'
                     - 0: 'ne'
                 - 3: [sp] ' '
                     - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
