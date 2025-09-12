@@ -7,6 +7,11 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 
+ini_set('memory_limit', '1g');
+if (phpversion('xdebug')) {
+  ini_set('xdebug.max_nesting_level', 1024);
+}
+
 $application = new Application('smartyup', '1.x');
 $application->add(new Command\ParseTagCommand());
 $application->add(new Command\PrintAdviceCommand());
