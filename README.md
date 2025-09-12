@@ -9,17 +9,17 @@ Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 composer install
 
 ## Print the advice for a specific file
-./bin/print-advice examples/input/many.tpl
+./bin/smartyup print-advice examples/input/many.tpl
 
 ## Inspect the tags in a specific file
-./bin/print-tags examples/input/greeter.tpl
-./bin/print-tags examples/input/many.tpl
+./bin/smartyup print-tags examples/input/greeter.tpl
+./bin/smartyup print-tags examples/input/many.tpl
 
 ## Inspect the tags in all the example files
-./bin/scan-examples
+./bin/smartyup scan-examples
 
 ## Inspect the tags in civicrm
-XDEBUG_MODE=off php -d memory_limit=2g ./bin/scan-examples /var/www/web/core/templates /tmp/scan-results
+XDEBUG_MODE=off php -d memory_limit=2g ./bin/smartyup scan-examples /var/www/web/core/templates /tmp/scan-results
 ```
 
 ## Advice
