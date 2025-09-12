@@ -23,6 +23,8 @@
 {* Translate, param                   *}  {ts 1=$contact.display_name}Hello %1{/ts}
 {* Ternary                            *}  {$bool ? $onTrue : $onFalse}
 {* Function                           *}  {if !empty($data)}{/if}
+{* Math!                              *}  {$var + 2}
+{* Math!                              *}  {if $foo * 2 > 13.5}
 
 
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}

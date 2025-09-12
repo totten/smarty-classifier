@@ -11,14 +11,15 @@ expression
    :function       => function "(" function_args? ")"
    :paren          => "(" expression ")"
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression
+   :math           => expression sp? math sp? expression
    :condition      => condition
    :datum          => datum modifier*
    .
 
 condition
   :not         => "!" expression
-  :symbol      => expression sp? operator_2_bool_symbol sp? expression
-  :name        => expression sp operator_2_bool_name sp expression
+  :symbol      => expression sp? compare_symbol sp? expression
+  :name        => expression sp compare_name sp expression
   .
 
 modifier  :=> "|" sp? "@"? bareword sp? modifier_attribute* .
@@ -29,8 +30,6 @@ datum     :=> (variable | string | number | bareword) .
 
 variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 
-operator_2_bool_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
-operator_2_bool_name :=> /and|or|eq|ne/i .
 blockname :=> bareword .
 nofilter :=> "nofilter" .
 function :=> bareword .

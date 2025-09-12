@@ -4,3 +4,6 @@ close     :=> "}" .
 content   :=> /[^{}]+/ .
 bareword  :=> /\w+/ .
 number    :=> (/\d/+) ("." (/\d/+))? .
+math      :=> ("+" | "-" | "*" | "/" | "%") .
+compare_symbol :=>  ("==" | "!=" | ">" | "<" | ">=" | "<=" | "===") .
+compare_name :=> /and|or|eq|ne/i .
