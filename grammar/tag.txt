@@ -4,7 +4,7 @@
 start :=> open tag close .
 
 tag
-  :condition    => /if|elseif/ sp expression sp?
+  :condition    => condition_verb sp expression sp?
   :block_open   => blockname (sp attribute)* sp?
   :block_close  => "/" blockname
   :expression   => expression (sp nofilter)?
@@ -19,6 +19,7 @@ expression
    :datum          => datum modifier*
    .
 
+condition_verb :=> ("if"|"elseif") .
 condition
   :not         => "!" expression
   :symbol      => expression sp? compare_symbol sp? expression
