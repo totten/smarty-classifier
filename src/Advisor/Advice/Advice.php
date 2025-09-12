@@ -21,4 +21,8 @@ abstract class Advice {
     return $this->tag;
   }
 
+  public function getId(): string {
+    return md5($this->message . chr(0) . $this->tag);
+  }
+
 }

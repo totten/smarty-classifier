@@ -2,6 +2,8 @@
 
 namespace Civi\SmartyUp;
 
+use Civi\SmartyUp\Advisor\Advice\Advice;
+use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
 use Civi\SmartyUp\Advisor\AdviceCollector;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
@@ -40,27 +42,28 @@ class Reports {
 
   public static function advisor(StyleInterface $output, Root $parsed): void {
     $advice = new AdviceCollector();
-    $advisor = new Advisor([$advice, 'addAdvice']);
+    $advisor = new Advisor([$advice, 'add']);
     $advisor->scanDocument($parsed);
 
-    $statuses = $advice->getDistinct('message');
+    $statuses = $advice->getDistinctMessages();
     $buffer = '';
     foreach ($statuses as $message) {
-      $items = $advice->filter(fn($r) => $r['message'] === $message);
+      $items = $advice->filter(fn(Advice $a) => $a->getMessage() === $message);
       if (empty($items)) {
         continue;
       }
 
       $buffer .= "\n## " . $message . "\n";
       foreach ($items as $item) {
-        $buffer .= "- TAG: `" . $item['tag'] . "`\n";
-        if (!empty($item['suggest'])) {
-          $suggests = (array) $item['suggest'];
+        /** @var Advice $item */
+        $buffer .= "- TAG: `" . $item->getTag() . "`\n";
+        if ($item instanceof AdviceSuggestion) {
+          $suggests = $item->getReplacements();
           if (count($suggests) === 1) {
-            $buffer .= "  SUGGEST: " . $item['suggest'][0] . "\n";
+            $buffer .= "  SUGGEST: " . $suggests[0] . "\n";
           }
-          elseif (is_array($item['suggest'])) {
-            foreach ($item['suggest'] as $n => $suggest) {
+          else {
+            foreach ($suggests as $n => $suggest) {
               $buffer .= sprintf('  SUGGEST #%d: `%s`', 1 + $n, $suggest) . "\n";
             }
           }
