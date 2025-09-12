@@ -32,7 +32,7 @@ class Services {
     $grammarDir = dirname(__DIR__);
     $r = file_get_contents("$grammarDir/grammar/" . $name);
     $lines = explode("\n", $r);
-    $lines = preg_grep(';^\s*##;', $lines, PREG_GREP_INVERT);
+    $lines = preg_grep(';^\s*#;', $lines, PREG_GREP_INVERT);
     return implode("\n", $lines);
   }
 
