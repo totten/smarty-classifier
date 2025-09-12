@@ -11,7 +11,7 @@
             - 0: [condition:not] '!empty($data)'
                 - 0: '!'
                 - 1: [expression:function] 'empty($data)'
-                    - 0: [function] 'empty'
+                    - 0: [function_name] 'empty'
                         - 0: [bareword] 'empty'
                             - 0: 'empty'
                     - 1: '('

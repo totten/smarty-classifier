@@ -11,7 +11,7 @@ tag
   .
 
 expression
-   :function       => function "(" sp? function_args? sp? ")"
+   :function       => function_name "(" sp? function_args? sp? ")"
    :paren          => "(" expression ")"
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression
    :math           => expression sp? math sp? expression
@@ -26,7 +26,9 @@ condition
   :name        => expression sp compare_name sp expression
   .
 
-modifier  :=> "|" sp? "@"? bareword sp? modifier_attribute* .
+modifier  :=> "|" sp? modifier_array? modifier_name sp? modifier_attribute* .
+modifier_array :=> "@" .
+modifier_name :=> bareword .
 modifier_attribute :=> ":" sp? expression sp? .
 
 block_name :=> bareword .
@@ -39,5 +41,5 @@ variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 ## Unclear -- what are the precedence rules for different kinds of subscripts?
 
 nofilter :=> "nofilter" .
-function :=> bareword .
+function_name :=> bareword .
 function_args :=> expression (sp? "," sp? expression)* .
