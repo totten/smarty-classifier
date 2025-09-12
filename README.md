@@ -8,12 +8,16 @@ Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 ## Install dependencies
 composer install
 
+## Print the parse-tree for a file
+
 ## Print the advice for a specific file
 ./bin/smartyup print-advice examples/input/many.tpl
 
-## Inspect the tags in a specific file
-./bin/smartyup print-tags examples/input/greeter.tpl
-./bin/smartyup print-tags examples/input/many.tpl
+## Print the parse-tree for a block of text
+echo 'Hello {$name}' | ./bin/smartyup parse
+
+## Print the parse-tree for file
+./bin/smartyup parse < examples/input/greeter.tpl
 
 ## Inspect the tags in all the example files
 ./bin/smartyup scan-examples

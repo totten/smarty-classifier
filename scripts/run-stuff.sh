@@ -10,17 +10,19 @@ function print_h1() {
   echo ==============================================
 }
 
+EXAMPLE_FILE=examples/input/greeter.tpl
+
 print_h1 print-advice
-./bin/smartyup print-advice examples/temp.tpl
+./bin/smartyup print-advice "$EXAMPLE_FILE"
 
 print_h1 print-stanzas
-./bin/smartyup print-stanzas examples/temp.tpl
+./bin/smartyup print-stanzas "$EXAMPLE_FILE"
 
 print_h1 print-tags
-./bin/smartyup print-tags examples/temp.tpl
+./bin/smartyup print-tags "$EXAMPLE_FILE"
 
-print_h1 parse-tag
-echo '{$name|smarty:nodefaults}' | ./bin/smartyup parse-tag
+print_h1 parse
+echo '{$name|smarty:nodefaults}' | ./bin/smartyup parse
 
 print_h1 scan-examples
 ./bin/smartyup scan-examples
