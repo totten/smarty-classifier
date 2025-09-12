@@ -21,20 +21,18 @@ class ScanExamplesCommand extends Command {
     $this->setName('scan-examples')
       ->setDescription('Scan example tpl files and generate reports')
       ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
-      ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir);
+      ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir)
+      ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    $inDir = rtrim($input->getOption('input-dir'), '/');
-    $outDir = rtrim($input->getOption('output-dir'), '/');
-    return $this->processDir($inDir, $outDir, $output);
-  }
+    $inputBaseDir = rtrim($input->getOption('input-dir'), '/');
+    $outputBaseDir = rtrim($input->getOption('output-dir'), '/');
 
-  private function processDir(string $inputBaseDir, string $outputBaseDir, OutputInterface $output): int {
     Services::createTopParser();
     Services::createTagParser();
 
-    $files = (new Finder)->in($inputBaseDir)->files()->name('*.tpl');
+    $files = (new Finder)->in($inputBaseDir)->files()->name($input->getOption('name'));
     $errors = 0;
 
     foreach ($files as $fileObj) {
