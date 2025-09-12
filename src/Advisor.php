@@ -6,6 +6,7 @@ use Civi\SmartyUp\Advisor\Advice\Advice;
 use Civi\SmartyUp\Advisor\Advice\AdviceOk;
 use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
 use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
+use Civi\SmartyUp\Rule\KnownBlockTag;
 use ParserGenerator\SyntaxTreeNode\Branch;
 
 class Advisor {
@@ -19,7 +20,7 @@ class Advisor {
     $this->adviceListener = $listener;
   }
 
-  protected function add(Advice $advice): void {
+  public function add(Advice $advice): void {
     call_user_func($this->adviceListener, $advice);
   }
 
@@ -59,7 +60,7 @@ class Advisor {
       $this->scanExpressionTag($tagString, $parsedTag);
     }
     elseif ($parsedTag->findFirst('tag:block_open')) {
-      $this->scanBlockTag($tagString, $parsedTag);
+      (new KnownBlockTag())->scanBlockTag($parsedTag, [$this, 'add']);
     }
     else {
       $this->add(new AdviceProblem('PROBLEM: Unrecognized tag contents', $tagString));
@@ -112,51 +113,6 @@ class Advisor {
 
   protected function appendNofilter(string $tagString): string {
     return preg_replace('/}$/', ' nofilter}', $tagString);
-  }
-
-  /**
-   * Scan a Smarty {block} tag.
-   *
-   * @param string $tagString
-   *   Ex: '{ts}'
-   *   Ex: '{ts 1=$contact.display_name}'
-   * @param \ParserGenerator\SyntaxTreeNode\Branch $parsedTag
-   * @return void
-   */
-  protected function scanBlockTag(string $tagString, Branch $parsedTag) {
-    $blockName = $parsedTag->findFirst('block_name');
-    switch ($blockName) {
-      case 'assign':
-      case 'capture':
-      case 'crmAPI':
-      case 'crmButton':
-      case 'crmRegion':
-      case 'crmURL':
-      case 'cycle':
-      case 'continue':
-      case 'else':
-      case 'foreach':
-      case 'help':
-      case 'icon':
-      case 'include':
-      case 'strip':
-        $this->add(new AdviceOk('OK', $tagString));
-        return;
-
-      case 'docURL':
-      case 'ts':
-        if (str_contains($tagString, '$')) {
-          $this->add(new AdviceProblem('WARNING: Block has printable, dynamic parameters', $tagString));
-        }
-        else {
-          $this->add(new AdviceOk('OK', $tagString));
-        }
-        return;
-
-      default:
-        $this->add(new AdviceProblem('WARNING: Unrecognized block', $tagString));
-        return;
-    }
   }
 
 }
