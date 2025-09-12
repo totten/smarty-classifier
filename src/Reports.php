@@ -2,12 +2,12 @@
 
 namespace Civi\SmartyUp;
 
-use Civi\SmartyUp\Console\FileHandleOutput;
-use Civi\SmartyUp\Console\StringOutput;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -96,15 +96,16 @@ class Reports {
 
   public static function writeFile(string $file, string $name, ...$args): void {
     $fh = fopen($file, 'w');
-    $io = new SymfonyStyle(new ArgvInput([]), new FileHandleOutput($fh));
+    $io = new SymfonyStyle(new ArgvInput([]), new StreamOutput($fh));
     call_user_func([static::class, $name], $io, ...$args);
     fclose($fh);
   }
 
   public static function writeString(string $name, ...$args): string {
-    $io = new SymfonyStyle(new ArgvInput([]), new StringOutput());
+    $output = new BufferedOutput();
+    $io = new SymfonyStyle(new ArgvInput([]), $output);
     call_user_func([static::class, $name], $io, ...$args);
-    return (new StringOutput())->flush();
+    return $output->fetch();
   }
 
 }
