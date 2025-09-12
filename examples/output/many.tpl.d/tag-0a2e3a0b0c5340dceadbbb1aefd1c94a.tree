@@ -1,29 +1,30 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:condition
-    - [LEAF] "if"
-    - sp:0
-      - list:/\r\n|\n\r|\n|\r|\s|\t/
-        - [LEAF] " "
-    - expression:condition
-      - condition:not
-        - [LEAF] "!"
-        - expression:function
-          - function:0
-            - bareword:0
-              - [LEAF] "empty"
-          - [LEAF] "("
-          - function_args:0
-            - expression:datum
-              - datum:0
-                - variable:0
-                  - [LEAF] "$"
-                  - bareword:0
-                    - [LEAF] "data"
-                  - list:
-              - list:modifier
-            - list:
-          - [LEAF] ")"
-  - close:0
-    - [LEAF] "}"
+- [start] '{if !empty($data)}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:condition] 'if !empty($data)'
+        - 0: 'if'
+        - 1: [sp] ' '
+            - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                - 0: ' '
+        - 2: [expression:condition] '!empty($data)'
+            - 0: [condition:not] '!empty($data)'
+                - 0: '!'
+                - 1: [expression:function] 'empty($data)'
+                    - 0: [function] 'empty'
+                        - 0: [bareword] 'empty'
+                            - 0: 'empty'
+                    - 1: '('
+                    - 2: [function_args] '$data'
+                        - 0: [expression:datum] '$data'
+                            - 0: [datum] '$data'
+                                - 0: [variable] '$data'
+                                    - 0: '$'
+                                    - 1: [bareword] 'data'
+                                        - 0: 'data'
+                                    - 2: [list] ''
+                            - 1: [list:modifier] ''
+                        - 1: [list] ''
+                    - 3: ')'
+        - 3: ''
+    - 2: [close] '}'
+        - 0: '}'

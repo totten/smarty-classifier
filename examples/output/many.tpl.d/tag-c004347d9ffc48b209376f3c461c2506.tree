@@ -1,46 +1,46 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:ternary
-      - expression:datum
-        - datum:0
-          - variable:0
-            - [LEAF] "$"
-            - bareword:0
-              - [LEAF] "bool"
-            - list:
-        - list:modifier
-      - sp:0
-        - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] " "
-      - [LEAF] "?"
-      - sp:0
-        - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] " "
-      - expression:datum
-        - datum:0
-          - variable:0
-            - [LEAF] "$"
-            - bareword:0
-              - [LEAF] "onTrue"
-            - list:
-        - list:modifier
-      - sp:0
-        - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] " "
-      - [LEAF] ":"
-      - sp:0
-        - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] " "
-      - expression:datum
-        - datum:0
-          - variable:0
-            - [LEAF] "$"
-            - bareword:0
-              - [LEAF] "onFalse"
-            - list:
-        - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$bool ? $onTrue : $onFalse}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$bool ? $onTrue : $onFalse'
+        - 0: [expression:ternary] '$bool ? $onTrue : $onFalse'
+            - 0: [expression:datum] '$bool'
+                - 0: [datum] '$bool'
+                    - 0: [variable] '$bool'
+                        - 0: '$'
+                        - 1: [bareword] 'bool'
+                            - 0: 'bool'
+                        - 2: [list] ''
+                - 1: [list:modifier] ''
+            - 1: [sp] ' '
+                - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                    - 0: ' '
+            - 2: '?'
+            - 3: [sp] ' '
+                - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                    - 0: ' '
+            - 4: [expression:datum] '$onTrue'
+                - 0: [datum] '$onTrue'
+                    - 0: [variable] '$onTrue'
+                        - 0: '$'
+                        - 1: [bareword] 'onTrue'
+                            - 0: 'onTrue'
+                        - 2: [list] ''
+                - 1: [list:modifier] ''
+            - 5: [sp] ' '
+                - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                    - 0: ' '
+            - 6: ':'
+            - 7: [sp] ' '
+                - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                    - 0: ' '
+            - 8: [expression:datum] '$onFalse'
+                - 0: [datum] '$onFalse'
+                    - 0: [variable] '$onFalse'
+                        - 0: '$'
+                        - 1: [bareword] 'onFalse'
+                            - 0: 'onFalse'
+                        - 2: [list] ''
+                - 1: [list:modifier] ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

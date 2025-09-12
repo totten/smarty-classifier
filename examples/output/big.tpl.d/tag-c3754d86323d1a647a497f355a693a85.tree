@@ -1,26 +1,26 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "include"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "file"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"CRM\/Form\/attachment.tpl\""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{include file="CRM/Form/attachment.tpl"}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'include file="CRM/Form/attachment.tpl"'
+        - 0: [blockname] 'include'
+            - 0: [bareword] 'include'
+                - 0: 'include'
+        - 1: [list] ' file="CRM/Form/attachment.tpl"'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' file="CRM/Form/attachment.tpl"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'file="CRM/Form/attachment.tpl"'
+                    - 0: [bareword] 'file'
+                        - 0: 'file'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="CRM/Form/attachment.tpl"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"CRM/Form/attachment.tpl"'
+                            - 0: [datum] '"CRM/Form/attachment.tpl"'
+                                - 0: '"CRM/Form/attachment.tpl"'
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

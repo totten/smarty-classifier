@@ -1,25 +1,25 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "form"
-          - list:
-            - &choices/XXXXXXXXXXXXXXXX
-              - [LEAF] "."
-              - datum:0
-                - bareword:0
-                  - [LEAF] "start_date"
-            - &choices/XXXXXXXXXXXXXXXX
-              - [LEAF] "."
-              - datum:0
-                - bareword:0
-                  - [LEAF] "label"
-      - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$form.start_date.label}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$form.start_date.label'
+        - 0: [expression:datum] '$form.start_date.label'
+            - 0: [datum] '$form.start_date.label'
+                - 0: [variable] '$form.start_date.label'
+                    - 0: '$'
+                    - 1: [bareword] 'form'
+                        - 0: 'form'
+                    - 2: [list] '.start_date.label'
+                        - 0: [&choices/XXXXXXXXXXXXXXXX] '.start_date'
+                            - 0: '.'
+                            - 1: [datum] 'start_date'
+                                - 0: [bareword] 'start_date'
+                                    - 0: 'start_date'
+                        - 1: [&choices/XXXXXXXXXXXXXXXX] '.label'
+                            - 0: '.'
+                            - 1: [datum] 'label'
+                                - 0: [bareword] 'label'
+                                    - 0: 'label'
+            - 1: [list:modifier] ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

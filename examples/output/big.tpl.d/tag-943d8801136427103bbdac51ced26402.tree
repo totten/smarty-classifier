@@ -1,10 +1,10 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_close
-    - [LEAF] "\/"
-    - blockname:0
-      - bareword:0
-        - [LEAF] "if"
-  - close:0
-    - [LEAF] "}"
+- [start] '{/if}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_close] '/if'
+        - 0: '/'
+        - 1: [blockname] 'if'
+            - 0: [bareword] 'if'
+                - 0: 'if'
+    - 2: [close] '}'
+        - 0: '}'

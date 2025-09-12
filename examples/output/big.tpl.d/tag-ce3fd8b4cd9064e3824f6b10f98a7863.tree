@@ -1,28 +1,28 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "caseStatusNames"
-          - list:
-            - &choices/XXXXXXXXXXXXXXXX
-              - [LEAF] "."
-              - datum:0
-                - bareword:0
-                  - [LEAF] "values"
-      - list:modifier
-        - modifier:0
-          - [LEAF] "|"
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] "@"
-          - bareword:0
-            - [LEAF] "json_encode"
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - list:modifier_attribute
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$caseStatusNames.values|@json_encode}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$caseStatusNames.values|@json_encode'
+        - 0: [expression:datum] '$caseStatusNames.values|@json_encode'
+            - 0: [datum] '$caseStatusNames.values'
+                - 0: [variable] '$caseStatusNames.values'
+                    - 0: '$'
+                    - 1: [bareword] 'caseStatusNames'
+                        - 0: 'caseStatusNames'
+                    - 2: [list] '.values'
+                        - 0: [&choices/XXXXXXXXXXXXXXXX] '.values'
+                            - 0: '.'
+                            - 1: [datum] 'values'
+                                - 0: [bareword] 'values'
+                                    - 0: 'values'
+            - 1: [list:modifier] '|@json_encode'
+                - 0: [modifier] '|@json_encode'
+                    - 0: '|'
+                    - 1: ''
+                    - 2: '@'
+                    - 3: [bareword] 'json_encode'
+                        - 0: 'json_encode'
+                    - 4: ''
+                    - 5: [list:modifier_attribute] ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

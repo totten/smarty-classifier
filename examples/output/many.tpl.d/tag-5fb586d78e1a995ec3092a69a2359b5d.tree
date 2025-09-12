@@ -1,20 +1,20 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "var"
-          - list:
-      - list:modifier
-    - &choices/XXXXXXXXXXXXXXXX
-      - sp:0
-        - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] " "
-      - nofilter:0
-        - [LEAF] "nofilter"
-  - close:0
-    - [LEAF] "}"
+- [start] '{$var nofilter}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$var nofilter'
+        - 0: [expression:datum] '$var'
+            - 0: [datum] '$var'
+                - 0: [variable] '$var'
+                    - 0: '$'
+                    - 1: [bareword] 'var'
+                        - 0: 'var'
+                    - 2: [list] ''
+            - 1: [list:modifier] ''
+        - 1: [&choices/XXXXXXXXXXXXXXXX] ' nofilter'
+            - 0: [sp] ' '
+                - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                    - 0: ' '
+            - 1: [nofilter] 'nofilter'
+                - 0: 'nofilter'
+    - 2: [close] '}'
+        - 0: '}'

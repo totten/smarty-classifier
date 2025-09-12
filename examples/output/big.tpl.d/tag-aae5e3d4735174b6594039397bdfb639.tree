@@ -1,60 +1,60 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "help"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "id"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"id-case_type\""
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "file"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"CRM\/Case\/Form\/Case.hlp\""
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "activityTypeFile"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - variable:0
-                  - [LEAF] "$"
-                  - bareword:0
-                    - [LEAF] "activityTypeFile"
-                  - list:
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'help id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile'
+        - 0: [blockname] 'help'
+            - 0: [bareword] 'help'
+                - 0: 'help'
+        - 1: [list] ' id="id-case_type" file="CRM/Case/Form/Case.hlp" activityTypeFile=$activityTypeFile'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' id="id-case_type"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'id="id-case_type"'
+                    - 0: [bareword] 'id'
+                        - 0: 'id'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="id-case_type"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"id-case_type"'
+                            - 0: [datum] '"id-case_type"'
+                                - 0: '"id-case_type"'
+                            - 1: [list:modifier] ''
+            - 1: [&choices/XXXXXXXXXXXXXXXX] ' file="CRM/Case/Form/Case.hlp"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'file="CRM/Case/Form/Case.hlp"'
+                    - 0: [bareword] 'file'
+                        - 0: 'file'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="CRM/Case/Form/Case.hlp"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"CRM/Case/Form/Case.hlp"'
+                            - 0: [datum] '"CRM/Case/Form/Case.hlp"'
+                                - 0: '"CRM/Case/Form/Case.hlp"'
+                            - 1: [list:modifier] ''
+            - 2: [&choices/XXXXXXXXXXXXXXXX] ' activityTypeFile=$activityTypeFile'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'activityTypeFile=$activityTypeFile'
+                    - 0: [bareword] 'activityTypeFile'
+                        - 0: 'activityTypeFile'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '=$activityTypeFile'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '$activityTypeFile'
+                            - 0: [datum] '$activityTypeFile'
+                                - 0: [variable] '$activityTypeFile'
+                                    - 0: '$'
+                                    - 1: [bareword] 'activityTypeFile'
+                                        - 0: 'activityTypeFile'
+                                    - 2: [list] ''
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

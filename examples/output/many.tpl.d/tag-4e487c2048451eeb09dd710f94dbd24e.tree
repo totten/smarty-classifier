@@ -1,26 +1,26 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "ts"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "1"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"Bob\""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{ts 1="Bob"}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'ts 1="Bob"'
+        - 0: [blockname] 'ts'
+            - 0: [bareword] 'ts'
+                - 0: 'ts'
+        - 1: [list] ' 1="Bob"'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' 1="Bob"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] '1="Bob"'
+                    - 0: [bareword] '1'
+                        - 0: '1'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="Bob"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"Bob"'
+                            - 0: [datum] '"Bob"'
+                                - 0: '"Bob"'
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

@@ -1,122 +1,122 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "crmAPI"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "var"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'caseStatusNames'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "entity"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'Case'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "action"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'getoptions'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "option_limit"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - number:0
-                  - list:/\d/
-                    - [LEAF] "0"
-                  - [LEAF] ""
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "field"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"case_status_id\""
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "context"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'validate'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "sequential"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - number:0
-                  - list:/\d/
-                    - [LEAF] "0"
-                  - [LEAF] ""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{crmAPI var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'crmAPI var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0'
+        - 0: [blockname] 'crmAPI'
+            - 0: [bareword] 'crmAPI'
+                - 0: 'crmAPI'
+        - 1: [list] ' var='caseStatusNames' entity='Case' action='getoptions' option_limit=0 field="case_status_id" context='validate' sequential=0'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' var='caseStatusNames''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'var='caseStatusNames''
+                    - 0: [bareword] 'var'
+                        - 0: 'var'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='caseStatusNames''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''caseStatusNames''
+                            - 0: [datum] ''caseStatusNames''
+                                - 0: ''caseStatusNames''
+                            - 1: [list:modifier] ''
+            - 1: [&choices/XXXXXXXXXXXXXXXX] ' entity='Case''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'entity='Case''
+                    - 0: [bareword] 'entity'
+                        - 0: 'entity'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='Case''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''Case''
+                            - 0: [datum] ''Case''
+                                - 0: ''Case''
+                            - 1: [list:modifier] ''
+            - 2: [&choices/XXXXXXXXXXXXXXXX] ' action='getoptions''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'action='getoptions''
+                    - 0: [bareword] 'action'
+                        - 0: 'action'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='getoptions''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''getoptions''
+                            - 0: [datum] ''getoptions''
+                                - 0: ''getoptions''
+                            - 1: [list:modifier] ''
+            - 3: [&choices/XXXXXXXXXXXXXXXX] ' option_limit=0'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'option_limit=0'
+                    - 0: [bareword] 'option_limit'
+                        - 0: 'option_limit'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '=0'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '0'
+                            - 0: [datum] '0'
+                                - 0: [number] '0'
+                                    - 0: [list:/\d/] '0'
+                                        - 0: '0'
+                                    - 1: ''
+                            - 1: [list:modifier] ''
+            - 4: [&choices/XXXXXXXXXXXXXXXX] ' field="case_status_id"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'field="case_status_id"'
+                    - 0: [bareword] 'field'
+                        - 0: 'field'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="case_status_id"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"case_status_id"'
+                            - 0: [datum] '"case_status_id"'
+                                - 0: '"case_status_id"'
+                            - 1: [list:modifier] ''
+            - 5: [&choices/XXXXXXXXXXXXXXXX] ' context='validate''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'context='validate''
+                    - 0: [bareword] 'context'
+                        - 0: 'context'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='validate''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''validate''
+                            - 0: [datum] ''validate''
+                                - 0: ''validate''
+                            - 1: [list:modifier] ''
+            - 6: [&choices/XXXXXXXXXXXXXXXX] ' sequential=0'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'sequential=0'
+                    - 0: [bareword] 'sequential'
+                        - 0: 'sequential'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '=0'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '0'
+                            - 0: [datum] '0'
+                                - 0: [number] '0'
+                                    - 0: [list:/\d/] '0'
+                                        - 0: '0'
+                                    - 1: ''
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

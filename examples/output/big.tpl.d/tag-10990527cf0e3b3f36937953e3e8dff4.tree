@@ -1,92 +1,92 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "crmAPI"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "var"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'caseTypes'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "entity"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'CaseType'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "action"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'get'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "option_limit"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - number:0
-                  - list:/\d/
-                    - [LEAF] "0"
-                  - [LEAF] ""
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "sequential"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - number:0
-                  - list:/\d/
-                    - [LEAF] "0"
-                  - [LEAF] ""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0'
+        - 0: [blockname] 'crmAPI'
+            - 0: [bareword] 'crmAPI'
+                - 0: 'crmAPI'
+        - 1: [list] ' var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' var='caseTypes''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'var='caseTypes''
+                    - 0: [bareword] 'var'
+                        - 0: 'var'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='caseTypes''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''caseTypes''
+                            - 0: [datum] ''caseTypes''
+                                - 0: ''caseTypes''
+                            - 1: [list:modifier] ''
+            - 1: [&choices/XXXXXXXXXXXXXXXX] ' entity='CaseType''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'entity='CaseType''
+                    - 0: [bareword] 'entity'
+                        - 0: 'entity'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='CaseType''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''CaseType''
+                            - 0: [datum] ''CaseType''
+                                - 0: ''CaseType''
+                            - 1: [list:modifier] ''
+            - 2: [&choices/XXXXXXXXXXXXXXXX] ' action='get''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'action='get''
+                    - 0: [bareword] 'action'
+                        - 0: 'action'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='get''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''get''
+                            - 0: [datum] ''get''
+                                - 0: ''get''
+                            - 1: [list:modifier] ''
+            - 3: [&choices/XXXXXXXXXXXXXXXX] ' option_limit=0'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'option_limit=0'
+                    - 0: [bareword] 'option_limit'
+                        - 0: 'option_limit'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '=0'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '0'
+                            - 0: [datum] '0'
+                                - 0: [number] '0'
+                                    - 0: [list:/\d/] '0'
+                                        - 0: '0'
+                                    - 1: ''
+                            - 1: [list:modifier] ''
+            - 4: [&choices/XXXXXXXXXXXXXXXX] ' sequential=0'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'sequential=0'
+                    - 0: [bareword] 'sequential'
+                        - 0: 'sequential'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '=0'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '0'
+                            - 0: [datum] '0'
+                                - 0: [number] '0'
+                                    - 0: [list:/\d/] '0'
+                                        - 0: '0'
+                                    - 1: ''
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

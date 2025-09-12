@@ -1,41 +1,41 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "show"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "foo"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "'100'"
-              - list:modifier
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "bar"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"200\""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{show foo='100' bar="200"}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'show foo='100' bar="200"'
+        - 0: [blockname] 'show'
+            - 0: [bareword] 'show'
+                - 0: 'show'
+        - 1: [list] ' foo='100' bar="200"'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' foo='100''
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'foo='100''
+                    - 0: [bareword] 'foo'
+                        - 0: 'foo'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '='100''
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] ''100''
+                            - 0: [datum] ''100''
+                                - 0: ''100''
+                            - 1: [list:modifier] ''
+            - 1: [&choices/XXXXXXXXXXXXXXXX] ' bar="200"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'bar="200"'
+                    - 0: [bareword] 'bar'
+                        - 0: 'bar'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="200"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"200"'
+                            - 0: [datum] '"200"'
+                                - 0: '"200"'
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

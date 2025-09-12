@@ -1,11 +1,11 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "ts"
-    - list:
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{ts}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'ts'
+        - 0: [blockname] 'ts'
+            - 0: [bareword] 'ts'
+                - 0: 'ts'
+        - 1: [list] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'

@@ -1,32 +1,33 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:condition
-    - [LEAF] "if"
-    - sp:0
-      - list:/\r\n|\n\r|\n|\r|\s|\t/
-        - [LEAF] " "
-    - expression:condition
-      - condition:name
-        - expression:datum
-          - datum:0
-            - variable:0
-              - [LEAF] "$"
-              - bareword:0
-                - [LEAF] "context"
-              - list:
-          - list:modifier
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - operator_2_bool_name:0
-          - [LEAF] "ne"
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - expression:datum
-          - datum:0
-            - [LEAF] "'caseActivity'"
-          - list:modifier
-  - close:0
-    - [LEAF] "}"
+- [start] '{if $context ne 'caseActivity'}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:condition] 'if $context ne 'caseActivity''
+        - 0: 'if'
+        - 1: [sp] ' '
+            - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                - 0: ' '
+        - 2: [expression:condition] '$context ne 'caseActivity''
+            - 0: [condition:name] '$context ne 'caseActivity''
+                - 0: [expression:datum] '$context'
+                    - 0: [datum] '$context'
+                        - 0: [variable] '$context'
+                            - 0: '$'
+                            - 1: [bareword] 'context'
+                                - 0: 'context'
+                            - 2: [list] ''
+                    - 1: [list:modifier] ''
+                - 1: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 2: [operator_2_bool_name] 'ne'
+                    - 0: 'ne'
+                - 3: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 4: [expression:datum] ''caseActivity''
+                    - 0: [datum] ''caseActivity''
+                        - 0: ''caseActivity''
+                    - 1: [list:modifier] ''
+        - 3: ''
+    - 2: [close] '}'
+        - 0: '}'

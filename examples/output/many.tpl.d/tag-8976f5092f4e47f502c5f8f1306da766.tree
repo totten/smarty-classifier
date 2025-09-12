@@ -1,15 +1,15 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "var"
-          - list:
-      - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$var}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$var'
+        - 0: [expression:datum] '$var'
+            - 0: [datum] '$var'
+                - 0: [variable] '$var'
+                    - 0: '$'
+                    - 1: [bareword] 'var'
+                        - 0: 'var'
+                    - 2: [list] ''
+            - 1: [list:modifier] ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

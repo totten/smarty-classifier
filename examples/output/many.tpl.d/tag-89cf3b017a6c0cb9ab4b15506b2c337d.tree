@@ -1,43 +1,43 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "var"
-          - list:
-      - list:modifier
-        - modifier:0
-          - [LEAF] "|"
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - [LEAF] ""
-          - bareword:0
-            - [LEAF] "json_encode"
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-          - list:modifier_attribute
-            - modifier_attribute:0
-              - [LEAF] ":"
-              - list:/\r\n|\n\r|\n|\r|\s|\t/
-              - expression:datum
-                - datum:0
-                  - number:0
-                    - list:/\d/
-                      - [LEAF] "1"
-                      - [LEAF] "6"
-                    - [LEAF] ""
-                - list:modifier
-                  - modifier:0
-                    - [LEAF] "|"
-                    - list:/\r\n|\n\r|\n|\r|\s|\t/
-                    - [LEAF] ""
-                    - bareword:0
-                      - [LEAF] "escape"
-                    - list:/\r\n|\n\r|\n|\r|\s|\t/
-                    - list:modifier_attribute
-              - list:/\r\n|\n\r|\n|\r|\s|\t/
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$var|json_encode:16|escape}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$var|json_encode:16|escape'
+        - 0: [expression:datum] '$var|json_encode:16|escape'
+            - 0: [datum] '$var'
+                - 0: [variable] '$var'
+                    - 0: '$'
+                    - 1: [bareword] 'var'
+                        - 0: 'var'
+                    - 2: [list] ''
+            - 1: [list:modifier] '|json_encode:16|escape'
+                - 0: [modifier] '|json_encode:16|escape'
+                    - 0: '|'
+                    - 1: ''
+                    - 2: ''
+                    - 3: [bareword] 'json_encode'
+                        - 0: 'json_encode'
+                    - 4: ''
+                    - 5: [list:modifier_attribute] ':16|escape'
+                        - 0: [modifier_attribute] ':16|escape'
+                            - 0: ':'
+                            - 1: ''
+                            - 2: [expression:datum] '16|escape'
+                                - 0: [datum] '16'
+                                    - 0: [number] '16'
+                                        - 0: [list:/\d/] '16'
+                                            - 0: '1'
+                                            - 1: '6'
+                                        - 1: ''
+                                - 1: [list:modifier] '|escape'
+                                    - 0: [modifier] '|escape'
+                                        - 0: '|'
+                                        - 1: ''
+                                        - 2: ''
+                                        - 3: [bareword] 'escape'
+                                            - 0: 'escape'
+                                        - 4: ''
+                                        - 5: [list:modifier_attribute] ''
+                            - 3: ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

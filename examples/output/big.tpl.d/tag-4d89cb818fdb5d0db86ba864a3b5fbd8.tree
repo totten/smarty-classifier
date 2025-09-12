@@ -1,20 +1,20 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:expression
-    - expression:datum
-      - datum:0
-        - variable:0
-          - [LEAF] "$"
-          - bareword:0
-            - [LEAF] "form"
-          - list:
-            - &choices/XXXXXXXXXXXXXXXX
-              - [LEAF] "."
-              - datum:0
-                - bareword:0
-                  - [LEAF] "formClass"
-      - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{$form.formClass}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:expression] '$form.formClass'
+        - 0: [expression:datum] '$form.formClass'
+            - 0: [datum] '$form.formClass'
+                - 0: [variable] '$form.formClass'
+                    - 0: '$'
+                    - 1: [bareword] 'form'
+                        - 0: 'form'
+                    - 2: [list] '.formClass'
+                        - 0: [&choices/XXXXXXXXXXXXXXXX] '.formClass'
+                            - 0: '.'
+                            - 1: [datum] 'formClass'
+                                - 0: [bareword] 'formClass'
+                                    - 0: 'formClass'
+            - 1: [list:modifier] ''
+        - 1: ''
+    - 2: [close] '}'
+        - 0: '}'

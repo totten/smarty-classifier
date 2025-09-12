@@ -1,26 +1,26 @@
-- start:0
-  - open:0
-    - [LEAF] "{"
-  - tag:block_open
-    - blockname:0
-      - bareword:0
-        - [LEAF] "show"
-    - list:
-      - &choices/XXXXXXXXXXXXXXXX
-        - sp:0
-          - list:/\r\n|\n\r|\n|\r|\s|\t/
-            - [LEAF] " "
-        - attribute:0
-          - bareword:0
-            - [LEAF] "foo"
-          - &choices/XXXXXXXXXXXXXXXX
-            - list:sp
-            - [LEAF] "="
-            - list:sp
-            - expression:datum
-              - datum:0
-                - [LEAF] "\"bar\""
-              - list:modifier
-    - [LEAF] ""
-  - close:0
-    - [LEAF] "}"
+- [start] '{show foo="bar"}'
+    - 0: [open] '{'
+        - 0: '{'
+    - 1: [tag:block_open] 'show foo="bar"'
+        - 0: [blockname] 'show'
+            - 0: [bareword] 'show'
+                - 0: 'show'
+        - 1: [list] ' foo="bar"'
+            - 0: [&choices/XXXXXXXXXXXXXXXX] ' foo="bar"'
+                - 0: [sp] ' '
+                    - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
+                        - 0: ' '
+                - 1: [attribute] 'foo="bar"'
+                    - 0: [bareword] 'foo'
+                        - 0: 'foo'
+                    - 1: [&choices/XXXXXXXXXXXXXXXX] '="bar"'
+                        - 0: [list:sp] ''
+                        - 1: '='
+                        - 2: [list:sp] ''
+                        - 3: [expression:datum] '"bar"'
+                            - 0: [datum] '"bar"'
+                                - 0: '"bar"'
+                            - 1: [list:modifier] ''
+        - 2: ''
+    - 2: [close] '}'
+        - 0: '}'
