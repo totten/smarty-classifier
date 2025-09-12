@@ -4,6 +4,10 @@ namespace Civi\SmartyUp\Advisor;
 
 interface AdviceListener {
 
-  public function add(string $status, string $message, string $tagString, $suggest = NULL): void;
+  public function addOk(string $message, string $tagString): void;
+
+  public function addSuggestion(string $message, string $original, array $replacements): void;
+
+  public function addProblem(string $message, string $original): void;
 
 }

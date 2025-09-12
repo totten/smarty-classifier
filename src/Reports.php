@@ -55,8 +55,9 @@ class Reports {
       foreach ($items as $item) {
         $buffer .= "- TAG: `" . $item['tag'] . "`\n";
         if (!empty($item['suggest'])) {
-          if (is_string($item['suggest'])) {
-            $buffer .= "  SUGGEST: " . $item['suggest'] . "\n";
+          $suggests = (array) $item['suggest'];
+          if (count($suggests) === 1) {
+            $buffer .= "  SUGGEST: " . $item['suggest'][0] . "\n";
           }
           elseif (is_array($item['suggest'])) {
             foreach ($item['suggest'] as $n => $suggest) {
