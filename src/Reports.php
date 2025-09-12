@@ -40,7 +40,7 @@ class Reports {
 
   public static function advisor(StyleInterface $output, Root $parsed): void {
     $advice = new AdviceCollector();
-    $advisor = new Advisor($advice);
+    $advisor = new Advisor([$advice, 'addAdvice']);
     $advisor->scanDocument($parsed);
 
     $statuses = $advice->getDistinct('message');

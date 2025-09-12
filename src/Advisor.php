@@ -2,7 +2,7 @@
 
 namespace Civi\SmartyUp;
 
-use Civi\SmartyUp\Advisor\AdviceListener;
+use Civi\SmartyUp\Advisor\Advice\Advice;
 use Civi\SmartyUp\Advisor\Advice\AdviceOk;
 use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
 use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
@@ -10,13 +10,17 @@ use ParserGenerator\SyntaxTreeNode\Branch;
 
 class Advisor {
 
-  protected AdviceListener $adviceListener;
+  protected $adviceListener;
 
   /**
-   * @param \Civi\SmartyUp\Advisor\AdviceListener $listener
+   * @param callable $listener
    */
-  public function __construct(AdviceListener $listener) {
+  public function __construct(callable $listener) {
     $this->adviceListener = $listener;
+  }
+
+  protected function add(Advice $advice): void {
+    call_user_func($this->adviceListener, $advice);
   }
 
   public function scanString(string $content): void {
@@ -30,7 +34,7 @@ class Advisor {
       $tagString = (string) $stanza;
       $parsedTag = $tagParser->parse($tagString);
       if (empty($parsedTag)) {
-        $this->adviceListener->addAdvice(new AdviceProblem('PROBLEM: Unparsable tag', $tagString));
+        $this->add(new AdviceProblem('PROBLEM: Unparsable tag', $tagString));
       }
       else {
         $this->scanTag($tagString, $parsedTag);
@@ -46,7 +50,7 @@ class Advisor {
    */
   protected function scanTag(string $tagString, \ParserGenerator\SyntaxTreeNode\Root $parsedTag): void {
     if ($parsedTag->findFirst('tag:condition')) {
-      $this->adviceListener->addAdvice(new AdviceOk('OK', $tagString));
+      $this->add(new AdviceOk('OK', $tagString));
     }
     elseif ($parsedTag->findFirst('tag:block_close')) {
       // It's OK, and it's trivial. Don't bother recording...
@@ -58,7 +62,7 @@ class Advisor {
       $this->scanBlockTag($tagString, $parsedTag);
     }
     else {
-      $this->adviceListener->addAdvice(new AdviceProblem('PROBLEM: Unrecognized tag contents', $tagString));
+      $this->add(new AdviceProblem('PROBLEM: Unrecognized tag contents', $tagString));
     }
   }
 
@@ -76,14 +80,14 @@ class Advisor {
     // The basic rule is... for transition period, everything needs "nofilter".
 
     if ($parsedTag->findFirst('nofilter')) {
-      $this->adviceListener->addAdvice(new AdviceOk('OK', $tagString));
+      $this->add(new AdviceOk('OK', $tagString));
       return;
     }
 
     // Convert '|smarty:nodefaults' to 'nofilter'
     if (str_contains($tagString, 'smarty:nodefaults')) {
       $suggest = preg_replace('/\|smarty:nodefaults\}$/', ' nofilter}', $tagString);
-      $this->adviceListener->addAdvice(new AdviceSuggestion('PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString, [$suggest]));
+      $this->add(new AdviceSuggestion('PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString, [$suggest]));
 
       return;
     }
@@ -91,15 +95,15 @@ class Advisor {
     // Can we figure out if this printing HTML data (e.g. `$form.my_button.html`) or text (e.g. `$api_result.display_name`)?
     if (str_starts_with($tagString, '{$form.')) {
       // This is clearly an HTML widget.
-      $this->adviceListener->addAdvice(new AdviceSuggestion('PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString, [$this->appendNofilter($tagString)]));
+      $this->add(new AdviceSuggestion('PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString, [$this->appendNofilter($tagString)]));
     }
     elseif (str_ends_with($tagString, '|escape}') || str_ends_with($tagString, '|escape:"html"}')) {
       // The data is already flagged as text. Preserve that. Add nofilter.
-      $this->adviceListener->addAdvice(new AdviceSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [$this->appendNofilter($tagString)]));
+      $this->add(new AdviceSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [$this->appendNofilter($tagString)]));
     }
     else {
       // The data is ambiguous. It could be HTML widget... or an integer... or free-form text...
-      $this->adviceListener->addAdvice(new AdviceSuggestion('PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:', $tagString, [
+      $this->add(new AdviceSuggestion('PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:', $tagString, [
         preg_replace('/}$/', ' nofilter}', $tagString),
         preg_replace('/}$/', '|escape nofilter}', $tagString),
       ]));
@@ -136,21 +140,21 @@ class Advisor {
       case 'icon':
       case 'include':
       case 'strip':
-        $this->adviceListener->addAdvice(new AdviceOk('OK', $tagString));
+        $this->add(new AdviceOk('OK', $tagString));
         return;
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $this->adviceListener->addAdvice(new AdviceProblem('WARNING: Block has printable, dynamic parameters', $tagString));
+          $this->add(new AdviceProblem('WARNING: Block has printable, dynamic parameters', $tagString));
         }
         else {
-          $this->adviceListener->addAdvice(new AdviceOk('OK', $tagString));
+          $this->add(new AdviceOk('OK', $tagString));
         }
         return;
 
       default:
-        $this->adviceListener->addAdvice(new AdviceProblem('WARNING: Unrecognized block', $tagString));
+        $this->add(new AdviceProblem('WARNING: Unrecognized block', $tagString));
         return;
     }
   }

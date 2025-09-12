@@ -7,7 +7,7 @@ use Civi\SmartyUp\Advisor\Advice\AdviceOk;
 use Civi\SmartyUp\Advisor\Advice\AdviceProblem;
 use Civi\SmartyUp\Advisor\Advice\AdviceSuggestion;
 
-class AdviceCollector implements AdviceListener {
+class AdviceCollector {
 
   public $results = [];
 
