@@ -1,14 +1,18 @@
 # Smarty-Up
 
-Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
+Scan Smarty templates and suggest updates.
+
+Note: This includes a parser to help analyze/transform Smarty code.  It is based
+on a quick-and-dirty interpretation of the Smarty grammar.  It may not be a
+perfect match to the real+current Smarty interpreter, but it's being
+developed against a large dataset, and it should be more accurate than
+improvised regex.
 
 ## Usage
 
 ```bash
 ## Install dependencies
 composer install
-
-## Print the parse-tree for a file
 
 ## Print the advice for a specific file
 ./bin/smartyup print-advice examples/input/many.tpl
