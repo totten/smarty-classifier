@@ -23,7 +23,7 @@ class PrintAdviceCommand extends Command {
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      $output->writeln(Reports::advisor($parsed));
+      Reports::advisor($output, $parsed);
       $output->writeln("");
     }
     return 0;

@@ -17,13 +17,13 @@ class ParseTagCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $content = trim(file_get_contents('php://stdin'));
 
-    $output->writeln("## Content");
+    $output->writeln("<info>## Content</info>");
     $output->writeln("$content\n");
 
-    $output->writeln("## Tree");
+    $output->writeln("<info>## Tree</info>");
     $parser = Services::createTagParser();
     $parsed = $parser->parse($content);
-    $output->writeln(Reports::tree($parsed));
+    Reports::tree($output, $parsed);
     $output->writeln("");
     return 0;
   }

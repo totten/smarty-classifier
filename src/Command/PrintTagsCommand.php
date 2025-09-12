@@ -22,7 +22,7 @@ class PrintTagsCommand extends Command {
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      $output->write(Reports::tags($parsed));
+      Reports::tags($output, $parsed);
     }
     return 0;
   }

@@ -22,7 +22,7 @@ class PrintStanzasCommand extends Command {
       $content = file_get_contents($file);
       $parser = Services::createTopParser();
       $parsed = $parser->parse($content);
-      $output->write(Reports::stanzas($parsed));
+      Reports::stanzas($output, $parsed);
     }
     return 0;
   }

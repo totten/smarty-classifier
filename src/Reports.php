@@ -2,9 +2,12 @@
 
 namespace Civi\SmartyUp;
 
+use Civi\SmartyUp\Console\FileHandleOutput;
+use Civi\SmartyUp\Console\StringOutput;
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;
 use ParserGenerator\SyntaxTreeNode\Root;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Reports {
 
@@ -15,7 +18,7 @@ class Reports {
     ];
   }
 
-  public static function stanzas(Root $parsed): string {
+  public static function stanzas(OutputInterface $output, Root $parsed): void {
     $buffer = '';
     foreach ($parsed->findAll('stanza') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
@@ -24,10 +27,10 @@ class Reports {
         $buffer .= "\n## " . $stanza->getType() . ":" . $stanza->getDetailType() . "\n" . (string) $stanza . "\n";
       }
     }
-    return $buffer;
+    $output->write($buffer);
   }
 
-  public static function tags(Root $parsed): string {
+  public static function tags(OutputInterface $output, Root $parsed): void {
     $buffer = '';
     foreach ($parsed->findAll('stanza:tag') as $k => $stanza) {
       /** @var \ParserGenerator\SyntaxTreeNode\Branch $stanza */
@@ -36,10 +39,10 @@ class Reports {
         $buffer .= (string) $stanza . "\n";
       }
     }
-    return $buffer;
+    $output->write($buffer);
   }
 
-  public static function advisor(Root $parsed): string {
+  public static function advisor(OutputInterface $output, Root $parsed): void {
     $advisor = new Advisor();
     $advisor->scanDocument($parsed);
 
@@ -67,40 +70,39 @@ class Reports {
       }
     }
 
-    return $buffer;
-
+    $output->write($buffer);
   }
 
-  public static function tree($parsed, string $prefix = ''): string {
-    $buffer = '';
-
+  public static function tree(OutputInterface $output, $parsed, string $prefix = ''): void {
     if ($parsed instanceof Branch) {
       $name = $parsed->getType() . ':' . $parsed->getDetailType();
       if (preg_match('/^&choices/', $name)) {
         $name = '&choices/XXXXXXXXXXXXXXXX';
       }
-      $buffer .= $prefix . "- " . $name . "\n";
+      $output->writeln($prefix . "- " . $name);
       foreach ($parsed->getSubnodes() as $subnode) {
-        $buffer .= static::tree($subnode, $prefix . '  ');
+        static::tree($output, $subnode, $prefix . '  ');
       }
     }
     elseif ($parsed instanceof Leaf) {
-      $buffer .= $prefix . "- [LEAF] " . json_encode($parsed->getContent()) . "\n";
+      $output->writeln($prefix . "- [LEAF] " . json_encode($parsed->getContent()));
     }
     else {
-      $buffer .= $prefix . "- [UNKNOWN]\n";
+      $output->writeln($prefix . "- [UNKNOWN]");
     }
-
-    return $buffer;
   }
 
   public static function writeFile(string $file, string $name, ...$args): void {
-    $content = call_user_func([static::class, $name], ...$args);
-    file_put_contents($file, $content);
+    $fh = fopen($file, 'w');
+    $output = new FileHandleOutput($fh);
+    call_user_func([static::class, $name], $output, ...$args);
+    fclose($fh);
   }
 
   public static function writeString(string $name, ...$args): string {
-    return call_user_func([static::class, $name], ...$args);
+    $output = new StringOutput();
+    call_user_func([static::class, $name], $output, ...$args);
+    return $output->flush();
   }
 
 }
