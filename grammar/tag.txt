@@ -45,4 +45,4 @@ variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 
 nofilter :=> "nofilter" .
 function_name :=> bareword .
-function_args :=> expression (sp? "," sp? expression)* .
+function_args :=> (sp? expression sp?)*"," .
