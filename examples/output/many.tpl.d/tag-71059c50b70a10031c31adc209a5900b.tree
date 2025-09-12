@@ -10,7 +10,7 @@
                 - 0: [sp] ' '
                     - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
                         - 0: ' '
-                - 1: [attribute] '1=$contact.display_name'
+                - 1: [block_attribute] '1=$contact.display_name'
                     - 0: [bareword] '1'
                         - 0: '1'
                     - 1: [&choices/XXXXXXXXXXXXXXXX] '=$contact.display_name'

@@ -10,7 +10,7 @@
                 - 0: [sp] ' '
                     - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
                         - 0: ' '
-                - 1: [attribute] 'foo="bar"'
+                - 1: [block_attribute] 'foo="bar"'
                     - 0: [bareword] 'foo'
                         - 0: 'foo'
                     - 1: [&choices/XXXXXXXXXXXXXXXX] '="bar"'

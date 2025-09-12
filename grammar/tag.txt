@@ -5,7 +5,7 @@ start :=> open tag close .
 
 tag
   :condition    => condition_verb sp expression sp?
-  :block_open   => blockname (sp attribute)* sp?
+  :block_open   => blockname (sp block_attribute)* sp?
   :block_close  => "/" blockname
   :expression   => expression (sp nofilter)?
   .
@@ -29,7 +29,7 @@ condition
 modifier  :=> "|" sp? "@"? bareword sp? modifier_attribute* .
 modifier_attribute :=> ":" sp? expression sp? .
 
-attribute :=> bareword (sp* "=" sp* expression)? .
+block_attribute :=> bareword (sp* "=" sp* expression)? .
 datum     :=> (variable | string | number | bareword) .
 ## The parser's built-in "string" type is doing a lot of lifting here -- it handles quoted strings.
 

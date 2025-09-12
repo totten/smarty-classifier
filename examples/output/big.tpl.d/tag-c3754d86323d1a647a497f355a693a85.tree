@@ -10,7 +10,7 @@
                 - 0: [sp] ' '
                     - 0: [list:/\r\n|\n\r|\n|\r|\s|\t/] ' '
                         - 0: ' '
-                - 1: [attribute] 'file="CRM/Form/attachment.tpl"'
+                - 1: [block_attribute] 'file="CRM/Form/attachment.tpl"'
                     - 0: [bareword] 'file'
                         - 0: 'file'
                     - 1: [&choices/XXXXXXXXXXXXXXXX] '="CRM/Form/attachment.tpl"'
