@@ -11,15 +11,15 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
 
-class ScanExamplesCommand extends Command {
+class DebugDumpCommand extends Command {
 
   protected function configure() {
     $prj = dirname(dirname(__DIR__));
     $inDir = "$prj/examples/input";
     $outDir = "$prj/examples/output";
 
-    $this->setName('scan')
-      ->setDescription('Scan a tree with TPL files and generate reports for all of them')
+    $this->setName('debug:dump')
+      ->setDescription('Scan a tree with TPL files. Write a set of report-files.')
       ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
       ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir)
       ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl')

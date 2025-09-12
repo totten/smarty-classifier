@@ -9,10 +9,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PrintAdviceCommand extends Command {
+class DebugAdvisorCommand extends Command {
 
   protected function configure() {
-    $this->setName('print-advice')
+    $this->setName('debug:advisor')
       ->setDescription('Print advice for a list of tpl files')
       ->addArgument('files', InputArgument::IS_ARRAY, 'The tpl files to process');
   }

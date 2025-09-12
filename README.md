@@ -15,7 +15,7 @@ improvised regex.
 composer install
 
 ## Print the advice for a specific file
-./bin/smartyup print-advice examples/input/many.tpl
+./bin/smartyup debug:advisor examples/input/many.tpl
 
 ## Print the parse-tree for a block of text
 echo 'Hello {$name}' | ./bin/smartyup parse
@@ -24,16 +24,16 @@ echo 'Hello {$name}' | ./bin/smartyup parse
 ./bin/smartyup parse < examples/input/greeter.tpl
 
 ## Deeply inspect the tree of examples
-./bin/smartyup scan
+./bin/smartyup debug:dump
 
 ## Deeply inspect the tree in civicrm
 XDEBUG_MODE=off php -d memory_limit=2g \
-  ./bin/smartyup scan -i /var/www/web/core/templates -o /tmp/scan-results
+  ./bin/smartyup debug:dump -i /var/www/web/core/templates -o /tmp/scan-results
 ```
 
 ## Advice
 
-At the moment, the `print-advice` script will analyze file and report on the
+At the moment, the `debug:advisor` script will analyze file and report on the
 Smarty "tags" (`{...}` blocks).  It will identify blocks which appear safe,
 problematic, or unsure.
 
@@ -87,7 +87,7 @@ to reflect new output, but it will not be kept strictly up-to-date.
 (*No particular order*)
 
 * Fix PHP 8.2 warning in upstream project (`farafiri/php-parsing-tool`)
-* `print-advice`
+* `debug:advisor`
     * Run against a larger data-set. Inspect advice. Fine-tune rules.
     * Generate and apply suggested revisions.
 * Grammar

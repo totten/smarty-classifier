@@ -12,8 +12,8 @@ function print_h1() {
 
 EXAMPLE_FILE=examples/input/greeter.tpl
 
-print_h1 print-advice
-./bin/smartyup print-advice "$EXAMPLE_FILE"
+print_h1 debug:advisor
+./bin/smartyup debug:advisor "$EXAMPLE_FILE"
 
 print_h1 debug:stanzas
 ./bin/smartyup debug:stanzas "$EXAMPLE_FILE"
@@ -24,5 +24,5 @@ print_h1 debug:tags
 print_h1 parse
 echo '{$name|smarty:nodefaults}' | ./bin/smartyup parse
 
-print_h1 scan
-./bin/smartyup scan
+print_h1 debug:dump
+./bin/smartyup debug:dump
