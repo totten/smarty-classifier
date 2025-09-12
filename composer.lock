@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b2bbe5366325a597027e998127dd8fe",
+    "content-hash": "15bec7d3f24359b74d082e9afaac8eeb",
     "packages": [
         {
             "name": "farafiri/php-parsing-tool",
@@ -272,7 +272,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "~8.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-pcntl": "*"
     },
     "platform-dev": {},
     "platform-overrides": {

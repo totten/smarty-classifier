@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Civi\\SmartyClassifier\\": "src/"
+            "Civi\\SmartyUp\\": "src/"
         }
     },
     "config": {

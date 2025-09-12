@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-namespace Civi\SmartyClassifier;
+namespace Civi\SmartyUp;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 

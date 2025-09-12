@@ -1,4 +1,4 @@
-# Smarty Classifier
+# Smarty-Up
 
 Quick and dirty example of parsing Smarty TPL files and obtaining an AST.
 

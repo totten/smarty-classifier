@@ -17,4 +17,4 @@ if (!isset($loader)) {
 }
 
 #### Extra - Register classes in "tests" directory
-$loader->addPsr4('Civi\\SmartyClassifier\\', __DIR__);
+$loader->addPsr4('Civi\\SmartyUp\\', __DIR__);

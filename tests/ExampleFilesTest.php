@@ -1,6 +1,6 @@
 <?php
 
-namespace Civi\SmartyClassifier;
+namespace Civi\SmartyUp;
 
 use PHPUnit\Framework\TestCase;
 

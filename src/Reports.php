@@ -1,6 +1,6 @@
 <?php
 
-namespace Civi\SmartyClassifier;
+namespace Civi\SmartyUp;
 
 use ParserGenerator\SyntaxTreeNode\Branch;
 use ParserGenerator\SyntaxTreeNode\Leaf;

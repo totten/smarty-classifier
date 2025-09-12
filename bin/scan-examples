@@ -3,7 +3,7 @@
 
 // Usage: ./bin/scan-examples [<input-dir> <output-dir>]
 
-namespace Civi\SmartyClassifier;
+namespace Civi\SmartyUp;
 
 use Symfony\Component\Finder\Finder;
 
