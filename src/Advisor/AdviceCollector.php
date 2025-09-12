@@ -13,17 +13,17 @@ class AdviceCollector implements AdviceListener {
 
   public function addAdvice(Advice $advice): void {
     if ($advice instanceof AdviceOk) {
-      $this->add('ok', $advice->getMessage(), $advice->getTagString());
+      $this->add('ok', $advice->getMessage(), $advice->getTag());
     }
     elseif ($advice instanceof AdviceProblem) {
-      $this->add('problem', $advice->getMessage(), $advice->getOriginal());
+      $this->add('problem', $advice->getMessage(), $advice->getTag());
     }
     elseif ($advice instanceof AdviceSuggestion) {
-      if ($advice->getReplacements() === [$advice->getOriginal()] || empty($advice->getReplacements())) {
-        $this->add('problem', $advice->getMessage(), $advice->getOriginal());
+      if ($advice->getReplacements() === [$advice->getTag()] || empty($advice->getReplacements())) {
+        $this->add('problem', $advice->getMessage(), $advice->getTag());
       }
       else {
-        $this->add('suggestion', $advice->getMessage(), $advice->getOriginal(), $advice->getReplacements());
+        $this->add('suggestion', $advice->getMessage(), $advice->getTag(), $advice->getReplacements());
       }
     }
   }
