@@ -3,17 +3,21 @@
 namespace Civi\SmartyUp\Rule;
 
 use Civi\SmartyUp\Advisor\Advice;
-use ParserGenerator\SyntaxTreeNode\Branch;
+use Civi\SmartyUp\CheckTagEvent;
 
 /**
  * Any blocks like {my_block foo=$bar} should have a recognized block-name.
  */
 class KnownBlockTag {
 
-  public function scanBlockTag(Branch $parsedTag): array {
-    $tagString = (string) $parsedTag;
+  public function checkTag(CheckTagEvent $checkTag): void {
+    if (!$checkTag->isTagType('block_open') && !$checkTag->isTagType('block_close')) {
+      return;
+    }
 
-    $blockName = $parsedTag->findFirst('block_name');
+    $tagString = (string) $checkTag->tag;
+
+    $blockName = $checkTag->tag->findFirst('block_name');
     switch ($blockName) {
       case 'assign':
       case 'capture':
@@ -27,21 +31,21 @@ class KnownBlockTag {
       case 'foreach':
       case 'help':
       case 'icon':
+      case 'if':
       case 'include':
       case 'strip':
-        return [];
+        return;
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          return [Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString)];
+          $checkTag->advices[] = Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString);
         }
-        else {
-          return [];
-        }
+        return;
 
       default:
-        return [Advice::createProblem('WARNING: Unrecognized block', $tagString)];
+        $checkTag->advices[] = Advice::createProblem('WARNING: Unrecognized block', $tagString);
+        return;
     }
   }
 
