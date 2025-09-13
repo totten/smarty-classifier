@@ -26,3 +26,4 @@
 {* Function                           *}  {if !empty($data)}{/if}
 {* Math!                              *}  {$var + 2}
 {* Math!                              *}  {if $foo * 2 > 13.5}
+{* Malformed                          *}  {-malformed-}

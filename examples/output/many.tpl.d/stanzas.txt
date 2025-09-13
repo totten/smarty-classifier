@@ -190,3 +190,9 @@ Hello %1
 
 ## stanza:tag
 {if $foo * 2 > 13.5}
+
+## stanza:comment
+{* Malformed*}
+
+## stanza:tag
+{-malformed-}
