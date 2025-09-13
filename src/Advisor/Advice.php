@@ -8,7 +8,7 @@ class Advice {
    * @var string|null
    *   'ok' or 'problem' or 'suggestion'
    */
-  protected $outcome = NULL;
+  protected $type = NULL;
 
   protected string $message;
 
@@ -30,9 +30,10 @@ class Advice {
     return $result;
   }
 
-  public function __construct(string $message, string $tag, ?string $outcome = NULL) {
+  public function __construct(string $message, string $tag, ?string $type = NULL) {
     $this->message = $message;
     $this->tag = $tag;
+    $this->type = $type;
   }
 
   public function getMessage(): string {
@@ -46,8 +47,8 @@ class Advice {
   /**
    * @return null
    */
-  public function getOutcome() {
-    return $this->outcome;
+  public function getType() {
+    return $this->type;
   }
 
   public function getId(): string {

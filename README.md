@@ -14,16 +14,19 @@ improvised regex.
 ## Install dependencies
 composer install
 
-## Print the advice for a specific file
-./bin/smartyup debug:advisor examples/input/many.tpl
+## Interactievly review/update a file
+./bin/smartyup run examples/input/many.tpl
 
-## Print the parse-tree for a block of text
-echo 'Hello {$name}' | ./bin/smartyup parse
+## Print the advisor's report for a specific file
+./bin/smartyup debug:advisor examples/input/many.tpl
 
 ## Print the parse-tree for file
 ./bin/smartyup parse examples/input/greeter.tpl
 
-## Deeply inspect the tree of examples
+## Print the parse-tree for a block of text
+echo 'Hello {$name}' | ./bin/smartyup parse
+
+## Deeply inspect the tree of example files
 ./bin/smartyup debug:dump
 
 ## Deeply inspect the tree in civicrm
