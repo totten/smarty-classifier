@@ -89,12 +89,12 @@ class RunCommand extends Command {
       $io->newLine();
 
       $okGroups = Arrays::groupBy($buckets['ok'], fn($a) => $a->getTag());
+      ksort($okGroups);
       $rows = [];
       foreach ($okGroups as $tag => $advices) {
         $rows[] = ['<info>' . count($advices) . 'x</info>', "<comment>$tag</comment>"];
       }
       $io->table(['', 'Tag'], $rows);
-      // $io->listing(array_map(fn($a) => '<info>OK</info>: ' . $a->getTag(), $buckets['ok']));
       $this->promptContinue();
     }
 
