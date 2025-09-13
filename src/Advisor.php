@@ -4,8 +4,9 @@ namespace Civi\SmartyUp;
 
 use Civi\SmartyUp\Advisor\Advice;
 use Civi\SmartyUp\Rule\ExpressionEscaping;
-use Civi\SmartyUp\Rule\KnownBlockTag;
-use Civi\SmartyUp\Rule\KnownTagType;
+use Civi\SmartyUp\Rule\PrintedArgs;
+use Civi\SmartyUp\Rule\UnknownBlock;
+use Civi\SmartyUp\Rule\UnknownTagType;
 use Civi\SmartyUp\Rule\UnparsedTag;
 
 class Advisor {
@@ -52,8 +53,9 @@ class Advisor {
 
     $rules = [
       [new UnparsedTag(), 'checkTag'],
-      [new KnownBlockTag(), 'checkTag'],
-      [new KnownTagType(), 'checkTag'],
+      [new UnknownTagType(), 'checkTag'],
+      [new UnknownBlock(), 'checkTag'],
+      [new PrintedArgs(), 'checkTag'],
       [new ExpressionEscaping(), 'checkTag'],
     ];
     foreach ($rules as $rule) {

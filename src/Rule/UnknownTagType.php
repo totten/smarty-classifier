@@ -8,7 +8,7 @@ use Civi\SmartyUp\CheckTagEvent;
 /**
  *
  */
-class KnownTagType {
+class UnknownTagType {
 
   public function checkTag(CheckTagEvent $checkTag): void {
     $tagType = $checkTag->getTagType();

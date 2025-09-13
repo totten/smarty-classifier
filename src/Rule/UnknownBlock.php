@@ -8,14 +8,12 @@ use Civi\SmartyUp\CheckTagEvent;
 /**
  * Any blocks like {my_block foo=$bar} should have a recognized block-name.
  */
-class KnownBlockTag {
+class UnknownBlock {
 
   public function checkTag(CheckTagEvent $checkTag): void {
     if (!$checkTag->isTagType('block_open') && !$checkTag->isTagType('block_close')) {
       return;
     }
-
-    $tagString = (string) $checkTag->tag;
 
     $blockName = $checkTag->tag->findFirst('block_name');
     switch ($blockName) {
@@ -27,6 +25,7 @@ class KnownBlockTag {
       case 'crmURL':
       case 'cycle':
       case 'continue':
+      case 'docURL':
       case 'else':
       case 'foreach':
       case 'help':
@@ -34,17 +33,11 @@ class KnownBlockTag {
       case 'if':
       case 'include':
       case 'strip':
-        return;
-
-      case 'docURL':
       case 'ts':
-        if (str_contains($tagString, '$')) {
-          $checkTag->advices[] = Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString);
-        }
         return;
 
       default:
-        $checkTag->advices[] = Advice::createProblem('WARNING: Unrecognized block', $tagString);
+        $checkTag->advices[] = Advice::createProblem('WARNING: Unrecognized block', (string) $checkTag->tag);
         return;
     }
   }
