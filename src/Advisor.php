@@ -13,11 +13,20 @@ class Advisor {
 
   protected $adviceListener;
 
+  protected array $rules;
+
   /**
    * @param callable $listener
    */
   public function __construct(callable $listener) {
     $this->adviceListener = $listener;
+    $this->rules = [
+      [new UnparsedTag(), 'checkTag'],
+      [new UnknownTagType(), 'checkTag'],
+      [new UnknownBlock(), 'checkTag'],
+      [new PrintedArgs(), 'checkTag'],
+      [new ExpressionEscaping(), 'checkTag'],
+    ];
   }
 
   public function add(?Advice $advice): void {
@@ -51,14 +60,7 @@ class Advisor {
   protected function scanTag(string $originalTag, $parsedTag): array {
     $checkTag = new CheckTagEvent($originalTag, $parsedTag);
 
-    $rules = [
-      [new UnparsedTag(), 'checkTag'],
-      [new UnknownTagType(), 'checkTag'],
-      [new UnknownBlock(), 'checkTag'],
-      [new PrintedArgs(), 'checkTag'],
-      [new ExpressionEscaping(), 'checkTag'],
-    ];
-    foreach ($rules as $rule) {
+    foreach ($this->rules as $rule) {
       $rule($checkTag);
     }
 
