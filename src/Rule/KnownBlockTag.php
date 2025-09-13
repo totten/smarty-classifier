@@ -10,7 +10,7 @@ use ParserGenerator\SyntaxTreeNode\Branch;
  */
 class KnownBlockTag {
 
-  public function scanBlockTag(Branch $parsedTag, $add) {
+  public function scanBlockTag(Branch $parsedTag): array {
     $tagString = (string) $parsedTag;
 
     $blockName = $parsedTag->findFirst('block_name');
@@ -29,22 +29,19 @@ class KnownBlockTag {
       case 'icon':
       case 'include':
       case 'strip':
-        $add(Advice::createOK('OK', $tagString));
-        return;
+        return [];
 
       case 'docURL':
       case 'ts':
         if (str_contains($tagString, '$')) {
-          $add(Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString));
+          return [Advice::createProblem('WARNING: Block has printable, dynamic parameters', $tagString)];
         }
         else {
-          $add(Advice::createOK('OK', $tagString));
+          return [];
         }
-        return;
 
       default:
-        $add(Advice::createProblem('WARNING: Unrecognized block', $tagString));
-        return;
+        return [Advice::createProblem('WARNING: Unrecognized block', $tagString)];
     }
   }
 
