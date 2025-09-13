@@ -45,6 +45,7 @@ class Reports {
     $advisor->scanDocument($parsed);
 
     $statuses = $advice->getDistinctMessages();
+    sort($statuses);
     $buffer = '';
     foreach ($statuses as $message) {
       $items = $advice->filter(fn(Advice $a) => $a->getMessage() === $message);
