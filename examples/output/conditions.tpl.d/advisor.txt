@@ -1,6 +1,7 @@
 
-## OK
+## OK: No errors reported
 - TAG: `{if $foo.bar}`
+- TAG: `{/if}`
 - TAG: `{if 123 == 123}`
 - TAG: `{if $foo eq 456}`
 - TAG: `{if $foo == 123}`

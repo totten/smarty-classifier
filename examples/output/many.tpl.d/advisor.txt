@@ -1,4 +1,16 @@
 
+## OK: No errors reported
+- TAG: `{$var nofilter}`
+- TAG: `{$var|@json_encode nofilter}`
+- TAG: `{$var|json_encode:16|escape nofilter}`
+- TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
+- TAG: `{ts}`
+- TAG: `{/ts}`
+- TAG: `{ts 1="Bob"}`
+- TAG: `{if !empty($data)}`
+- TAG: `{/if}`
+- TAG: `{if $foo * 2 > 13.5}`
+
 ## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
 - TAG: `{$var}`
   SUGGEST #1: `{$var nofilter}`
@@ -16,19 +28,15 @@
   SUGGEST #1: `{$var + 2 nofilter}`
   SUGGEST #2: `{$var + 2|escape nofilter}`
 
-## OK
-- TAG: `{$var nofilter}`
-- TAG: `{$var|@json_encode nofilter}`
-- TAG: `{$var|json_encode:16|escape nofilter}`
-- TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
-- TAG: `{ts}`
-- TAG: `{ts 1="Bob"}`
-- TAG: `{if !empty($data)}`
-- TAG: `{if $foo * 2 > 13.5}`
-
 ## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
 - TAG: `{$var|json_encode:16|escape}`
   SUGGEST: {$var|json_encode:16|escape nofilter}
+
+## PROBLEM: Unparsable tag
+- TAG: `{-malformed-}`
+
+## WARNING: Block has printable, dynamic parameters
+- TAG: `{ts 1=$contact.display_name}`
 
 ## WARNING: Unrecognized block
 - TAG: `{show}`
@@ -36,6 +44,3 @@
 - TAG: `{show foo="bar"}`
 - TAG: `{show foo=100 bar=200}`
 - TAG: `{show foo='100' bar="200"}`
-
-## WARNING: Block has printable, dynamic parameters
-- TAG: `{ts 1=$contact.display_name}`
