@@ -1,0 +1,1 @@
+{$field.default|substring:1:-1}

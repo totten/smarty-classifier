@@ -19,3 +19,6 @@
 
 ## stanza:tag
 {$var|json_encode:16|escape nofilter}
+
+## stanza:tag
+{$field.default|substring:1:-1}

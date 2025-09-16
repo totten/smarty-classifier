@@ -14,6 +14,9 @@
 - TAG: `{$var|@json_encode}`
   SUGGEST #1: `{$var|@json_encode nofilter}`
   SUGGEST #2: `{$var|@json_encode|escape nofilter}`
+- TAG: `{$field.default|substring:1:-1}`
+  SUGGEST #1: `{$field.default|substring:1:-1 nofilter}`
+  SUGGEST #2: `{$field.default|substring:1:-1|escape nofilter}`
 
 ## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
 - TAG: `{$var|json_encode:16|escape}`

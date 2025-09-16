@@ -3,7 +3,7 @@ open      :=> "{" .
 close     :=> "}" .
 content   :=> /[^{}]+/ .
 bareword  :=> /\w+/ .
-number    :=> (/\d/+) ("." (/\d/+))? .
+number    :=> "-"? (/\d/+) ("." (/\d/+))? .
 math      :=> ("+" | "-" | "*" | "/" | "%" | "&" ) .
 ## In PHP, "|" is a math operator. But in Smarty, it's for piping/modifiers.
 backstring :=> "`" /([^`\\]|\\.)*/ "`" .
