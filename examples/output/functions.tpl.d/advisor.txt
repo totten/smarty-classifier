@@ -27,3 +27,6 @@
 - TAG: `{foo( $whiz.bang , $yadda["yadda"] )}`
   SUGGEST #1: `{foo( $whiz.bang , $yadda["yadda"] ) nofilter}`
   SUGGEST #2: `{foo( $whiz.bang , $yadda["yadda"] )|escape nofilter}`
+- TAG: `{$config->domainID()}`
+  SUGGEST #1: `{$config->domainID() nofilter}`
+  SUGGEST #2: `{$config->domainID()|escape nofilter}`

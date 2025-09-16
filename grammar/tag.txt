@@ -12,6 +12,7 @@ tag
 
 expression
    :function       => function_name "(" sp? function_args? sp? ")"  sp?
+   :method         => variable "(" sp? function_args? sp? ")"  sp?
    :paren          => "(" sp? expression sp? ")"  sp?
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression  sp?
    :math           => expression sp? math sp? expression sp?

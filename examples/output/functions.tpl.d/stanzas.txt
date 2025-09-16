@@ -28,3 +28,6 @@
 
 ## stanza:tag
 {foo( $whiz.bang , $yadda["yadda"] )}
+
+## stanza:tag
+{$config->domainID()}
