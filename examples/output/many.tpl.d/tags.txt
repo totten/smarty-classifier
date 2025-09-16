@@ -11,6 +11,7 @@
 {show foo=100 bar=200}
 {show foo='100' bar="200"}
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
+{section name=count start=1 loop=`$maxMapper`}
 {show}
 {ts}
 {/ts}

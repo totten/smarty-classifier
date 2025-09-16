@@ -4,6 +4,7 @@
 - TAG: `{$var|@json_encode nofilter}`
 - TAG: `{$var|json_encode:16|escape nofilter}`
 - TAG: `{crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}`
+- TAG: `{section name=count start=1 loop=`$maxMapper`}`
 - TAG: `{ts}`
 - TAG: `{/ts}`
 - TAG: `{ts 1="Bob"}`

@@ -15,6 +15,7 @@
 {* Block, 2x params                   *}  {show foo=100 bar=200}
 {* Block, 2x params, quotes           *}  {show foo='100' bar="200"}
 {* Block  4x, mixed                   *}  {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
+{* Block, backquotes                  *}  {section name=count start=1 loop=`$maxMapper`}
 {* Literal                            *}  {literal}Say {stuff} {/literal}
 {* Squiggle A                         *}  foo { bar
 {* Squiggle B                         *}  foo{bar

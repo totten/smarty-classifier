@@ -88,6 +88,12 @@
 {crmAPI var='caseTypes' entity='CaseType' action='get' option_limit=0 sequential=0}
 
 ## stanza:comment
+{* Block, backquotes*}
+
+## stanza:tag
+{section name=count start=1 loop=`$maxMapper`}
+
+## stanza:comment
 {* Literal*}
 
 ## stanza:literal

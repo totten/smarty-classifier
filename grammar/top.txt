@@ -20,6 +20,6 @@ tag_part :=> (bareword | string | number | operator | sp) .
 operator :=> (
    "||" | "&&" | "??" | "?:"
    | "?" | "|" | "&" | ":" | "@" | "=" | "$" | "/" | "." | "!"
-   | "[" | "]" | "(" | ")" | ","
+   | "[" | "]" | "(" | ")" | "," | "`"
    | math | compare_symbol
  ) .
