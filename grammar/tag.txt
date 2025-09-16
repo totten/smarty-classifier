@@ -11,8 +11,6 @@ tag
   .
 
 expression
-   :function       => function_name "(" sp? function_args? sp? ")"  sp?
-   :method         => variable "(" sp? function_args? sp? ")"  sp?
    :paren          => "(" sp? expression sp? ")"  sp?
    :ternary        => expression sp? "?" sp? expression sp? ":" sp? expression  sp?
    :math           => expression sp? math sp? expression sp?
@@ -21,6 +19,8 @@ expression
    :rel            => expression sp? op_rel sp? expression sp?
    :rel_1          => expression sp compare_is_1 sp?
    :not            => op_not sp? expression sp?
+   :function       => function_name sp? "(" sp? function_args? sp? ")"  sp?
+   :method         => variable sp? "(" sp? function_args? sp? ")"  sp?
    :datum          => datum modifier* sp?
    .
 

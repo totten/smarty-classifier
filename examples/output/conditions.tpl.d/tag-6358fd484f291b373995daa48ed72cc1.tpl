@@ -1,0 +1,1 @@
+{if count ( $wizard.steps ) > 5}

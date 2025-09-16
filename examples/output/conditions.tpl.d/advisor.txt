@@ -31,3 +31,4 @@
 - TAG: `{if $a is not odd by $b}`
 - TAG: `{if $a is in not $b}`
 - TAG: `{if $a is not in $b}`
+- TAG: `{if count ( $wizard.steps ) > 5}`

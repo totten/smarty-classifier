@@ -181,3 +181,9 @@
 
 ## stanza:tag
 {/if}
+
+## stanza:tag
+{if count ( $wizard.steps ) > 5}
+
+## stanza:tag
+{/if}

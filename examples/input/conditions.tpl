@@ -30,3 +30,5 @@
 {if $a is not odd by $b}{/if}
 {if $a is in not $b}{/if}
 {if $a is not in $b}{/if}
+
+{if count ( $wizard.steps ) > 5}{/if}

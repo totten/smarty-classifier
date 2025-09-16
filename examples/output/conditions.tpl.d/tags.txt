@@ -57,3 +57,5 @@
 {/if}
 {if $a is not in $b}
 {/if}
+{if count ( $wizard.steps ) > 5}
+{/if}
