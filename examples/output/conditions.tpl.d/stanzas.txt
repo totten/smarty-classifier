@@ -97,3 +97,87 @@
 
 ## stanza:tag
 {elseif ( $profileFieldName eq 'image_URL' )}
+
+## stanza:tag
+{if $a is div by 4}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is even}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is even by $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is odd}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is odd by $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is in $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is in $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not div by 4}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not even}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not even by $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not odd}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not odd by $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is in not $b}
+
+## stanza:tag
+{/if}
+
+## stanza:tag
+{if $a is not in $b}
+
+## stanza:tag
+{/if}

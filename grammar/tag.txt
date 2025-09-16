@@ -18,6 +18,7 @@ expression
    :or             => expression sp? op_or sp? expression sp?
    :and            => expression sp? op_and sp? expression sp?
    :rel            => expression sp? op_rel sp? expression sp?
+   :rel_1          => expression sp compare_is_1 sp?
    :not            => op_not sp? expression sp?
    :datum          => datum modifier* sp?
    .
@@ -27,7 +28,7 @@ condition_verb :=> ("if"|"elseif") .
 op_not :=> ("!" | /not/i ?sp) .
 op_and :=> ( "&&" | /and/i ?sp) .
 op_or :=> ( "||" | /or/i ?sp) .
-op_rel :=> ( compare_symbol | compare_name ?sp) .
+op_rel :=> (compare_symbol | compare_name ?sp | compare_is_2 ?sp) .
 
 modifier  :=> "|" sp? modifier_array? modifier_name sp? modifier_attribute* .
 modifier_array :=> "@" .

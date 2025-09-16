@@ -29,3 +29,31 @@
 {/if}
 {elseif ($profileFieldName eq 'group' && $form.group) || ($profileFieldName eq 'tag' && $form.tag)}
 {elseif ( $profileFieldName eq 'image_URL' )}
+{if $a is div by 4}
+{/if}
+{if $a is even}
+{/if}
+{if $a is even by $b}
+{/if}
+{if $a is odd}
+{/if}
+{if $a is odd by $b}
+{/if}
+{if $a is in $b}
+{/if}
+{if $a is in $b}
+{/if}
+{if $a is not div by 4}
+{/if}
+{if $a is not even}
+{/if}
+{if $a is not even by $b}
+{/if}
+{if $a is not odd}
+{/if}
+{if $a is not odd by $b}
+{/if}
+{if $a is in not $b}
+{/if}
+{if $a is not in $b}
+{/if}

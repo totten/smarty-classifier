@@ -1,0 +1,1 @@
+{if $a is not div by 4}

@@ -1,0 +1,1 @@
+{if $a is div by 4}

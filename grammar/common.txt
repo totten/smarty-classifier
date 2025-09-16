@@ -10,3 +10,5 @@ backstring :=> "`" /([^`\\]|\\.)*/ "`" .
 ## mod
 compare_symbol :=>  ("===" | "!==" | "==" | "!=" | ">" | "<" | ">=" | "<=") .
 compare_name :=> /neq|gte|lte|eq|ne|gt|ge|lt|le/i .
+compare_is_1 :=> /is/i sp (/not/i sp)? /(even|odd)/i !(sp "by").
+compare_is_2 :=> /is/i sp (/not/i sp)? /(div by|even by|odd by|in)/i .
