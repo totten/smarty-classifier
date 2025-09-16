@@ -30,6 +30,7 @@ class UnknownBlock {
       case 'crmScope':
       case 'crmSetting':
       case 'crmSigner':
+      case 'crmSqlData':
       case 'crmStyle':
       case 'crmVersion':
       case 'crmURL':
@@ -48,6 +49,7 @@ class UnknownBlock {
       case 'include':
       case 'isValueChange':
       case 'ldelim':
+      case 'localize':
       case 'math':
       case 'privacyFlag':
       case 'rdelim':
