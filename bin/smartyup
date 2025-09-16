@@ -5,7 +5,7 @@ namespace Civi\SmartyUp;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-ini_set('memory_limit', '1g');
+ini_set('memory_limit', '2g');
 if (phpversion('xdebug')) {
   ini_set('xdebug.max_nesting_level', 1024);
 }
