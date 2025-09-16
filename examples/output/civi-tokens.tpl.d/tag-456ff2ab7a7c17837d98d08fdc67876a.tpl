@@ -1,0 +1,1 @@
+{event.loc_block_id.phone_id.phone_type_id:label}

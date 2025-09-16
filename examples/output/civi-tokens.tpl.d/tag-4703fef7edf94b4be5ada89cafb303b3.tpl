@@ -1,0 +1,1 @@
+{financial_trxn.total_amount|raw}

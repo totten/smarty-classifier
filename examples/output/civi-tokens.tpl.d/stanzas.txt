@@ -1,0 +1,33 @@
+
+## stanza:tag
+{contact.display_name}
+
+## stanza:tag
+{contribution.address_id.display}
+
+## stanza:tag
+{contribution.is_pay_later|boolean}
+
+## stanza:tag
+{contribution.contribution_page_id.receipt_text|boolean}
+
+## stanza:tag
+{domain.now|crmDate:"Full"}
+
+## stanza:tag
+{event.title|boolean}
+
+## stanza:tag
+{event.end_date|crmDate:"Time"}
+
+## stanza:tag
+{event.loc_block_id.phone_id.phone_type_id|boolean}
+
+## stanza:tag
+{event.loc_block_id.phone_id.phone_type_id:label}
+
+## stanza:tag
+{financial_trxn.total_amount|raw}
+
+## stanza:tag
+{site.message_header}

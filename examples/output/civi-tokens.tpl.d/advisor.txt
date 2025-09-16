@@ -1,0 +1,13 @@
+
+## OK: No errors reported
+- TAG: `{contact.display_name}`
+- TAG: `{contribution.address_id.display}`
+- TAG: `{contribution.is_pay_later|boolean}`
+- TAG: `{contribution.contribution_page_id.receipt_text|boolean}`
+- TAG: `{domain.now|crmDate:"Full"}`
+- TAG: `{event.title|boolean}`
+- TAG: `{event.end_date|crmDate:"Time"}`
+- TAG: `{event.loc_block_id.phone_id.phone_type_id|boolean}`
+- TAG: `{event.loc_block_id.phone_id.phone_type_id:label}`
+- TAG: `{financial_trxn.total_amount|raw}`
+- TAG: `{site.message_header}`

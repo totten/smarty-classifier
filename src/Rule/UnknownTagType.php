@@ -12,7 +12,7 @@ class UnknownTagType {
 
   public function checkTag(CheckTagEvent $checkTag): void {
     $tagType = $checkTag->getTagType();
-    if (!in_array($tagType, ['block_open', 'block_close', 'condition', 'expression', NULL], TRUE)) {
+    if (!in_array($tagType, ['block_open', 'block_close', 'condition', 'expression', 'civi_token', NULL], TRUE)) {
       $checkTag->advices[] = Advice::createProblem("PROBLEM: Unrecognized tag type ($tagType)", (string) $checkTag->tag);
     }
   }

@@ -4,6 +4,7 @@
 start :=> open tag close .
 
 tag
+  :civi_token   => civi_entity ("." civi_field)+ (":" civi_pseudoconstant)? ("|" civi_filter (":" civi_filter_attribute)* )?
   :condition    => condition_verb sp expression
   :block_open   => block_name (sp block_attribute)* sp?
   :block_close  => "/" block_name
@@ -48,3 +49,10 @@ variable  :=> "$" bareword ("." datum | "->" datum | "[" datum "]")* .
 nofilter :=> "nofilter" .
 function_name :=> bareword .
 function_args :=> (sp? expression sp?)*"," .
+
+civi_entity :=> civi_bareword .
+civi_field :=> civi_bareword .
+civi_pseudoconstant :=> civi_bareword .
+civi_filter :=> civi_bareword .
+civi_filter_attribute :=> string .
+civi_bareword :=> /[a-z]/ /[a-z0-9_]*/i .

@@ -1,0 +1,1 @@
+{contribution.contribution_page_id.receipt_text|boolean}

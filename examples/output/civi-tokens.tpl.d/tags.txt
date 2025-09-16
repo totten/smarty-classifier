@@ -1,0 +1,11 @@
+{contact.display_name}
+{contribution.address_id.display}
+{contribution.is_pay_later|boolean}
+{contribution.contribution_page_id.receipt_text|boolean}
+{domain.now|crmDate:"Full"}
+{event.title|boolean}
+{event.end_date|crmDate:"Time"}
+{event.loc_block_id.phone_id.phone_type_id|boolean}
+{event.loc_block_id.phone_id.phone_type_id:label}
+{financial_trxn.total_amount|raw}
+{site.message_header}
