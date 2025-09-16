@@ -8,12 +8,17 @@ perfect match to the real+current Smarty interpreter, but it's being
 developed against a large dataset, and it should be more accurate than
 improvised regex.
 
+## Download
+
+```bash
+git clone https://github.com/totten/smartyup
+cd smartyup
+composer install
+```
+
 ## Usage
 
 ```bash
-## Install dependencies
-composer install
-
 ## Interactievly review/update a file
 ./bin/smartyup run examples/input/many.tpl
 
