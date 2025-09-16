@@ -11,6 +11,11 @@
 - TAG: `{if !empty($data)}`
 - TAG: `{/if}`
 - TAG: `{if $foo * 2 > 13.5}`
+- TAG: `{if $good == null}`
+
+## PROBLEM: Boolean and NULL must be lowercase in Smarty
+- TAG: `{if $bad == NULL}`
+  SUGGEST: {if $bad == null}
 
 ## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
 - TAG: `{$var}`

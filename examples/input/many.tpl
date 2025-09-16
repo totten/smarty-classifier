@@ -28,3 +28,5 @@
 {* Math!                              *}  {$var + 2}
 {* Math!                              *}  {if $foo * 2 > 13.5}
 {* Malformed                          *}  {-malformed-}
+{* Good null                          *}  {if $good == null}{/if}
+{* Bad null                           *}  {if $bad == NULL}{/if}

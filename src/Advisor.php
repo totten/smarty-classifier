@@ -5,6 +5,7 @@ namespace Civi\SmartyUp;
 use Civi\SmartyUp\Advisor\Advice;
 use Civi\SmartyUp\Rule\ElseIfCheck;
 use Civi\SmartyUp\Rule\ExpressionEscaping;
+use Civi\SmartyUp\Rule\LowerCaseSymbols;
 use Civi\SmartyUp\Rule\PrintedArgs;
 use Civi\SmartyUp\Rule\UnknownBlock;
 use Civi\SmartyUp\Rule\UnknownTagType;
@@ -27,6 +28,7 @@ class Advisor {
       [new UnknownBlock(), 'checkTag'],
       [new PrintedArgs(), 'checkTag'],
       [new ElseIfCheck(), 'checkTag'],
+      [new LowerCaseSymbols(), 'checkTag'],
       [new ExpressionEscaping(), 'checkTag'],
     ];
   }

@@ -25,6 +25,9 @@ class Advice {
   }
 
   public static function createSuggestion(string $message, string $tag, array $replacements) {
+    if (empty($replacements) || $replacements === [$tag]) {
+      return static::createProblem($message, 'problem');
+    }
     $result = new static($message, $tag, 'suggestion');
     $result->replacements = $replacements;
     return $result;

@@ -1,0 +1,1 @@
+{if $bad == NULL}

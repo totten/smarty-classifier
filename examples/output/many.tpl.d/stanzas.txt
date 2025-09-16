@@ -202,3 +202,21 @@ Hello %1
 
 ## stanza:tag
 {-malformed-}
+
+## stanza:comment
+{* Good null*}
+
+## stanza:tag
+{if $good == null}
+
+## stanza:tag
+{/if}
+
+## stanza:comment
+{* Bad null*}
+
+## stanza:tag
+{if $bad == NULL}
+
+## stanza:tag
+{/if}

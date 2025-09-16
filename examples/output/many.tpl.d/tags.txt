@@ -25,3 +25,7 @@
 {$var + 2}
 {if $foo * 2 > 13.5}
 {-malformed-}
+{if $good == null}
+{/if}
+{if $bad == NULL}
+{/if}
