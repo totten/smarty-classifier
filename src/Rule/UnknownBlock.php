@@ -26,6 +26,7 @@ class UnknownBlock {
       case 'crmURL':
       case 'cycle':
       case 'continue':
+      case 'debug':
       case 'docURL':
       case 'else':
       case 'foreach':
