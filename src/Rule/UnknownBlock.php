@@ -20,21 +20,35 @@ class UnknownBlock {
       case 'assign':
       case 'capture':
       case 'crmAPI':
+      case 'crmAttributes':
       case 'crmButton':
+      case 'crmKey':
       case 'crmRegion':
       case 'crmPermission':
+      case 'crmResURL':
+      case 'crmScript':
+      case 'crmScope':
+      case 'crmSetting':
+      case 'crmSigner':
+      case 'crmStyle':
+      case 'crmVersion':
       case 'crmURL':
+      case 'copyIcon':
+      case 'counter':
       case 'cycle':
       case 'continue':
       case 'debug':
       case 'docURL':
+      case 'edit':
       case 'else':
       case 'foreach':
       case 'help':
       case 'icon':
       case 'if':
       case 'include':
+      case 'isValueChange':
       case 'ldelim':
+      case 'math':
       case 'privacyFlag':
       case 'rdelim':
       case 'section':
