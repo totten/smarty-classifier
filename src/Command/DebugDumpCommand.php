@@ -2,7 +2,6 @@
 namespace Civi\SmartyUp\Command;
 
 use Civi\SmartyUp\Files;
-use Civi\SmartyUp\Process;
 use Civi\SmartyUp\Reports;
 use Civi\SmartyUp\Services;
 use Symfony\Component\Console\Command\Command;
@@ -27,6 +26,11 @@ class DebugDumpCommand extends Command {
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
+    if (!function_exists('pcntl_fork')) {
+      $output->writeln("<error>This command requires the 'pcntl' extension.</error>");
+      return 1;
+    }
+
     $inputBaseDir = rtrim($input->getOption('input-dir'), '/');
     $outputBaseDir = rtrim($input->getOption('output-dir'), '/');
 
@@ -36,19 +40,61 @@ class DebugDumpCommand extends Command {
     $files = (new Finder)->in($inputBaseDir)->files()->name($input->getOption('name'));
     $errors = 0;
 
+    $pool = [];
+    $maxProcs = 5;
+
     foreach ($files as $fileObj) {
       /** @var \SplFileInfo $fileObj */
       $inputFile = (string) $fileObj;
-      $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
-      $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
-      try {
-        // If there's a hard error, we want to recover. Run in child process.
-        Process::doAsChild(fn() => $this->processFile($inputFile, $outputDir, $input, $output));
+
+      $pid = pcntl_fork();
+      if ($pid === -1) {
+        // Could not fork. Maybe run sequentially? For now, just error out.
+        $output->writeln("<error>Failed to fork process. Aborting.</error>");
+        // Wait for any running children before aborting
+        foreach (array_keys($pool) as $runningPid) {
+          pcntl_waitpid($runningPid, $status);
+        }
+        return 1;
       }
-      catch (\Throwable $e) {
-        $output->writeln(sprintf("\nERROR (%s): %s\n\n", $inputFile, $e->getMessage()));
+      elseif ($pid) {
+        // Parent process
+        $pool[$pid] = $inputFile;
+        if (count($pool) >= $maxProcs) {
+          $status = NULL;
+          $exitedPid = pcntl_wait($status);
+          if (pcntl_wifexited($status) && pcntl_wexitstatus($status) !== 0) {
+            $output->writeln(sprintf("\n<error>ERROR (%s): Child process terminated abnormally</error>\n", $pool[$exitedPid]));
+            $errors++;
+          }
+          unset($pool[$exitedPid]);
+        }
+      }
+      else {
+        // Child process
+        $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
+        $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
+        try {
+          $this->processFile($inputFile, $outputDir, $input, $output);
+          exit(0);
+        }
+        catch (\Throwable $e) {
+          // Writing to stderr from child.
+          file_put_contents('php://stderr', sprintf("\nERROR (%s): %s\n\n", $inputFile, $e->getMessage()));
+          exit(1);
+        }
+      }
+    }
+
+    // Wait for any remaining child processes
+    while (!empty($pool)) {
+      $status = NULL;
+      $exitedPid = pcntl_wait($status);
+      if (pcntl_wifexited($status) && pcntl_wexitstatus($status) !== 0) {
+        $output->writeln(sprintf("\n<error>ERROR (%s): Child process terminated abnormally</error>\n", $pool[$exitedPid]));
         $errors++;
       }
+      unset($pool[$exitedPid]);
     }
 
     $output->writeln("");
