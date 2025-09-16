@@ -22,26 +22,54 @@ class DebugDumpCommand extends Command {
       ->addOption('input-dir', 'i', InputOption::VALUE_REQUIRED, 'The input directory', $inDir)
       ->addOption('output-dir', 'o', InputOption::VALUE_REQUIRED, 'The output directory', $outDir)
       ->addOption('name', 'N', InputOption::VALUE_REQUIRED, 'Filter by tpl name', '*.tpl')
+      ->addOption('threads', NULL, InputOption::VALUE_REQUIRED, 'Number threads in worker pool', 5)
       ->addOption('report', 'r', InputOption::VALUE_REQUIRED, 'Comma-separate list of reports to generate', 'stanzas,tags,advisor,tree');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int {
-    if (!function_exists('pcntl_fork')) {
-      $output->writeln("<error>This command requires the 'pcntl' extension.</error>");
-      return 1;
-    }
+    $maxThreads = function_exists('pcntl_fork') ? $input->getOption('threads') : 1;
 
     $inputBaseDir = rtrim($input->getOption('input-dir'), '/');
     $outputBaseDir = rtrim($input->getOption('output-dir'), '/');
 
-    Services::createTopParser();
-    Services::createTagParser();
-
     $files = (new Finder)->in($inputBaseDir)->files()->name($input->getOption('name'));
+    if ($maxThreads > 1) {
+      return $this->executeWithPool($input, $output, $files, $inputBaseDir, $outputBaseDir, $maxThreads);
+    }
+    else {
+      return $this->executeWithSingleThread($input, $output, $files, $inputBaseDir, $outputBaseDir);
+    }
+  }
+
+  protected function executeWithSingleThread(InputInterface $input, OutputInterface $output, Finder $files, string $inputBaseDir, string $outputBaseDir) {
+    $output->writeln('<info>Execute as single thread</info>', OutputInterface::VERBOSITY_VERBOSE);
+    foreach ($files as $fileObj) {
+      /** @var \SplFileInfo $fileObj */
+      $inputFile = (string) $fileObj;
+
+      $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
+      $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
+      $this->processFile($inputFile, $outputDir, $input, $output);
+    }
+    // In this loop, we don't catch file-level errors. They propagate up. So completion is success.
+    return 0;
+  }
+
+  /**
+   * @param \Symfony\Component\Console\Input\InputInterface $input
+   * @param \Symfony\Component\Console\Output\OutputInterface $output
+   * @param \Symfony\Component\Finder\Finder $files
+   * @param string $inputBaseDir
+   * @param string $outputBaseDir
+   * @param int $maxThreads
+   *
+   * @return int|void
+   */
+  protected function executeWithPool(InputInterface $input, OutputInterface $output, Finder $files, string $inputBaseDir, string $outputBaseDir, int $maxThreads) {
+    $output->writeln("<info>Execute with thread pool ($maxThreads)</info>", OutputInterface::VERBOSITY_VERBOSE);
     $errors = 0;
 
     $pool = [];
-    $maxProcs = 5;
 
     foreach ($files as $fileObj) {
       /** @var \SplFileInfo $fileObj */
@@ -60,7 +88,7 @@ class DebugDumpCommand extends Command {
       elseif ($pid) {
         // Parent process
         $pool[$pid] = $inputFile;
-        if (count($pool) >= $maxProcs) {
+        if (count($pool) >= $maxThreads) {
           $status = NULL;
           $exitedPid = pcntl_wait($status);
           if (pcntl_wifexited($status) && pcntl_wexitstatus($status) !== 0) {
@@ -75,7 +103,9 @@ class DebugDumpCommand extends Command {
         $relativeFile = substr($inputFile, strlen($inputBaseDir) + 1);
         $outputDir = $outputBaseDir . '/' . $relativeFile . '.d';
         try {
+          $output->writeln("<info>Start $inputFile " . date('Y-m-d H:i:s') . "</info>", OutputInterface::VERBOSITY_VERBOSE);
           $this->processFile($inputFile, $outputDir, $input, $output);
+          $output->writeln("<info>Finish $inputFile " . date('Y-m-d H:i:s') . "</info>", OutputInterface::VERBOSITY_VERBOSE);
           exit(0);
         }
         catch (\Throwable $e) {
