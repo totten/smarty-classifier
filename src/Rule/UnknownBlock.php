@@ -33,6 +33,9 @@ class UnknownBlock {
       case 'icon':
       case 'if':
       case 'include':
+      case 'ldelim':
+      case 'privacyFlag':
+      case 'rdelim':
       case 'section':
       case 'strip':
       case 'ts':
