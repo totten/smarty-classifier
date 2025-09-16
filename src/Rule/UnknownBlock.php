@@ -22,6 +22,7 @@ class UnknownBlock {
       case 'crmAPI':
       case 'crmButton':
       case 'crmRegion':
+      case 'crmPermission':
       case 'crmURL':
       case 'cycle':
       case 'continue':
@@ -32,6 +33,7 @@ class UnknownBlock {
       case 'icon':
       case 'if':
       case 'include':
+      case 'section':
       case 'strip':
       case 'ts':
         return;
