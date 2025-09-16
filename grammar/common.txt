@@ -4,7 +4,8 @@ close     :=> "}" .
 content   :=> /[^{}]+/ .
 bareword  :=> /\w+/ .
 number    :=> (/\d/+) ("." (/\d/+))? .
-math      :=> ("+" | "-" | "*" | "/" | "%" | "&" | "|") .
+math      :=> ("+" | "-" | "*" | "/" | "%" | "&" ) .
+## In PHP, "|" is a math operator. But in Smarty, it's for piping/modifiers.
 backstring :=> "`" /([^`\\]|\\.)*/ "`" .
 ## mod
 compare_symbol :=>  ("===" | "!==" | "==" | "!=" | ">" | "<" | ">=" | "<=") .
