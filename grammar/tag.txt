@@ -24,7 +24,7 @@ expression
    :datum          => datum modifier* sp?
    .
 
-condition_verb :=> ("if"|"elseif") .
+condition_verb :=> ("if"|"elseif"|"else if") .
 
 op_not :=> ("!" | /not/i ?sp) .
 op_and :=> ( "&&" | /and/i ?sp) .
