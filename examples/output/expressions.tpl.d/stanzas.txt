@@ -1,0 +1,21 @@
+
+## stanza:tag
+{$var}
+
+## stanza:tag
+{$var nofilter}
+
+## stanza:tag
+{$var|json_encode}
+
+## stanza:tag
+{$var|@json_encode}
+
+## stanza:tag
+{$var|@json_encode nofilter}
+
+## stanza:tag
+{$var|json_encode:16|escape}
+
+## stanza:tag
+{$var|json_encode:16|escape nofilter}

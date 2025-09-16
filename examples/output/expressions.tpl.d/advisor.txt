@@ -1,0 +1,20 @@
+
+## OK: No errors reported
+- TAG: `{$var nofilter}`
+- TAG: `{$var|@json_encode nofilter}`
+- TAG: `{$var|json_encode:16|escape nofilter}`
+
+## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
+- TAG: `{$var}`
+  SUGGEST #1: `{$var nofilter}`
+  SUGGEST #2: `{$var|escape nofilter}`
+- TAG: `{$var|json_encode}`
+  SUGGEST #1: `{$var|json_encode nofilter}`
+  SUGGEST #2: `{$var|json_encode|escape nofilter}`
+- TAG: `{$var|@json_encode}`
+  SUGGEST #1: `{$var|@json_encode nofilter}`
+  SUGGEST #2: `{$var|@json_encode|escape nofilter}`
+
+## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
+- TAG: `{$var|json_encode:16|escape}`
+  SUGGEST: {$var|json_encode:16|escape nofilter}

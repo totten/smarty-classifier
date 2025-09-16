@@ -22,36 +22,6 @@
 {$var nofilter}
 
 ## stanza:comment
-{* Expression, 1x modifier*}
-
-## stanza:tag
-{$var|json_encode}
-
-## stanza:comment
-{* Expression, 1x @modifier*}
-
-## stanza:tag
-{$var|@json_encode}
-
-## stanza:comment
-{* Expression, 1x @modifier*}
-
-## stanza:tag
-{$var|@json_encode nofilter}
-
-## stanza:comment
-{* Expression, 2x modifier*}
-
-## stanza:tag
-{$var|json_encode:16|escape}
-
-## stanza:comment
-{* Expression, 2x modifier*}
-
-## stanza:tag
-{$var|json_encode:16|escape nofilter}
-
-## stanza:comment
 {* Block, no params*}
 
 ## stanza:tag
