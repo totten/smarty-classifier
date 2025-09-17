@@ -3,6 +3,7 @@
 namespace Civi\SmartyUp\Rule;
 
 use Civi\SmartyUp\Advisor\Advice;
+use Civi\SmartyUp\Builder;
 use Civi\SmartyUp\CheckTagEvent;
 use ParserGenerator\SyntaxTreeNode\Branch;
 
@@ -43,31 +44,31 @@ class ExpressionEscaping {
     }
 
     // Convert '|smarty:nodefaults' to 'nofilter'
-    if (str_contains($tagString, 'smarty:nodefaults')) {
-      $suggest = preg_replace('/\|smarty:nodefaults\}$/', ' nofilter}', $tagString);
+    if (Builder::hasNodefaults($parsedTag)) {
+      $suggest = (string) Builder::withNofilter(Builder::withoutNodefaults($parsedTag));
       return Advice::createSuggestion('PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString, [$suggest]);
     }
 
     // Can we figure out if this printing HTML data (e.g. `$form.my_button.html`) or text (e.g. `$api_result.display_name`)?
     if (str_starts_with($tagString, '{$form.')) {
       // This is clearly an HTML widget.
-      return Advice::createSuggestion('PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString, [$this->appendNofilter($tagString)]);
+      return Advice::createSuggestion('PROBLEM: This looks like an HTML widget. Specify "nofilter".', $tagString, [
+        (string) Builder::withNofilter($parsedTag)
+      ]);
     }
     elseif (str_ends_with($tagString, '|escape}') || str_ends_with($tagString, '|escape:"html"}')) {
       // The data is already flagged as text. Preserve that. Add nofilter.
-      return Advice::createSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [$this->appendNofilter($tagString)]);
+      return Advice::createSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [
+        (string) Builder::withNofilter($parsedTag)
+      ]);
     }
     else {
       // The data is ambiguous. It could be HTML widget... or an integer... or free-form text...
       return Advice::createSuggestion('PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:', $tagString, [
-        preg_replace('/}$/', ' nofilter}', $tagString),
-        preg_replace('/}$/', '|escape nofilter}', $tagString),
+        (string) Builder::withNofilter($parsedTag),
+        (string) Builder::withNofilter(Builder::withModifier($parsedTag, '|escape')),
       ]);
     }
-  }
-
-  protected function appendNofilter(string $tagString): string {
-    return preg_replace('/}$/', ' nofilter}', $tagString);
   }
 
 }
