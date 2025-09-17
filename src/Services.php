@@ -10,7 +10,6 @@ class Services {
 
   public static function createTopParser(): Parser {
     if (!isset(self::$instances[__FUNCTION__])) {
-      $grammarDir = dirname(__DIR__);
       $grammar = static::readGrammarFile('top.txt')
         . "\n" . static::readGrammarFile('common.txt');
       self::$instances[__FUNCTION__] = new \ParserGenerator\Parser($grammar);
@@ -20,7 +19,6 @@ class Services {
 
   public static function createTagParser(): Parser {
     if (!isset(self::$instances[__FUNCTION__])) {
-
       $grammar = static::readGrammarFile('tag.txt')
         . "\n" . static::readGrammarFile('common.txt');
       self::$instances[__FUNCTION__] = new \ParserGenerator\Parser($grammar);
