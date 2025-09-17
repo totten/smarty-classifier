@@ -37,3 +37,6 @@
 
 ## stanza:tag
 {$var|escape:htmlall}
+
+## stanza:tag
+{$var|escape:"html"}

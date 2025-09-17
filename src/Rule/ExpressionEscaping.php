@@ -60,10 +60,16 @@ class ExpressionEscaping {
       ]);
     }
     elseif ($doc->findModifiers('escape') || $doc->findModifiers('purify')) {
+      $replacements = [
+        (string) $doc->withNofilter()->filterModifiers(function($modifier, ...$args) {
+          /* Simplify... |escape:html ==> |escape */
+          if ($modifier === 'escape' && isset($args[0]) && $args[0] === 'html') {
+            return [$modifier];
+          }
+        }),
+      ];
       // The data is already flagged for special escaping. Preserve that. Add nofilter.
-      return Advice::createSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [
-        (string) $doc->withNofilter(),
-      ]);
+      return Advice::createSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, $replacements);
     }
     else {
       // The data is ambiguous. It could be HTML widget... or an integer... or free-form text...

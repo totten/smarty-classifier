@@ -33,3 +33,5 @@
   SUGGEST: {$var|escape : "htmlall" nofilter}
 - TAG: `{$var|escape:htmlall}`
   SUGGEST: {$var|escape:htmlall nofilter}
+- TAG: `{$var|escape:"html"}`
+  SUGGEST: {$var|escape nofilter}

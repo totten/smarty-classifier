@@ -11,3 +11,4 @@
 {$var|escape:"htmlall"}
 {$var|escape : "htmlall"}
 {$var|escape:htmlall}
+{$var|escape:"html"}
