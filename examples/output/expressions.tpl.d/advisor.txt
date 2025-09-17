@@ -21,19 +21,15 @@
 - TAG: `{$field.default|substring:1:-1}`
   SUGGEST #1: `{$field.default|substring:1:-1 nofilter}`
   SUGGEST #2: `{$field.default|substring:1:-1|escape nofilter}`
-- TAG: `{$var|purify}`
-  SUGGEST #1: `{$var|purify nofilter}`
-  SUGGEST #2: `{$var|purify|escape nofilter}`
-- TAG: `{$var|escape:"htmlall"}`
-  SUGGEST #1: `{$var|escape:"htmlall" nofilter}`
-  SUGGEST #2: `{$var|escape:"htmlall"|escape nofilter}`
-- TAG: `{$var|escape : "htmlall"}`
-  SUGGEST #1: `{$var|escape : "htmlall" nofilter}`
-  SUGGEST #2: `{$var|escape : "htmlall"|escape nofilter}`
-- TAG: `{$var|escape:htmlall}`
-  SUGGEST #1: `{$var|escape:htmlall nofilter}`
-  SUGGEST #2: `{$var|escape:htmlall|escape nofilter}`
 
 ## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
 - TAG: `{$var|json_encode:16|escape}`
   SUGGEST: {$var|json_encode:16|escape nofilter}
+- TAG: `{$var|purify}`
+  SUGGEST: {$var|purify nofilter}
+- TAG: `{$var|escape:"htmlall"}`
+  SUGGEST: {$var|escape:"htmlall" nofilter}
+- TAG: `{$var|escape : "htmlall"}`
+  SUGGEST: {$var|escape : "htmlall" nofilter}
+- TAG: `{$var|escape:htmlall}`
+  SUGGEST: {$var|escape:htmlall nofilter}

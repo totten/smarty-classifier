@@ -59,8 +59,8 @@ class ExpressionEscaping {
         (string) $doc->withNofilter(),
       ]);
     }
-    elseif (str_ends_with($tagString, '|escape}') || str_ends_with($tagString, '|escape:"html"}')) {
-      // The data is already flagged as text. Preserve that. Add nofilter.
+    elseif ($doc->findModifiers('escape') || $doc->findModifiers('purify')) {
+      // The data is already flagged for special escaping. Preserve that. Add nofilter.
       return Advice::createSuggestion('PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.', $tagString, [
         (string) $doc->withNofilter(),
       ]);
