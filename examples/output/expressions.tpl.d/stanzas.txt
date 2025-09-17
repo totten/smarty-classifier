@@ -22,3 +22,18 @@
 
 ## stanza:tag
 {$field.default|substring:1:-1}
+
+## stanza:tag
+{$var|purify}
+
+## stanza:tag
+{$var|smarty:nodefaults}
+
+## stanza:tag
+{$var|escape:"htmlall"}
+
+## stanza:tag
+{$var|escape : "htmlall"}
+
+## stanza:tag
+{$var|escape:htmlall}

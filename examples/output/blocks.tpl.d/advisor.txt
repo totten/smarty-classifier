@@ -1,0 +1,14 @@
+
+## OK: No errors reported
+- TAG: `{/ts}`
+
+## PROBLEM: Unparsable tag
+- TAG: `{ts 1 = $name | escape:"html" 2 = $name | escape : "url"}`
+
+## WARNING: Block has printable, dynamic parameters
+- TAG: `{ts 1=$name}`
+- TAG: `{ts 1 = $name}`
+- TAG: `{ts 1=$name|escape}`
+- TAG: `{ts 1=$name|escape:html}`
+- TAG: `{ts 1=$name|escape:"html" 2=$name|escape:"url"}`
+- TAG: `{ts 1=$name|escape : "html" 2=$name|escape : "url"}`

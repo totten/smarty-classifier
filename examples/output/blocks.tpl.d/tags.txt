@@ -1,0 +1,14 @@
+{ts 1=$name}
+{/ts}
+{ts 1 = $name}
+{/ts}
+{ts 1=$name|escape}
+{/ts}
+{ts 1=$name|escape:html}
+{/ts}
+{ts 1=$name|escape:"html" 2=$name|escape:"url"}
+{/ts}
+{ts 1=$name|escape : "html" 2=$name|escape : "url"}
+{/ts}
+{ts 1 = $name | escape:"html" 2 = $name | escape : "url"}
+{/ts}

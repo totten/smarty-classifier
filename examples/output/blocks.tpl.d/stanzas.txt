@@ -1,0 +1,63 @@
+
+## stanza:tag
+{ts 1=$name}
+
+## stanza:content
+Hello %1
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1 = $name}
+
+## stanza:content
+Greetings %1
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1=$name|escape}
+
+## stanza:content
+Hello %1
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1=$name|escape:html}
+
+## stanza:content
+Hello %1
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1=$name|escape:"html" 2=$name|escape:"url"}
+
+## stanza:content
+Hello %1 %2
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1=$name|escape : "html" 2=$name|escape : "url"}
+
+## stanza:content
+Hello %1 %2
+
+## stanza:tag
+{/ts}
+
+## stanza:tag
+{ts 1 = $name | escape:"html" 2 = $name | escape : "url"}
+
+## stanza:content
+Hello %1 %2
+
+## stanza:tag
+{/ts}
