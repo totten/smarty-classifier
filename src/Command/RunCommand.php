@@ -129,7 +129,7 @@ class RunCommand extends Command {
             fn() => $updateContent($advice->getTag(), $replacement)
           );
         }
-        $prompt->run();
+        $prompt->run('s');
       }
     }
 
