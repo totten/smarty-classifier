@@ -110,4 +110,15 @@ class ExpressionDocTest extends TestCase {
     $this->assertEquals($expectTxt, (string) $newDoc);
   }
 
+  public function testFilterModifier() {
+    $origDoc = new ExpressionDoc('{$foo|escape:"htmlall"}');
+    $newDoc = $origDoc->filterModifiers(function($modifier, ...$args) {
+      if ($modifier === 'escape') {
+        $args = preg_replace('/^htmlall$/', 'html', $args);
+        return [$modifier, ...$args];
+      }
+    });
+    $this->assertEquals('{$foo|escape:html}', (string) $newDoc);
+  }
+
 }

@@ -80,19 +80,49 @@ class ExpressionDoc {
     foreach ($modifierList as $modifier) {
       $modifierName = (string) $modifier->findFirst('modifier_name');
       if ($name === NULL || $name === $modifierName) {
-        $modifierArr = [$modifierName];
-        foreach ($modifier->findAll('modifier_attribute') as $maNode) {
-          $maText = substr((string) $maNode, 1);
-          if ($maText[0] === '"' || $maText[0] === '`' || $maText[0] === "'") {
-            $maText = substr($maText, 1, -1);
-          }
-          $modifierArr[] = $maText;
-        }
-        $result[] = $modifierArr;
+        $result[] = $this->convertModifierToArray($modifier);
       }
     }
     return $result;
+  }
 
+  /**
+   * Walk through the list of all modifiers (in order). Optionally modify each one.
+   *
+   * @param callable $filter
+   *   Filter function: function(string $name, ...$args): string|null|array
+   *   Ex: $filter('smarty', 'nodefaults') => 'delete'
+   *   Ex: $filter('substr', '1', '-1') => ['trim']
+   *   Return one of the following:
+   *     - NULL: Preserve the modifier as-is
+   *     - 'keep': Preserve the modifier as-is
+   *     - 'delete': Delete the modifier from the list
+   *     - array(): Replace the content of the modifier
+   *
+   * @return static
+   */
+  public function filterModifiers(callable $filter): ExpressionDoc {
+    $mutableRoot = $this->root->copy();
+    $modifierList = $mutableRoot->findAll('modifier');
+    if (!$modifierList) {
+      return new static($mutableRoot);
+    }
+
+    $modified = FALSE;
+    foreach ($modifierList as $modifier) {
+      $startArray = $this->convertModifierToArray($modifier);
+      $endArray = $filter(...$startArray);
+      if ($endArray === 'delete') {
+        $modified = TRUE;
+        $modifier->setSubnodes([]);
+      }
+      elseif (is_array($endArray)) {
+        $modified = TRUE;
+        $endString = $this->convertArrayToModifierString($endArray);
+        $modifier->setSubnodes([new Leaf($endString)]);
+      }
+    }
+    return new static($modified ? (string) $mutableRoot : $mutableRoot);
   }
 
   public function hasNodefaults(): bool {
@@ -105,23 +135,13 @@ class ExpressionDoc {
   }
 
   public function withoutNodefaults(): ExpressionDoc {
-    $mutableRoot = $this->root->copy();
-    $modifierList = $mutableRoot->findAll('modifier');
-    if (!$modifierList) {
-      return new static($mutableRoot);
-    }
-    foreach ($modifierList as $modifier) {
-      $modifierName = (string) $modifier->findFirst('modifier_name');
-      if ($modifierName === 'smarty') {
-        if ($maNode = $modifier->findFirst('modifier_attribute')) {
-          $maText = mb_strtolower(trim((string) $maNode, ':\'"`'));
-          if ($maText === 'nodefaults') {
-            $modifier->setSubnodes([]);
-          }
+    return $this->filterModifiers(function ($modifier, ...$args) {
+      if ($modifier === 'smarty') {
+        if (($args[0] ?? NULL) === 'nodefaults') {
+          return 'delete';
         }
       }
-    }
-    return new static($mutableRoot);
+    });
   }
 
   protected function assertRootType(string $nodeType, string $detailType): void {
@@ -129,6 +149,29 @@ class ExpressionDoc {
     if (!$node || $node->getDetailType() !== $detailType) {
       throw new \RuntimeException("Node is not of type $nodeType:$detailType");
     }
+  }
+
+  /**
+   * @param \ParserGenerator\SyntaxTreeNode\Branch $modifier
+   * @return string[]
+   */
+  protected function convertModifierToArray(Branch $modifier): array {
+    $modifierArr = [(string) $modifier->findFirst('modifier_name')];
+    foreach ($modifier->findAll('modifier_attribute') as $maNode) {
+      $maText = substr((string) $maNode, 1);
+      if ($maText[0] === '"' || $maText[0] === '`' || $maText[0] === "'") {
+        $maText = substr($maText, 1, -1);
+      }
+      $modifierArr[] = $maText;
+    }
+    return $modifierArr;
+  }
+
+  protected function convertArrayToModifierString(array $modifierParts) {
+    return '|' . implode(':', array_map(
+        fn($part) => preg_match('/^[a-zA-Z0-9_]+$/', $part) ? $part : '"' . addslashes($part) . '"',
+        $modifierParts
+      ));
   }
 
 }
