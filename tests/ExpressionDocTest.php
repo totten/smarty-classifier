@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 /**
  *
  */
-class BuilderTest extends TestCase {
+class ExpressionDocTest extends TestCase {
 
   public static function getNofilterExamples(): array {
     return [
@@ -24,10 +24,32 @@ class BuilderTest extends TestCase {
    * @dataProvider getNofilterExamples
    */
   public function testWithNofilter(string $origTxt, string $expectTxt) {
-    $origTag = Services::createTagParser()->parse($origTxt);
-    $newTag = Builder::withNofilter($origTag);
-    $newTagTxt = (string) $newTag;
-    $this->assertEquals($expectTxt, $newTagTxt);
+    $origDoc = new ExpressionDoc($origTxt);
+    $newDoc = $origDoc->withNofilter();
+    $this->assertEquals($expectTxt, (string) $newDoc);
+  }
+
+  public static function getFindModifiersExamples(): array {
+    return [
+      ['{$var}', NULL, []],
+      ['{$var|lower}', NULL, [['lower']]],
+      ['{$var|lower|upper|substr:1:-1}', NULL, [['lower'], ['upper'], ['substr', '1', '-1']]],
+      ['{$var|smarty:"nodefaults"}', NULL, [['smarty', 'nodefaults']]],
+    ];
+  }
+
+  /**
+   * @param string $origTxt
+   *   Ex: '{$var|lower|upper}'
+   * @param string|null $filter
+   * @param array $expect
+   *  Ex: [['lower'], ['upper']]
+   * @dataProvider getFindModifiersExamples
+   */
+  public function testFindModifiers(string $origTxt, ?string $filter, array $expect): void {
+    $origDoc = new ExpressionDoc($origTxt);
+    $actual = $origDoc->findModifiers($filter);
+    $this->assertEquals($expect, $actual);
   }
 
   public static function getModifierExamples(): array {
@@ -46,10 +68,9 @@ class BuilderTest extends TestCase {
    * @dataProvider getModifierExamples
    */
   public function testWithModifier(string $origTxt, string $newModifier, string $expectTxt): void {
-    $origTag = Services::createTagParser()->parse($origTxt);
-    $newTag = Builder::withModifier($origTag, $newModifier);
-    $newTagTxt = (string) $newTag;
-    $this->assertEquals($expectTxt, $newTagTxt);
+    $origDoc = new ExpressionDoc($origTxt);
+    $newDoc = $origDoc->withModifier($newModifier);
+    $this->assertEquals($expectTxt, (string) $newDoc);
   }
 
   public static function getHasNodefaults(): array {
@@ -66,9 +87,8 @@ class BuilderTest extends TestCase {
    * @dataProvider getHasNodefaults
    */
   public function testHasNodefaults(string $origTxt, bool $expectResult): void {
-    $origTag = Services::createTagParser()->parse($origTxt);
-    $actualResult = Builder::hasNodefaults($origTag);
-    $this->assertEquals($expectResult, $actualResult);
+    $origDoc = new ExpressionDoc($origTxt);
+    $this->assertEquals($expectResult, $origDoc->hasNodefaults());
   }
 
   public static function getWithoutNodefaults(): array {
@@ -85,10 +105,9 @@ class BuilderTest extends TestCase {
    * @dataProvider getWithoutNodefaults
    */
   public function testWithoutNodefaults(string $origTxt, string $expectTxt): void {
-    $origTag = Services::createTagParser()->parse($origTxt);
-    $newTag = Builder::withoutNodefaults($origTag);
-    $newTagTxt = (string) $newTag;
-    $this->assertEquals($expectTxt, $newTagTxt);
+    $origDoc = new ExpressionDoc($origTxt);
+    $newDoc = $origDoc->withoutNodefaults();
+    $this->assertEquals($expectTxt, (string) $newDoc);
   }
 
 }
