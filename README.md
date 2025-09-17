@@ -98,5 +98,5 @@ to reflect new output, but it will not be kept strictly up-to-date.
 * `debug:advisor`
     * Run against a larger data-set. Inspect advice. Fine-tune rules.
     * Generate and apply suggested revisions.
-* Grammar
-    * More binary operators
+    * `{$var + 2}` ==> Looks like math. Escaping discretionary.
+    * Consolidate JSON (`|@json` -- always use @, always use "json")
