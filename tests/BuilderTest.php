@@ -52,4 +52,43 @@ class BuilderTest extends TestCase {
     $this->assertEquals($expectTxt, $newTagTxt);
   }
 
+  public static function getHasNodefaults(): array {
+    return [
+      ['{$var}', FALSE],
+      ['{$var|smarty:nodefaults}', TRUE],
+      ['{$var.yadda[123]|lower|smarty:"nodefaults"|upper}', TRUE],
+    ];
+  }
+
+  /**
+   * @param string $origTxt
+   * @param bool $expectResult
+   * @dataProvider getHasNodefaults
+   */
+  public function testHasNodefaults(string $origTxt, bool $expectResult): void {
+    $origTag = Services::createTagParser()->parse($origTxt);
+    $actualResult = Builder::hasNodefaults($origTag);
+    $this->assertEquals($expectResult, $actualResult);
+  }
+
+  public static function getWithoutNodefaults(): array {
+    return [
+      ['{$var}', '{$var}'],
+      ['{$var|smarty:nodefaults}', '{$var}'],
+      ['{$var.yadda[123]|lower|smarty:"nodefaults"|upper nofilter}', '{$var.yadda[123]|lower|upper nofilter}'],
+    ];
+  }
+
+  /**
+   * @param string $origTxt
+   * @param string $expectTxt
+   * @dataProvider getWithoutNodefaults
+   */
+  public function testWithoutNodefaults(string $origTxt, string $expectTxt): void {
+    $origTag = Services::createTagParser()->parse($origTxt);
+    $newTag = Builder::withoutNodefaults($origTag);
+    $newTagTxt = (string) $newTag;
+    $this->assertEquals($expectTxt, $newTagTxt);
+  }
+
 }

@@ -50,6 +50,48 @@ class Builder {
     return $mutableRoot;
   }
 
+  public static function hasNodefaults(Root $root): bool {
+    static::assertRootType($root, 'tag', 'expression');
+    $modifierList = $root->findAll('modifier');
+    if (!$modifierList) {
+      return FALSE;
+    }
+    foreach ($modifierList as $modifier) {
+      $modifierName = (string) $modifier->findFirst('modifier_name');
+      if ($modifierName === 'smarty') {
+        if ($maNode = $modifier->findFirst('modifier_attribute')) {
+          $maText = mb_strtolower(trim((string) $maNode, ':\'"`'));
+          if ($maText === 'nodefaults') {
+            return TRUE;
+          }
+        }
+      }
+    }
+    return FALSE;
+  }
+
+  public static function withoutNodefaults(Root $tagRoot): Root {
+    static::assertRootType($tagRoot, 'tag', 'expression');
+
+    $mutableRoot = $tagRoot->copy();
+    $modifierList = $mutableRoot->findAll('modifier');
+    if (!$modifierList) {
+      return $mutableRoot;
+    }
+    foreach ($modifierList as $modifier) {
+      $modifierName = (string) $modifier->findFirst('modifier_name');
+      if ($modifierName === 'smarty') {
+        if ($maNode = $modifier->findFirst('modifier_attribute')) {
+          $maText = mb_strtolower(trim((string) $maNode, ':\'"`'));
+          if ($maText === 'nodefaults') {
+            $modifier->setSubnodes([]);
+          }
+        }
+      }
+    }
+    return $mutableRoot;
+  }
+
   protected static function assertRootType(Root $root, string $nodeType, string $detailType): void {
     $node = $root->findFirst($nodeType);
     if (!$node || $node->getDetailType() !== $detailType) {
