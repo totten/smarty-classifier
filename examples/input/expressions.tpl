@@ -6,3 +6,8 @@
 {$var|json_encode:16|escape}
 {$var|json_encode:16|escape nofilter}
 {$field.default|substring:1:-1}
+{$var|purify}
+{$var|smarty:nodefaults}
+{$var|escape:"htmlall"}
+{$var|escape : "htmlall"}
+{$var|escape:htmlall}

@@ -8,7 +8,7 @@ tag
   :condition    => condition_verb sp expression
   :block_open   => block_name (sp block_attribute)* sp?
   :block_close  => "/" block_name
-  :expression   => expression (sp nofilter)?
+  :expression   => expression (modifier*) (sp nofilter)?
   .
 
 expression
@@ -22,7 +22,7 @@ expression
    :not            => op_not sp? expression sp?
    :function       => function_name sp? "(" sp? function_args? sp? ")"  sp?
    :method         => variable sp? "(" sp? function_args? sp? ")"  sp?
-   :datum          => datum modifier* sp?
+   :datum          => datum sp?
    .
 
 condition_verb :=> ("if"|"elseif"|"else if") .
@@ -32,13 +32,15 @@ op_and :=> ( "&&" | /and/i ?sp) .
 op_or :=> ( "||" | /or/i ?sp) .
 op_rel :=> (compare_symbol | compare_name ?sp | compare_is_2 ?sp) .
 
-modifier  :=> "|" sp? modifier_array? modifier_name sp? modifier_attribute* .
+modifier  :=> "|" modifier_array? modifier_name sp? modifier_attribute* .
 modifier_array :=> "@" .
 modifier_name :=> bareword .
 modifier_attribute :=> ":" sp? expression sp? .
 
 block_name :=> bareword .
-block_attribute :=> bareword (sp* "=" sp* expression)? .
+block_attribute :=> block_attribute_name (sp* "=" sp* block_attribute_value)? .
+block_attribute_name :=> bareword .
+block_attribute_value :=> expression modifier? .
 
 datum     :=> (variable | string | backstring | number | bareword) .
 ## The parser's built-in "string" type is doing a lot of lifting here -- it handles quoted strings.
