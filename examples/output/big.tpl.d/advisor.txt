@@ -12,14 +12,14 @@
 
 ## PROBLEM: It is unclear if the variable has HTML-markup or plain-text. Choose unambiguous notation:
 - TAG: `{$caseTypes.values|@json_encode}`
-  SUGGEST #1: `{$caseTypes.values|@json_encode nofilter}`
-  SUGGEST #2: `{$caseTypes.values|@json_encode|escape nofilter}`
+  SUGGEST #1: `{$caseTypes.values|@json nofilter}`
+  SUGGEST #2: `{$caseTypes.values|@json|escape nofilter}`
 - TAG: `{$caseStatusLabels.values|@json_encode}`
-  SUGGEST #1: `{$caseStatusLabels.values|@json_encode nofilter}`
-  SUGGEST #2: `{$caseStatusLabels.values|@json_encode|escape nofilter}`
+  SUGGEST #1: `{$caseStatusLabels.values|@json nofilter}`
+  SUGGEST #2: `{$caseStatusLabels.values|@json|escape nofilter}`
 - TAG: `{$caseStatusNames.values|@json_encode}`
-  SUGGEST #1: `{$caseStatusNames.values|@json_encode nofilter}`
-  SUGGEST #2: `{$caseStatusNames.values|@json_encode|escape nofilter}`
+  SUGGEST #1: `{$caseStatusNames.values|@json nofilter}`
+  SUGGEST #2: `{$caseStatusNames.values|@json|escape nofilter}`
 
 ## PROBLEM: This looks like an HTML widget. Specify "nofilter".
 - TAG: `{$form.case_type_id.label}`

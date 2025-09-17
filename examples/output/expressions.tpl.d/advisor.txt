@@ -13,18 +13,18 @@
   SUGGEST #1: `{$var nofilter}`
   SUGGEST #2: `{$var|escape nofilter}`
 - TAG: `{$var|json_encode}`
-  SUGGEST #1: `{$var|json_encode nofilter}`
-  SUGGEST #2: `{$var|json_encode|escape nofilter}`
+  SUGGEST #1: `{$var|@json nofilter}`
+  SUGGEST #2: `{$var|@json|escape nofilter}`
 - TAG: `{$var|@json_encode}`
-  SUGGEST #1: `{$var|@json_encode nofilter}`
-  SUGGEST #2: `{$var|@json_encode|escape nofilter}`
+  SUGGEST #1: `{$var|@json nofilter}`
+  SUGGEST #2: `{$var|@json|escape nofilter}`
 - TAG: `{$field.default|substring:1:-1}`
   SUGGEST #1: `{$field.default|substring:1:-1 nofilter}`
   SUGGEST #2: `{$field.default|substring:1:-1|escape nofilter}`
 
 ## PROBLEM: This has specific escaping rules. Specify "nofilter" to ensure they are respected.
 - TAG: `{$var|json_encode:16|escape}`
-  SUGGEST: {$var|json_encode:16|escape nofilter}
+  SUGGEST: {$var|@json_encode:16|escape nofilter}
 - TAG: `{$var|purify}`
   SUGGEST: {$var|purify nofilter}
 - TAG: `{$var|escape:"htmlall"}`

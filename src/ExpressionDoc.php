@@ -70,6 +70,7 @@ class ExpressionDoc {
    * @return array
    *   List of modifiers. Each modifier is an array with its name and parameters.
    *   Ex: [ ['smarty', 'nodefaults'], ['escape', 'html'] ]
+   *   Ex: [ ['@json_encode'] ]
    */
   public function findModifiers(?string $name = NULL): array {
     $modifierList = $this->root->findAll('modifier');
@@ -156,7 +157,9 @@ class ExpressionDoc {
    * @return string[]
    */
   protected function convertModifierToArray(Branch $modifier): array {
-    $modifierArr = [(string) $modifier->findFirst('modifier_name')];
+    $prefix = $modifier->findFirst('modifier_array') ? '@' : '';
+
+    $modifierArr = [$prefix . (string) $modifier->findFirst('modifier_name')];
     foreach ($modifier->findAll('modifier_attribute') as $maNode) {
       $maText = substr((string) $maNode, 1);
       if ($maText[0] === '"' || $maText[0] === '`' || $maText[0] === "'") {
@@ -169,7 +172,7 @@ class ExpressionDoc {
 
   protected function convertArrayToModifierString(array $modifierParts) {
     return '|' . implode(':', array_map(
-        fn($part) => preg_match('/^[a-zA-Z0-9_]+$/', $part) ? $part : '"' . addslashes($part) . '"',
+        fn($part) => preg_match('/^@?[a-zA-Z0-9_]+$/', $part) ? $part : '"' . addslashes($part) . '"',
         $modifierParts
       ));
   }

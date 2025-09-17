@@ -45,6 +45,18 @@ class ExpressionEscaping {
 
     $doc = new ExpressionDoc($parsedTag);
 
+    $doc = $doc->filterModifiers(function($modifier, ...$args) {
+      $prefer = empty($args) ? '@json' : ('@' . ltrim($modifier, '@'));
+      switch ($modifier) {
+        case '@json_encode':
+        case 'json_encode':
+        case '@json':
+        case 'json':
+          return [$prefer, ...$args];
+      }
+      return 'keep';
+    });
+
     // Convert '|smarty:nodefaults' to 'nofilter'
     if ($doc->hasNodefaults()) {
       return Advice::createSuggestion('PROBLEM: In Smarty v5, "smarty:nodefaults" does not work. Use "nofilter".', $tagString, [

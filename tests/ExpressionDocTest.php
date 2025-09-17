@@ -34,7 +34,7 @@ class ExpressionDocTest extends TestCase {
       ['{$var}', NULL, []],
       ['{$var|lower}', NULL, [['lower']]],
       ['{$var|lower|upper|substr:1:-1}', NULL, [['lower'], ['upper'], ['substr', '1', '-1']]],
-      ['{$var|smarty:"nodefaults"}', NULL, [['smarty', 'nodefaults']]],
+      ['{$var|smarty:"nodefaults"|@json_encode}', NULL, [['smarty', 'nodefaults'], ['@json_encode']]],
     ];
   }
 
