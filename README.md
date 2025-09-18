@@ -94,7 +94,6 @@ to reflect new output, but it will not be kept strictly up-to-date.
 
 (*No particular order*)
 
-* Fix PHP 8.2 warning in upstream project (`farafiri/php-parsing-tool`)
 * `debug:advisor`
     * Run against a larger data-set. Inspect advice. Fine-tune rules.
     * Generate and apply suggested revisions.
