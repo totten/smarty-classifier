@@ -4,7 +4,7 @@
         "php": "~8.0",
         "ext-json": "*",
         "ext-pcntl": "*",
-        "farafiri/php-parsing-tool": "^2.0",
+        "farafiri/php-parsing-tool": "dev-master#cfaf99b10c203a9a090b09382a9c9e8266ee1eeb",
         "symfony/finder": "^5.4",
         "symfony/console": "^5.4",
         "lesser-evil/shell-verbosity-is-evil": "~1.0"

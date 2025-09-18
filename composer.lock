@@ -4,33 +4,33 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dfb071ce940ea4254e3247eca05c9d1",
+    "content-hash": "f02f07a7f66d3101a55f477dbd5d7f1e",
     "packages": [
         {
             "name": "farafiri/php-parsing-tool",
-            "version": "v2.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farafiri/PHP-parsing-tool.git",
-                "reference": "23c2ab4bdd2d97500258e7b9ae6880c745525a6f"
+                "reference": "cfaf99b10c203a9a090b09382a9c9e8266ee1eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farafiri/PHP-parsing-tool/zipball/23c2ab4bdd2d97500258e7b9ae6880c745525a6f",
-                "reference": "23c2ab4bdd2d97500258e7b9ae6880c745525a6f",
+                "url": "https://api.github.com/repos/farafiri/PHP-parsing-tool/zipball/cfaf99b10c203a9a090b09382a9c9e8266ee1eeb",
+                "reference": "cfaf99b10c203a9a090b09382a9c9e8266ee1eeb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0"
+                "php": "^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.5"
+                "phpunit/phpunit": "^10.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "ParserGenerator\\": "src/",
-                    "ParserGenerator\\tests\\": "tests/"
+                    "ParserGenerator\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -47,7 +47,7 @@
                 "issues": "https://github.com/farafiri/PHP-parsing-tool/issues",
                 "source": "https://github.com/farafiri/PHP-parsing-tool/tree/master"
             },
-            "time": "2017-12-28T00:13:09+00:00"
+            "time": "2023-11-16T18:29:08+00:00"
         },
         {
             "name": "lesser-evil/shell-verbosity-is-evil",
@@ -1034,7 +1034,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "farafiri/php-parsing-tool": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
