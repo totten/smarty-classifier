@@ -12,6 +12,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
 
 class RunCommand extends Command {
 
@@ -24,7 +25,19 @@ class RunCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output): int {
     $files = $input->getArgument('files');
     foreach ($files as $file) {
-      $this->runFile($file);
+      if (is_dir($file)) {
+        $finder = (new Finder())->in($file)->files()->name('*.tpl');
+        foreach ($finder as $fileObj) {
+          /** @var \SplFileInfo $fileObj */
+          $this->runFile((string) $fileObj);
+        }
+      }
+      elseif (is_file($file)) {
+        $this->runFile($file);
+      }
+      else {
+        $output->writeln("<error>SKIP: $file</error>");
+      }
     }
     return 0;
   }
