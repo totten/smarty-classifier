@@ -98,4 +98,5 @@ to reflect new output, but it will not be kept strictly up-to-date.
     * Run against a larger data-set. Inspect advice. Fine-tune rules.
     * Generate and apply suggested revisions.
     * `{$var + 2}` ==> Looks like math. Escaping discretionary.
+    * `{$foo|crmDate}` ==> Can we say if that's HTML or not?
 
